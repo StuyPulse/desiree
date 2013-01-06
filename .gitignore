@@ -1,0 +1,6 @@
+*.class
+.*.swp
+j2meclasses/
+build/
+suite/
+nbproject/private
