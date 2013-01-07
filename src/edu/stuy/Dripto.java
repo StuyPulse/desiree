@@ -8,6 +8,7 @@
 package edu.stuy;
 
 
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -18,12 +19,16 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Dripto extends IterativeRobot {
+    Gamepad driverPad;
+    Gamepad operatorPad;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-
+        driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
+        operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
     }
 
     /**
