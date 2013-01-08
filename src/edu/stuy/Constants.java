@@ -5,7 +5,7 @@
 package edu.stuy;
 
 /**
- *
+ * Port numbers and constants.
  * @author kevin
  */
 public class Constants {

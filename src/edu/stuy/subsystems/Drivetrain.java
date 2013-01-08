@@ -8,7 +8,7 @@ import edu.stuy.Constants;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
- *
+ * The robot drivetrain.
  * @author kevin
  */
 public class Drivetrain {
