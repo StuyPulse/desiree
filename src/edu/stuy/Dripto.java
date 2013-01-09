@@ -35,12 +35,16 @@ public class Dripto extends IterativeRobot {
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
     }
+    
+    public void autonomousInit() {
+        Autonomous.run();
+    }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+    
     }
 
     /**
