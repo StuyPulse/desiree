@@ -10,12 +10,19 @@ import edu.wpi.first.wpilibj.*;
  * This is the location of the autonomous routines.
  * @author Eric
  */
-public class Autonomous {
+public class Autonomous {  
     
-    Dripto drip;
-    
-    public Autonomous(Dripto d) {
-        drip = d;
+    public static int getAutonSetting(){
+        int setting = 0;
+        return setting;    
     }
     
+    public static void runAuton() {
+        switch (getAutonSetting()) {
+            case 1:
+                break;
+            default:
+                break;
+        }
+    }
 }
