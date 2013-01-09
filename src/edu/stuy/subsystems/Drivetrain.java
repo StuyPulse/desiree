@@ -5,6 +5,7 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
@@ -29,5 +30,13 @@ public class Drivetrain {
     
     public void tankDrive(double leftValue, double rightValue) {
         drivetrain.tankDrive(leftValue, rightValue);
+    }
+    
+    /**
+     * Tank drive using a gamepad's left and right analog sticks.
+     * @param gamepad Gamepad to tank drive with
+     */
+    public void tankDrive(Gamepad gamepad) {
+        tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
     }
 }

@@ -8,6 +8,7 @@
 package edu.stuy;
 
 
+import edu.stuy.subsystems.Drivetrain;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -19,6 +20,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Dripto extends IterativeRobot {
+    Drivetrain drivetrain;
+    
     Gamepad driverPad;
     Gamepad operatorPad;
     
@@ -27,6 +30,8 @@ public class Dripto extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        drivetrain = Drivetrain.getInstance();
+        
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
     }
@@ -42,7 +47,7 @@ public class Dripto extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        
+        drivetrain.tankDrive(driverPad);
     }
     
     /**
