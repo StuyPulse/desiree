@@ -6,7 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Talon;
 
 /**
  *
@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.Victor;
 public class Acquirer {
     private static Acquirer instance;
 
-    private Victor acquirer;
+    private Talon acquirer;
 
     private Acquirer() {
-        acquirer = new Victor(Constants.ACQUIRER_CHANNEL);
+        acquirer = new Talon(Constants.ACQUIRER_CHANNEL);
     }
 
     public static Acquirer getInstance() {
@@ -36,6 +36,9 @@ public class Acquirer {
 
     public void backwardSpin(){
         spin(-1);
+    }
+    public void stop() {
+        spin(0);
     }
 
 
