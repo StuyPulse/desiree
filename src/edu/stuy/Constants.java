@@ -23,4 +23,5 @@ public class Constants {
     /* DIGITAL INPUTS */
     
     /* ANALOG INPUTS */
+    public static final int SONAR_CHANNEL = 1;
 }

@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
@@ -14,11 +15,13 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class Drivetrain {
     private static Drivetrain instance;
+    private AnalogChannel sonar;
     
     private RobotDrive drivetrain;
     
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
+        sonar = new AnalogChannel(Constants.SONAR_CHANNEL);
     }
     
     public static Drivetrain getInstance() {
@@ -38,5 +41,13 @@ public class Drivetrain {
      */
     public void tankDrive(Gamepad gamepad) {
         tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
+    }
+    
+    public AnalogChannel getSonar() {
+        return sonar;
+    }
+    
+    public double getSonarDistance() {
+        return sonar.getVoltage();
     }
 }
