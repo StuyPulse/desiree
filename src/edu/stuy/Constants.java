@@ -21,7 +21,8 @@ public class Constants {
     /* RELAY OUTPUTS */
     
     /* DIGITAL INPUTS */
+    public static final int SONAR_CHANNEL_PING = 1;
+    public static final int SONAR_CHANNEL_ECHO = 2;
     
     /* ANALOG INPUTS */
-    public static final int SONAR_CHANNEL = 1;
 }
