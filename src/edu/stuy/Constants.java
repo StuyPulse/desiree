@@ -16,6 +16,7 @@ public class Constants {
     /* PWM OUTPUTS */
     public static final int DRIVETRAIN_LEFT_CHANNEL = 1;
     public static final int DRIVETRAIN_RIGHT_CHANNEL = 2;
+    public static final int ACQUIRER_CHANNEL = 3;
     
     /* RELAY OUTPUTS */
     
