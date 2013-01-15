@@ -7,18 +7,24 @@ package edu.stuy.subsystems;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The robot drivetrain.
- * @author kevin
+ * @author kevin,arfan
  */
 public class Drivetrain {
     private static Drivetrain instance;
-    
     private RobotDrive drivetrain;
+    private Gyro gyro;
+   
     
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
+        gyro = new Gyro(Constants.GYRO_CHANNEL);
+        gyro.setSensitivity(0.007);
+        
     }
     
     public static Drivetrain getInstance() {
@@ -39,4 +45,17 @@ public class Drivetrain {
     public void tankDrive(Gamepad gamepad) {
         tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
     }
+    
+    public double getAngle() {
+        return gyro.getAngle();
+    }
+    
+    public void startOver() {
+        gyro.reset();
+    }
+    
+    public void putNumber() {
+        SmartDashboard.putNumber("Gyro angle:", gyro.getAngle());
+    }
+    
 }

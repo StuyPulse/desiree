@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * Gamepad F310 (the one with the colorful buttons and analog triggers).
  * @author kevin
  */
-public class Gamepad extends Joystick {
+public class Gamepad extends Joystick { 
     public Gamepad(int port) {
         super(port);
     }

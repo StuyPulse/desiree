@@ -22,4 +22,5 @@ public class Constants {
     /* DIGITAL INPUTS */
     
     /* ANALOG INPUTS */
+    public static final int GYRO_CHANNEL = 1;
 }
