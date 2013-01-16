@@ -22,5 +22,6 @@ public class Constants {
     /* DIGITAL INPUTS */
     
     /* ANALOG INPUTS */
-    public static final int GYRO_CHANNEL = 1;
+    public static final int GYRO_CHANNEL = 3;
+    public static final int ACCELEROMETER_CHANNEL = 4;
 }
