@@ -61,8 +61,7 @@ public class Dripto extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-        drivetrain.tankDrive(driverPad);
-        SmartDashboard.putNumber("Sonar Distance", drivetrain.getSonarDistance());
+        
     }
     
 }

@@ -52,10 +52,6 @@ public class Drivetrain {
         tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
     }
 
-    public Ultrasonic getSonar() {
-        return sonar;
-    }
-    
     public double getSonarDistance() {
         return sonar.getRangeInches();
     }
