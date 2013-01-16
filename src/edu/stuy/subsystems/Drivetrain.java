@@ -6,22 +6,31 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.Accelerometer;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The robot drivetrain.
- * @author kevin
+ * @author kevin,arfan
  */
 public class Drivetrain {
-    private static Drivetrain instance;
-    private Ultrasonic sonar;
     
+    private static Drivetrain instance;
     private RobotDrive drivetrain;
+    private Gyro gyro;
+    private Accelerometer accel;
+    private Ultrasonic sonar;
     
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
         sonar = new Ultrasonic(Constants.SONAR_CHANNEL_PING,Constants.SONAR_CHANNEL_ECHO);
+        gyro = new Gyro(Constants.GYRO_CHANNEL);
+        gyro.setSensitivity(0.007);
+        accel = new Accelerometer(Constants.ACCELEROMETER_CHANNEL);
+        accel.setSensitivity(0);
     }
     
     public static Drivetrain getInstance() {
@@ -42,7 +51,7 @@ public class Drivetrain {
     public void tankDrive(Gamepad gamepad) {
         tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
     }
-    
+
     public Ultrasonic getSonar() {
         return sonar;
     }
@@ -50,4 +59,29 @@ public class Drivetrain {
     public double getSonarDistance() {
         return sonar.getRangeInches();
     }
+    
+    public void putDistance() {
+        SmartDashboard.putNumber("Sonar distance:", sonar.getRangeInches());
+    }
+
+    public double getAngle() {
+        return gyro.getAngle();
+    }
+    
+    public void startOver() {
+        gyro.reset();
+    }
+    
+    public void putAngle() {
+        SmartDashboard.putNumber("Gyro angle:", gyro.getAngle());
+    }
+    
+    public double getAcceleration() {
+        return accel.getAcceleration();
+    }
+    
+    public void putAcceleration() {
+        SmartDashboard.putNumber("Accelerometer acceleration:", accel.getAcceleration());
+    }
+    
 }
