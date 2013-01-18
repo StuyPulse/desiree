@@ -39,4 +39,20 @@ public class Gamepad extends Joystick {
     public double getDPadY() {
         return getRawAxis(6);
     }
+    
+    public boolean getLeftBumper() {
+        return getRawButton(5);
+    }
+    
+    public boolean getRightBumper() {
+        return getRawButton(6);
+    }
+    
+    public boolean getLeftTrigger() {
+        return getRawButton(7);
+    }
+    
+    public boolean getRightTrigger() {
+        return getRawButton(8);
+    }
 }
