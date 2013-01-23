@@ -7,52 +7,34 @@ package edu.stuy.util;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
- * Class for the Logitech Dual Action 2 Gamepad. Does not work with the Logitech
- * Gamepad F310 (the one with the colorful buttons and analog triggers).
+ *
  * @author kevin
  */
-public class Gamepad extends Joystick { 
+public abstract class Gamepad extends Joystick {
     public Gamepad(int port) {
         super(port);
     }
     
-    public double getLeftX() {
-        return getRawAxis(1);
-    }
-    
-    public double getLeftY() {
-        return getRawAxis(2);
-    }
-    
-    public double getRightX() {
-        return getRawAxis(3);
-    }
-    
-    public double getRightY() {
-        return getRawAxis(4);
-    }
-    
-    public double getDPadX() {
-        return getRawAxis(5);
-    }
-    
-    public double getDPadY() {
-        return getRawAxis(6);
-    }
-    
-    public boolean getLeftBumper() {
-        return getRawButton(5);
-    }
-    
-    public boolean getRightBumper() {
-        return getRawButton(6);
-    }
-    
-    public boolean getLeftTrigger() {
-        return getRawButton(7);
-    }
-    
-    public boolean getRightTrigger() {
-        return getRawButton(8);
-    }
+    public abstract double getLeftX();
+    public abstract double getLeftY();
+    public abstract double getRightX();
+    public abstract double getRightY();
+    public abstract double getDPadX();
+    public abstract double getDPadY();
+
+    public abstract boolean getLeftBumper();
+    public abstract boolean getRightBumper();
+    public abstract boolean getLeftTrigger();
+    public abstract boolean getRightTrigger();
+
+    public abstract boolean getLeftButton();
+    public abstract boolean getBottomButton();
+    public abstract boolean getRightButton();
+    public abstract boolean getTopButton();
+
+    public abstract boolean getBackButton();
+    public abstract boolean getStartButton();
+
+    public abstract boolean getLeftAnalogButton();
+    public abstract boolean getRightAnalogButton();
 }
