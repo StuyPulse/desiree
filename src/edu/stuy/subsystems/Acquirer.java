@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.Talon;
  * @author 694
  */
 public class Acquirer {
+    
     private static Acquirer instance;
-
     private Talon acquirer;
 
     private Acquirer() {
@@ -26,9 +26,11 @@ public class Acquirer {
         }
         return instance;
     }
+    
     private void spin(double speed) {
         acquirer.set(speed);
     }
+    
     public void forwardSpin(){
         spin(1);
     }
@@ -36,10 +38,10 @@ public class Acquirer {
     public void backwardSpin(){
         spin(-1);
     }
+    
     public void stop() {
         spin(0);
     }
-
 
 }
 

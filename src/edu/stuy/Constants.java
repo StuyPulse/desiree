@@ -17,6 +17,8 @@ public class Constants {
     public static final int DRIVETRAIN_LEFT_CHANNEL = 1;
     public static final int DRIVETRAIN_RIGHT_CHANNEL = 2;
     public static final int ACQUIRER_CHANNEL = 3;
+    public static final int SHOOTER_CHANNEL = 4;
+    public static final int TILTER_CHANNEL = 5;
     
     /* RELAY OUTPUTS */
     
@@ -27,4 +29,7 @@ public class Constants {
     /* ANALOG INPUTS */
     public static final int GYRO_CHANNEL = 3;
     public static final int ACCELEROMETER_CHANNEL = 4;
+    
+    /* SHOOTING ANGLES */
+    public static final int DUMMY_ANGLE = 69;
 }
