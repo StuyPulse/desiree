@@ -9,7 +9,7 @@ package edu.stuy;
 
 import edu.stuy.subsystems.Acquirer;
 import edu.stuy.subsystems.Drivetrain;
-import edu.stuy.util.DualAction;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -23,8 +23,8 @@ public class Dripto extends IterativeRobot {
     Drivetrain drivetrain;
     Acquirer acquirer;
     
-    DualAction driverPad;
-    DualAction operatorPad;
+    Gamepad driverPad;
+    Gamepad operatorPad;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -34,8 +34,8 @@ public class Dripto extends IterativeRobot {
         drivetrain = Drivetrain.getInstance();
         acquirer = Acquirer.getInstance();
 
-        driverPad = new DualAction(Constants.DRIVER_PAD_PORT);
-        operatorPad = new DualAction(Constants.OPERATOR_PAD_PORT);
+        driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
+        operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
     }
     
     public void autonomousInit() {
