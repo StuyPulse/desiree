@@ -3,4 +3,4 @@
 j2meclasses/
 build/
 suite/
-nbproject/
+nbproject/private
