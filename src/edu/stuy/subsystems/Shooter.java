@@ -5,7 +5,6 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
-import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
