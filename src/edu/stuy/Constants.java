@@ -20,6 +20,7 @@ public class Constants {
     public static final int SHOOTER_CHANNEL = 4;
     public static final int TILTER_CHANNEL = 5;
     
+    
     /* RELAY OUTPUTS */
     
     /* DIGITAL INPUTS */
@@ -27,6 +28,7 @@ public class Constants {
     public static final int SONAR_CHANNEL_ECHO = 2;
     
     /* ANALOG INPUTS */
+    public static final int POT_CHANNEL = 2;
     public static final int GYRO_CHANNEL = 3;
     public static final int ACCELEROMETER_CHANNEL = 4;
     

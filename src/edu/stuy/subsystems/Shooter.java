@@ -22,6 +22,7 @@ public class Shooter {
     private Shooter () {
         shooter = new Talon(Constants.SHOOTER_CHANNEL);
         tilter = new Talon(Constants.TILTER_CHANNEL);
+        pot = new AnalogChannel(Constants.POT_CHANNEL);
     }
     
     public void tilt(double val) {
