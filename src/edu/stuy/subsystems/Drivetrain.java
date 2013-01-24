@@ -7,7 +7,6 @@ package edu.stuy.subsystems;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.stuy.util.Sonar;
-import edu.wpi.first.wpilibj.Accelerometer;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,7 +20,6 @@ public class Drivetrain {
     private static Drivetrain instance;
     private RobotDrive drivetrain;
     private Gyro gyro;
-    private Accelerometer accel;
     private Sonar sonar;
     
     private Drivetrain() {
@@ -29,8 +27,6 @@ public class Drivetrain {
         sonar = new Sonar(Constants.SONAR_CHANNEL,Constants.ANALOG_SUPPLY_VOLTAGE_CHANNEL);
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
-        accel = new Accelerometer(Constants.ACCELEROMETER_CHANNEL);
-        accel.setSensitivity(0);
     }
     
     public static Drivetrain getInstance() {
@@ -75,13 +71,4 @@ public class Drivetrain {
     public void putAngle() {
         SmartDashboard.putNumber("Gyro angle:", gyro.getAngle());
     }
-    
-    public double getAcceleration() {
-        return accel.getAcceleration();
-    }
-    
-    public void putAcceleration() {
-        SmartDashboard.putNumber("Accelerometer acceleration:", accel.getAcceleration());
-    }
-    
 }
