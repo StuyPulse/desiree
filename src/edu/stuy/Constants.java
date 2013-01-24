@@ -26,13 +26,13 @@ public class Constants {
     /* RELAY OUTPUTS */
     
     /* DIGITAL INPUTS */
-    public static final int SONAR_CHANNEL_PING = 1;
-    public static final int SONAR_CHANNEL_ECHO = 2;
     
     /* ANALOG INPUTS */
     public static final int POT_CHANNEL = 2;
     public static final int GYRO_CHANNEL = 3;
     public static final int ACCELEROMETER_CHANNEL = 4;
+    public static final int SONAR_CHANNEL = 5;                                                                                                                                    
+    public static final int ANALOG_SUPPLY_VOLTAGE_CHANNEL = 6;
     
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;

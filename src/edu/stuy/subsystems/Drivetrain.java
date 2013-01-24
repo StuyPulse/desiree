@@ -6,10 +6,10 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.stuy.util.Sonar;
 import edu.wpi.first.wpilibj.Accelerometer;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -22,11 +22,11 @@ public class Drivetrain {
     private RobotDrive drivetrain;
     private Gyro gyro;
     private Accelerometer accel;
-    private Ultrasonic sonar;
+    private Sonar sonar;
     
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
-        sonar = new Ultrasonic(Constants.SONAR_CHANNEL_PING,Constants.SONAR_CHANNEL_ECHO);
+        sonar = new Sonar(Constants.SONAR_CHANNEL,Constants.ANALOG_SUPPLY_VOLTAGE_CHANNEL);
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
         accel = new Accelerometer(Constants.ACCELEROMETER_CHANNEL);
@@ -52,16 +52,16 @@ public class Drivetrain {
         tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
     }
 
-    public Ultrasonic getSonar() {
+    public Sonar getSonar() {
         return sonar;
     }
     
     public double getSonarDistance() {
-        return sonar.getRangeInches();
+        return sonar.getDistance();
     }
     
     public void putDistance() {
-        SmartDashboard.putNumber("Sonar distance:", sonar.getRangeInches());
+        SmartDashboard.putNumber("Sonar distance:", sonar.getDistance());
     }
 
     public double getAngle() {
