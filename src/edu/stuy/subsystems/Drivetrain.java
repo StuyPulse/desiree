@@ -25,7 +25,7 @@ public class Drivetrain {
     private Ultrasonic sonar;
     
     private Drivetrain() {
-        drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
+        drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
         sonar = new Ultrasonic(Constants.SONAR_CHANNEL_PING,Constants.SONAR_CHANNEL_ECHO);
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);

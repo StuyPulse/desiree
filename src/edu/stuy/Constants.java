@@ -14,11 +14,13 @@ public class Constants {
     public static final int OPERATOR_PAD_PORT = 2;
     
     /* PWM OUTPUTS */
-    public static final int DRIVETRAIN_LEFT_CHANNEL = 1;
-    public static final int DRIVETRAIN_RIGHT_CHANNEL = 2;
-    public static final int ACQUIRER_CHANNEL = 3;
-    public static final int SHOOTER_CHANNEL = 4;
-    public static final int TILTER_CHANNEL = 5;
+    public static final int DRIVETRAIN_LEFT_1_CHANNEL = 1;
+    public static final int DRIVETRAIN_LEFT_2_CHANNEL = 2;
+    public static final int DRIVETRAIN_RIGHT_1_CHANNEL = 3;
+    public static final int DRIVETRAIN_RIGHT_2_CHANNEL = 4;
+    public static final int ACQUIRER_CHANNEL = 5;
+    public static final int SHOOTER_CHANNEL = 6;
+    public static final int TILTER_CHANNEL = 7;
     
     
     /* RELAY OUTPUTS */
