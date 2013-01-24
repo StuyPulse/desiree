@@ -30,7 +30,7 @@ public class Constants {
     /* ANALOG INPUTS */
     public static final int GYRO_CHANNEL = 1;
     public static final int SONAR_CHANNEL = 2;
-    public static final int POT_CHANNEL = 3;
+    public static final int TILTER_POT_CHANNEL = 3;
     public static final int ANALOG_SUPPLY_VOLTAGE_CHANNEL = 6;
     
     /* SHOOTING ANGLES */
