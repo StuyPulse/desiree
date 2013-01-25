@@ -50,9 +50,9 @@ public class Autonomous {
         // shoot first disc
         // wait for shooter to be ready again
         // shoot second disc
-        // back up a certain distance and acquire at a certain speed to pick up
-            // the four discs
-        // move back up the same distance
+        // back up a certain distance and acquire 2 discs under pyramid
+        // backup again at certain distance to center of field to get discs making sure not to cross center
+        // Drive forward and under pyramid and shoot
         // wait for shooter and shoot and repeat
     }
 }
