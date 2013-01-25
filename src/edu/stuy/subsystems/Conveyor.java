@@ -18,15 +18,20 @@ public class Conveyor {
     private Talon roller;
     private DigitalInput upperSensor;
     private DigitalInput lowerSensor;
-    private boolean hasTimeout;
-    private double timeout;
+    private static boolean bottomDiscDetected, topDiscDetected;
     
+    public static Conveyor getInstance() {
+        if (instance == null)
+            instance = new Conveyor();
+        return instance;
+    }
     
-    public Conveyor() {
+    private Conveyor() {
         roller = new Talon(Constants.CONVEYOR_CHANNEL);
         upperSensor = new DigitalInput(Constants.UPPER_CONVEYOR_SENSOR);
         lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
-        hasTimeout = false;
+        bottomDiscDetected = false; 
+        topDiscDetected = false;
     }
     
     public void roll(double speed) {
@@ -45,18 +50,38 @@ public class Conveyor {
         roll(0);
     }   
     
-    public boolean topBall() {
+    public boolean discAtTop() {
+        topDiscDetected = true;
         return upperSensor.get();
     }
     
-    public boolean bottomBall() {
+    public boolean discAtBottom() {
+        bottomDiscDetected = true;
         return lowerSensor.get();
+    }
+    
+    public boolean isBottomDiscDetected() {
+        return bottomDiscDetected;
+    }
+    
+    public boolean isTopDiscDetected() {
+        return topDiscDetected;
     }
     
     public double getRoller() {
         return roller.get();
     }
     
+    public void conveyAutomatic() {
+        Shooter shooter = Shooter.getInstance();
+        Acquirer acquirer = Acquirer.getInstance();
+        if ((acquirer.isAcquiring() && (isBottomDiscDetected())) || isTopDiscDetected()) {
+            convey();
+        }
+        else {
+            stop();
+        }               
+    } 
     
 }
 

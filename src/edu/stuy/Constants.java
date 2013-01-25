@@ -22,15 +22,16 @@ public class Constants {
     public static final int SHOOTER_CHANNEL = 6;
     public static final int TILTER_CHANNEL = 7;
     public static final int CONVEYOR_CHANNEL = 8;
-    
-    
+   
     /* RELAY OUTPUTS */
+    public static final int COMPRESSOR_RELAY_CHANNEL = 1;
     
     /* DIGITAL INPUTS */
     public static final int SONAR_CHANNEL_PING = 1;
     public static final int SONAR_CHANNEL_ECHO = 2;
     public static final int UPPER_CONVEYOR_SENSOR = 9;
     public static final int LOWER_CONVEYOR_SENSOR = 10;
+    public static final int PRESSURE_SWITCH_CHANNEL = 11;
     
     /* DIGITAL OUTPUTS */
     public static final int WHITE_LIGHTS_CHANNEL = 3;

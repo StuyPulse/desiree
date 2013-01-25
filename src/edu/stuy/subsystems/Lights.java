@@ -16,7 +16,7 @@ public class Lights {
     private DigitalOutput white;
     private DigitalOutput colored;
     
-    public Lights() {
+    private Lights() {
         white = new DigitalOutput(Constants.WHITE_LIGHTS_CHANNEL);
         colored = new DigitalOutput(Constants.COLORED_LIGHTS_CHANNEL);
     }

@@ -26,4 +26,9 @@ public class Shooter {
         }
         return instance;
     }
+     
+    public boolean isSpeedGood() {
+        boolean ans = false;
+        return ans;
+    }
 }
