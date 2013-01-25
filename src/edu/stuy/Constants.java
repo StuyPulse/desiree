@@ -21,6 +21,7 @@ public class Constants {
     public static final int ACQUIRER_CHANNEL = 5;
     public static final int SHOOTER_CHANNEL = 6;
     public static final int TILTER_CHANNEL = 7;
+    public static final int CONVEYOR_CHANNEL = 8;
     
     
     /* RELAY OUTPUTS */
@@ -28,7 +29,13 @@ public class Constants {
     /* DIGITAL INPUTS */
     public static final int SONAR_CHANNEL_PING = 1;
     public static final int SONAR_CHANNEL_ECHO = 2;
+    public static final int UPPER_CONVEYOR_SENSOR = 9;
+    public static final int LOWER_CONVEYOR_SENSOR = 10;
     
+    /* DIGITAL OUTPUTS */
+    public static final int WHITE_LIGHTS_CHANNEL = 3;
+    public static final int COLORED_LIGHTS_CHANNEL = 4;
+     
     /* ANALOG INPUTS */
     public static final int POT_CHANNEL = 2;
     public static final int GYRO_CHANNEL = 3;
