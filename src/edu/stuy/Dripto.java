@@ -11,6 +11,7 @@ import edu.stuy.subsystems.Acquirer;
 import edu.stuy.subsystems.Drivetrain;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -54,6 +55,7 @@ public class Dripto extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
+        SmartDashboard.putNumber("Sonar distance", drivetrain.getSonarDistance());
     }
     
     /**

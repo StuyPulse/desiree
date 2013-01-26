@@ -27,6 +27,7 @@ public class Drivetrain {
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
         sonar = new Sonar(Constants.SONAR_CHANNEL,Constants.ANALOG_SUPPLY_VOLTAGE_CHANNEL);
+        sonar.start();
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
