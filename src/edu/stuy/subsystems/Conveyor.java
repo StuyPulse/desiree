@@ -18,7 +18,6 @@ public class Conveyor {
     private Talon roller;
     private DigitalInput upperSensor;
     private DigitalInput lowerSensor;
-    private static boolean bottomDiscDetected, topDiscDetected;
     
     public static Conveyor getInstance() {
         if (instance == null)
@@ -30,8 +29,6 @@ public class Conveyor {
         roller = new Talon(Constants.CONVEYOR_CHANNEL);
         upperSensor = new DigitalInput(Constants.UPPER_CONVEYOR_SENSOR);
         lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
-        bottomDiscDetected = false; 
-        topDiscDetected = false;
     }
     
     public void roll(double speed) {
@@ -48,24 +45,14 @@ public class Conveyor {
     
     public void stop() {
         roll(0);
-    }   
-    
-    public boolean discAtTop() {
-        topDiscDetected = true;
-        return upperSensor.get();
-    }
-    
-    public boolean discAtBottom() {
-        bottomDiscDetected = true;
-        return lowerSensor.get();
     }
     
     public boolean isBottomDiscDetected() {
-        return bottomDiscDetected;
+        return lowerSensor.get();
     }
     
     public boolean isTopDiscDetected() {
-        return topDiscDetected;
+        return upperSensor.get();
     }
     
     public double getRoller() {
@@ -73,9 +60,7 @@ public class Conveyor {
     }
     
     public void conveyAutomatic() {
-        Shooter shooter = Shooter.getInstance();
-        Acquirer acquirer = Acquirer.getInstance();
-        if ((acquirer.isAcquiring() && (isBottomDiscDetected())) || isTopDiscDetected()) {
+        if ((Acquirer.getInstance().isAcquiring() && (isBottomDiscDetected())) || isTopDiscDetected()) {
             convey();
         }
         else {
