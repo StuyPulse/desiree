@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Dripto extends IterativeRobot {
+public class Desiree extends IterativeRobot {
     Drivetrain drivetrain;
     
     Gamepad driverPad;
