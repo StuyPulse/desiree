@@ -1,4 +1,4 @@
-MIDlet-Name: dripto
+MIDlet-Name: desiree
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: FIRST
 MIDlet-1: Desiree, , edu.stuy.Desiree
