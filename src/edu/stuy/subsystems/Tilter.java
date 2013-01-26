@@ -4,7 +4,9 @@
  */
 package edu.stuy.subsystems;
 
+import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
+import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Talon;
 
@@ -15,11 +17,11 @@ import edu.wpi.first.wpilibj.Talon;
 public class Tilter {
     private static Tilter instance;
     private Talon tilter;
-    private AnalogChannel pot;
+    private ADXL345_I2C accel;
     
     private Tilter() {
         tilter = new Talon(Constants.TILTER_CHANNEL);
-        pot = new AnalogChannel(Constants.TILTER_POT_CHANNEL);
+        accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k16G);
     }
     
     public static Tilter getInstance() {
@@ -41,9 +43,19 @@ public class Tilter {
         tilter.set(0);
     }
     
-    public double getPosition() {
-        return pot.getVoltage();
+    public double getXAcceleration() {
+        return accel.getAcceleration(ADXL345_I2C.Axes.kX);
     }
     
+    public double getYAcceleration() {
+        return accel.getAcceleration(ADXL345_I2C.Axes.kY);
+    }
     
+    public double getZAcceleration() {
+        return accel.getAcceleration(ADXL345_I2C.Axes.kZ);
+    }
+    
+    public double getAbsoluteAngle() {
+        return MathUtils.atan(getXAcceleration() / getZAcceleration());
+    }
 }

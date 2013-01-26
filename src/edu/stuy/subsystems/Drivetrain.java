@@ -4,7 +4,7 @@
  */
 package edu.stuy.subsystems;
 
-import java.lang.Math;
+import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.stuy.util.Sonar;
@@ -25,7 +25,6 @@ public class Drivetrain {
     private Gyro gyro;
     private Sonar sonar;
     private Compressor compressor;
-    private ADXL345_I2C accel;
     
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
@@ -34,7 +33,7 @@ public class Drivetrain {
         sonar.start();
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
-        accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k16G);
+        startOver();
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
     }
@@ -89,25 +88,4 @@ public class Drivetrain {
     public boolean getPressure() {
         return compressor.getPressureSwitchValue();
     }
-    
-    public double getXAcceleration() {
-        return accel.getAcceleration(ADXL345_I2C.Axes.kX);
-    }
-    
-    public double getYAcceleration() {
-        return accel.getAcceleration(ADXL345_I2C.Axes.kY);
-    }
-    
-    public double getZAcceleration() {
-        return accel.getAcceleration(ADXL345_I2C.Axes.kZ);
-    }
-    /*
-    public double getAbsoluteAngle1() {
-        return Math.atan(getXAcceleration() / getZAcceleration());
-    }
-    
-    public double getAbsoluteAngle2() {
-        return Math.atan(getYAcceleration() / getZAcceleration());
-    }
-    */
 }
