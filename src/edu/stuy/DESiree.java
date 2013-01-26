@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Dripto extends IterativeRobot {
+public class DESiree extends IterativeRobot {
     Drivetrain drivetrain;
     Acquirer acquirer;
     
