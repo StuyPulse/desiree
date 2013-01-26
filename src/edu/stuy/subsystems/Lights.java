@@ -13,12 +13,20 @@ import edu.wpi.first.wpilibj.DigitalOutput;
  */
 public class Lights {
     
+    private static Lights instance;
     private DigitalOutput white;
     private DigitalOutput colored;
     
     private Lights() {
         white = new DigitalOutput(Constants.WHITE_LIGHTS_CHANNEL);
         colored = new DigitalOutput(Constants.COLORED_LIGHTS_CHANNEL);
+    }
+    
+    public static Lights getInstance() {
+        if (instance == null) {
+            instance = new Lights();
+        }
+        return instance;
     }
     
     /*
