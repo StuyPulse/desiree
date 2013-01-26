@@ -7,8 +7,11 @@ package edu.stuy.util;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
- * Class for the Logitech Dual Action 2 Gamepad. Does not work with the Logitech
- * Gamepad F310 (the one with the colorful buttons and analog triggers).
+ * Class for both the Logitech Dual Action 2 Gamepad and the Logitech Gamepad
+ * F310. The Logitech Gamepad F310 must have the switch on the back set to "D"
+ * for this class to work. This class probably also works with the Logitech
+ * Wireless Gamepad F710 (untested, but it has the exact same layout as the
+ * F310).
  * @author kevin
  */
 public class Gamepad extends Joystick {
@@ -38,5 +41,53 @@ public class Gamepad extends Joystick {
     
     public double getDPadY() {
         return getRawAxis(6);
+    }
+    
+    public boolean getLeftBumper() {
+        return getRawButton(5);
+    }
+    
+    public boolean getRightBumper() {
+        return getRawButton(6);
+    }
+    
+    public boolean getLeftTrigger() {
+        return getRawButton(7);
+    }
+    
+    public boolean getRightTrigger() {
+        return getRawButton(8);
+    }
+
+    public boolean getLeftButton() {
+        return getRawButton(1);
+    }
+
+    public boolean getBottomButton() {
+        return getRawButton(2);
+    }
+
+    public boolean getRightButton() {
+        return getRawButton(3);
+    }
+
+    public boolean getTopButton() {
+        return getRawButton(4);
+    }
+
+    public boolean getBackButton() {
+        return getRawButton(9);
+    }
+
+    public boolean getStartButton() {
+        return getRawButton(10);
+    }
+
+    public boolean getLeftAnalogButton() {
+        return getRawButton(11);
+    }
+
+    public boolean getRightAnalogButton() {
+        return getRawButton(12);
     }
 }

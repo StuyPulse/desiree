@@ -7,10 +7,11 @@
 
 package edu.stuy;
 
-
+import edu.stuy.subsystems.Acquirer;
 import edu.stuy.subsystems.Drivetrain;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,17 +22,19 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class DESiree extends IterativeRobot {
     Drivetrain drivetrain;
+    Acquirer acquirer;
     
     Gamepad driverPad;
     Gamepad operatorPad;
-    
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         drivetrain = Drivetrain.getInstance();
-        
+        acquirer = Acquirer.getInstance();
+
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
     }
@@ -52,13 +55,14 @@ public class DESiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
+        SmartDashboard.putNumber("Sonar distance", drivetrain.getSonarDistance());
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
+        
     }
     
 }
