@@ -7,8 +7,7 @@
 
 package edu.stuy;
 
-import edu.stuy.subsystems.Acquirer;
-import edu.stuy.subsystems.Drivetrain;
+import edu.stuy.subsystems.*;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +22,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DESiree extends IterativeRobot {
     Drivetrain drivetrain;
     Acquirer acquirer;
+    Conveyor conveyor;
+    Lights lights;
+    Shooter shooter;
+    Tilter tilter;
     
     Gamepad driverPad;
     Gamepad operatorPad;
@@ -34,6 +37,10 @@ public class DESiree extends IterativeRobot {
     public void robotInit() {
         drivetrain = Drivetrain.getInstance();
         acquirer = Acquirer.getInstance();
+        conveyor = Conveyor.getInstance();
+        lights = Lights.getInstance();
+        shooter = Shooter.getInstance();
+        tilter = Tilter.getInstance();
 
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
