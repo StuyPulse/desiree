@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Talon;
  * @author Arfan
  */
 public class Shooter {
-// dummy code
+
     private static Shooter instance;
     private Talon shooter;
     
@@ -26,5 +26,5 @@ public class Shooter {
         }
         return instance;
     }
-   
+    
 }

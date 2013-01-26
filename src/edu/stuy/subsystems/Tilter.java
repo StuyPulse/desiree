@@ -44,4 +44,6 @@ public class Tilter {
     public double getPosition() {
         return pot.getVoltage();
     }
+    
+    
 }
