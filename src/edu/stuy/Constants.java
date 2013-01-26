@@ -45,4 +45,7 @@ public class Constants {
     
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;
+
+    /* The DESarray */
+    public static final char DES[] = {'i', 'r', 'e', 'e'};
 }
