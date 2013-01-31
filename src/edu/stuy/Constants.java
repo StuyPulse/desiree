@@ -22,4 +22,10 @@ public class Constants {
     /* DIGITAL INPUTS */
     
     /* ANALOG INPUTS */
+    public static final int GYRO_CHANNEL = 1;
+    
+    /*PID VALUES */
+    public static final double PVAL = .01;
+    public static final double IVAL = .01;
+    public static final double DVAL = .01;
 }

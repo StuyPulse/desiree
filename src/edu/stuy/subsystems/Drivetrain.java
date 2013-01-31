@@ -29,7 +29,7 @@ public class Drivetrain{
                 
         straightController = new PIDController(Constants.PVAL, Constants.IVAL, Constants.DVAL, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-               drivetrain.arcadeDrive(.1, output);
+               drivetrain.arcadeDrive(1, output);
             }
         }, 0.005);
         straightController.setInputRange(-360.0, 360.0);

@@ -52,6 +52,17 @@ public class Desiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
+        
+        if(driverPad.getRawButton(4)){
+            drivetrain.enableDriveStraight();
+        }
+        if(driverPad.getRawButton(3)){
+            drivetrain.disableDriveStraight();
+        }
+        else{
+            drivetrain.tankDrive(driverPad);
+        }
+        
     }
     
     /**
