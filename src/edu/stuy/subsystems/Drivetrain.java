@@ -11,6 +11,8 @@ import edu.stuy.util.Sonar;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,7 +27,8 @@ public class Drivetrain {
     private Gyro gyro;
     private Sonar sonar;
     private Compressor compressor;
-    
+    PIDController straightController;
+
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
         drivetrain.setSafetyEnabled(false);
@@ -36,6 +39,15 @@ public class Drivetrain {
         startOver();
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
+        
+        straightController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
+            public void pidWrite(double output) {
+               drivetrain.arcadeDrive(0, output);
+            }
+        }, 0.005);
+        straightController.setInputRange(-360.0, 360.0);
+        straightController.setPercentTolerance(1 / 90. * 100);
+        straightController.disable();
     }
     
     public static Drivetrain getInstance() {
@@ -87,5 +99,14 @@ public class Drivetrain {
  
     public boolean getPressure() {
         return compressor.getPressureSwitchValue();
+    }
+    
+    public void enableDriveStraight(){
+           straightController.setSetpoint(0);
+           straightController.enable();
+    }
+
+    public void disableDriveStraight(){
+       straightController.disable();
     }
 }

@@ -66,6 +66,16 @@ public class DESiree extends IterativeRobot {
         drivetrain.tankDrive(driverPad);
         SmartDashboard.putNumber("Sonar distance", drivetrain.getSonarDistance());
         SmartDashboard.putNumber("Accel angle:", tilter.getAbsoluteAngle());
+        
+        if(driverPad.getRawButton(4)){
+            drivetrain.enableDriveStraight();
+        }
+        if(driverPad.getRawButton(3)){
+            drivetrain.disableDriveStraight();
+        }
+        else{
+            drivetrain.tankDrive(driverPad);
+        }
     }
     
     /**
