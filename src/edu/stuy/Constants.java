@@ -47,10 +47,10 @@ public class Constants {
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;
     
-    /*PID VALUES */
-    public static final double PVAL = .01;
-    public static final double IVAL = .01;
-    public static final double DVAL = .01;
+    /* DRIVETRAIN PID VALUES */
+    public static final double PVAL_D = .01;
+    public static final double IVAL_D = .01;
+    public static final double DVAL_D = .01;
     
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};

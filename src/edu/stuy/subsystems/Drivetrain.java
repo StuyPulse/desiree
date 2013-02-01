@@ -40,9 +40,9 @@ public class Drivetrain {
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
         
-        straightController = new PIDController(Constants.PVAL, Constants.IVAL, Constants.DVAL, gyro, new PIDOutput() {
+        straightController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-               drivetrain.arcadeDrive(1, output);
+               drivetrain.arcadeDrive(0, output);
             }
         }, 0.005);
         straightController.setInputRange(-360.0, 360.0);
