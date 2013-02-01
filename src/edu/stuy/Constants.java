@@ -22,7 +22,7 @@ public class Constants {
     public static final int SHOOTER_CHANNEL = 6;
     public static final int TILTER_CHANNEL = 7;
     public static final int CONVEYOR_CHANNEL = 8;
-    public static final int WINCH_CHANNEL = 10;
+    public static final int WENCH_CHANNEL = 10;
    
     /* RELAY OUTPUTS */
     public static final int COMPRESSOR_RELAY_CHANNEL = 1;
