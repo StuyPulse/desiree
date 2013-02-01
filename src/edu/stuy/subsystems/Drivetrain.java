@@ -54,7 +54,7 @@ public class Drivetrain {
      * @param gamepad Gamepad to tank drive with
      */
     public void tankDrive(Gamepad gamepad) {
-        tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
+        tankDrive(gamepad.getLeftY(), gamepad.getRightY());
     }
 
     public Sonar getSonar() {
