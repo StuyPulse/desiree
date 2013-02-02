@@ -26,6 +26,7 @@ public class DESiree extends IterativeRobot {
     Lights lights;
     Shooter shooter;
     Tilter tilter;
+    Climber climber;
     
     Gamepad driverPad;
     Gamepad operatorPad;
@@ -41,6 +42,7 @@ public class DESiree extends IterativeRobot {
         lights = Lights.getInstance();
         shooter = Shooter.getInstance();
         tilter = Tilter.getInstance();
+        climber = Climber.getInstance();
 
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
