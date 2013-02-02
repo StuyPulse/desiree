@@ -28,19 +28,19 @@ public class Climber {
        
     }
     
-    public void forwardWench() {
+    public void forwardWinch() {
         winch.set(1);
     }
     
-    public void stopWench() {
+    public void stopWinch() {
         winch.set(0);
     }
     
-    public void reverseWench() {
+    public void reverseWinch() {
         winch.set(-1);
     }
     
-    public void setWench(double val) {
+    public void setWinch(double val) {
         winch.set(val);
     }
        
