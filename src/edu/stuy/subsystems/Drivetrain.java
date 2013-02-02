@@ -4,11 +4,9 @@
  */
 package edu.stuy.subsystems;
 
-import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.stuy.util.Sonar;
-import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -75,10 +73,6 @@ public class Drivetrain {
     
     public void startOver() {
         gyro.reset();
-    }
-    
-    public void putAngle() {
-        SmartDashboard.putNumber("Gyro angle:", gyro.getAngle());
     }
     
     public void stopCompressor() {
