@@ -22,12 +22,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Drivetrain {
     
+    double driveStraightSpeed = 0.8;
+    
     private static Drivetrain instance;
     private RobotDrive drivetrain;
     private Gyro gyro;
     private Sonar sonar;
     private Compressor compressor;
-    PIDController straightController;
+
+    PIDController forwardController;
+    PIDController backwardController;
     
     private Encoder encoderRight;
     private Encoder encoderLeft;
@@ -51,14 +55,23 @@ public class Drivetrain {
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
         
-        straightController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
+        forwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-               drivetrain.arcadeDrive(0, output);
+               drivetrain.arcadeDrive(driveStraightSpeed, output);
             }
         }, 0.005);
-        straightController.setInputRange(-360.0, 360.0);
-        straightController.setPercentTolerance(1 / 90. * 100);
-        straightController.disable();
+        forwardController.setInputRange(-360.0, 360.0);
+        forwardController.setPercentTolerance(1 / 90. * 100);
+        forwardController.disable();
+        
+        backwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
+            public void pidWrite(double output) {
+               drivetrain.arcadeDrive(-driveStraightSpeed, output);
+            }
+        }, 0.005);
+        backwardController.setInputRange(-360.0, 360.0);
+        backwardController.setPercentTolerance(1 / 90. * 100);
+        backwardController.disable();
     }
     
     public static Drivetrain getInstance() {
@@ -112,13 +125,19 @@ public class Drivetrain {
         return compressor.getPressureSwitchValue();
     }
     
-    public void enableDriveStraight() {
-        straightController.setSetpoint(0);
-        straightController.enable();
+    public void enableDriveStraight(boolean forward) {
+        if (forward) {
+            forwardController.setSetpoint(0);
+            forwardController.enable();
+        } else {
+            backwardController.setSetpoint(0);
+            forwardController.disable();
+        }
     }
 
     public void disableDriveStraight(){
-       straightController.disable();
+       forwardController.disable();
+       backwardController.disable();
     }
     
     public double getLeftEnc() {
@@ -132,8 +151,11 @@ public class Drivetrain {
     public void forwardInchesRough(int inches) {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
-        enableDriveStraight();
-        while (getAvgDistance() < inches && (Timer.getFPGATimestamp() - startTime) < 15.0) {
+        boolean fwd = inches >= 0;
+        enableDriveStraight(fwd);
+        while (((fwd && getAvgDistance() < inches) ||
+                (!fwd && getAvgDistance() > inches)) && 
+               (Timer.getFPGATimestamp() - startTime) < 15.0) {
             //do nothing because driveStraight is enabled.
         }
         disableDriveStraight();
