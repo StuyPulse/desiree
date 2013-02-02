@@ -7,9 +7,7 @@ package edu.stuy.subsystems;
 import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
-import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -57,8 +55,7 @@ public class Tilter {
     }
     
     public double getAbsoluteAngle() {
-        return MathUtils.atan(getXAcceleration() / getZAcceleration());
-        
+        return MathUtils.atan(getYAcceleration() / getZAcceleration()) * 180.0 / Math.PI;
     }
     
 }
