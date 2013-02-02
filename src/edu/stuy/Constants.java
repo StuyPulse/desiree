@@ -27,15 +27,17 @@ public class Constants {
     public static final int COMPRESSOR_RELAY_CHANNEL = 1;
     
     /* DIGITAL INPUTS */
-    public static final int SONAR_CHANNEL_PING = 1;
-    public static final int SONAR_CHANNEL_ECHO = 2;
+    public static final int LEFT_ENCODER_CHANNEL_A = 1;
+    public static final int LEFT_ENCODER_CHANNEL_B = 2;
+    public static final int RIGHT_ENCODER_CHANNEL_A = 3;
+    public static final int RIGHT_ENCODER_CHANNEL_B = 4;
     public static final int UPPER_CONVEYOR_SENSOR = 9;
     public static final int LOWER_CONVEYOR_SENSOR = 10;
     public static final int PRESSURE_SWITCH_CHANNEL = 11;
     
     /* DIGITAL OUTPUTS */
-    public static final int WHITE_LIGHTS_CHANNEL = 3;
-    public static final int COLORED_LIGHTS_CHANNEL = 4;
+    public static final int WHITE_LIGHTS_CHANNEL = 5;
+    public static final int COLORED_LIGHTS_CHANNEL = 6;
      
     /* ANALOG INPUTS */
     public static final int GYRO_CHANNEL = 1;
@@ -51,6 +53,8 @@ public class Constants {
     public static final double PVAL_D = .01;
     public static final double IVAL_D = .01;
     public static final double DVAL_D = .01;
+    
+    public static final double ENCODER_DISTANCE_PER_PULSE = 0;
     
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};

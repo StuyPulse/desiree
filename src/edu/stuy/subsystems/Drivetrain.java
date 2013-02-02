@@ -4,16 +4,16 @@
  */
 package edu.stuy.subsystems;
 
-import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.stuy.util.Sonar;
-import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -28,6 +28,9 @@ public class Drivetrain {
     private Sonar sonar;
     private Compressor compressor;
     PIDController straightController;
+    
+    private Encoder encoderRight;
+    private Encoder encoderLeft;
 
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
@@ -37,6 +40,14 @@ public class Drivetrain {
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
         startOver();
+        
+        encoderLeft = new Encoder(Constants.LEFT_ENCODER_CHANNEL_A, Constants.LEFT_ENCODER_CHANNEL_B);
+        encoderRight = new Encoder(Constants.RIGHT_ENCODER_CHANNEL_A,Constants.RIGHT_ENCODER_CHANNEL_B);
+        encoderLeft.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
+        encoderRight.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
+        encoderLeft.start();
+        encoderRight.start();
+        
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
         
@@ -101,12 +112,40 @@ public class Drivetrain {
         return compressor.getPressureSwitchValue();
     }
     
-    public void enableDriveStraight(){
-           straightController.setSetpoint(0);
-           straightController.enable();
+    public void enableDriveStraight() {
+        straightController.setSetpoint(0);
+        straightController.enable();
     }
 
     public void disableDriveStraight(){
        straightController.disable();
+    }
+    
+    public double getLeftEnc() {
+        return encoderLeft.getDistance();
+    }
+    
+    public double getRightEnc() {
+        return encoderRight.getDistance();
+    }
+    
+    public void forwardInchesRough(int inches) {
+        resetEncoders();
+        double startTime = Timer.getFPGATimestamp();
+        enableDriveStraight();
+        while (getAvgDistance() < inches && (Timer.getFPGATimestamp() - startTime) < 15.0) {
+            //do nothing because driveStraight is enabled.
+        }
+        disableDriveStraight();
+
+    }
+    
+    public void resetEncoders() {
+        encoderLeft.reset();
+        encoderRight.reset();
+    }
+    
+    public double getAvgDistance() {
+        return (getLeftEnc() + getRightEnc()) / 2.0;
     }
 }
