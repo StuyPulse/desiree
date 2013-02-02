@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Talon;
 public class Climber {
     
     private static Climber instance;
-    private Talon wench;
+    private Talon winch;
     
     public static Climber getInstance() {
         if (instance == null)
@@ -24,24 +24,24 @@ public class Climber {
     }
     
     private Climber() {
-        wench = new Talon(Constants.WENCH_CHANNEL);
+        winch = new Talon(Constants.WENCH_CHANNEL);
        
     }
     
     public void forwardWench() {
-        wench.set(1);
+        winch.set(1);
     }
     
     public void stopWench() {
-        wench.set(0);
+        winch.set(0);
     }
     
     public void reverseWench() {
-        wench.set(-1);
+        winch.set(-1);
     }
     
     public void setWench(double val) {
-        wench.set(val);
+        winch.set(val);
     }
        
     
