@@ -15,78 +15,126 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * The robot drivetrain.
+ *
  * @author kevin,arfan
  */
 public class Drivetrain {
-    
+
     double driveStraightSpeed = 0.8;
+    private double lastTime;
+    private double startTime;
+    private double lastSpeedLeft;
+    private double lastSpeedRight;
     
     private static Drivetrain instance;
     private RobotDrive drivetrain;
     private Gyro gyro;
     private Sonar sonar;
     private Compressor compressor;
-
     PIDController forwardController;
     PIDController backwardController;
-    
     private Encoder encoderRight;
     private Encoder encoderLeft;
 
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
         drivetrain.setSafetyEnabled(false);
-        sonar = new Sonar(Constants.SONAR_CHANNEL,Constants.ANALOG_SUPPLY_VOLTAGE_CHANNEL);
+        sonar = new Sonar(Constants.SONAR_CHANNEL, Constants.ANALOG_SUPPLY_VOLTAGE_CHANNEL);
         sonar.start();
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
         gyroReset();
-        
+
         encoderLeft = new Encoder(Constants.LEFT_ENCODER_CHANNEL_A, Constants.LEFT_ENCODER_CHANNEL_B);
-        encoderRight = new Encoder(Constants.RIGHT_ENCODER_CHANNEL_A,Constants.RIGHT_ENCODER_CHANNEL_B);
+        encoderRight = new Encoder(Constants.RIGHT_ENCODER_CHANNEL_A, Constants.RIGHT_ENCODER_CHANNEL_B);
         encoderLeft.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
         encoderRight.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
         encoderLeft.start();
         encoderRight.start();
-        
+
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
-        
+
         forwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-               drivetrain.arcadeDrive(driveStraightSpeed, output);
+                drivetrain.arcadeDrive(driveStraightSpeed, output);
             }
         }, 0.005);
         forwardController.setInputRange(-360.0, 360.0);
         forwardController.setPercentTolerance(1 / 90. * 100);
         forwardController.disable();
-        
+
         backwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-               drivetrain.arcadeDrive(-driveStraightSpeed, output);
+                drivetrain.arcadeDrive(-driveStraightSpeed, output);
             }
         }, 0.005);
         backwardController.setInputRange(-360.0, 360.0);
         backwardController.setPercentTolerance(1 / 90. * 100);
         backwardController.disable();
+        
+        startTime = Timer.getFPGATimestamp();
+        lastTime = startTime;
+        lastSpeedLeft = 0;
+        lastSpeedRight = 0;
     }
-    
+
     public static Drivetrain getInstance() {
         if (instance == null) {
             instance = new Drivetrain();
         }
         return instance;
     }
-    
+
     public void tankDrive(double leftValue, double rightValue) {
-        drivetrain.tankDrive(leftValue, rightValue);
+        double newTime = Timer.getFPGATimestamp();
+        double sens = 0.02;
+        try {
+            sens = SmartDashboard.getNumber("Sensitivity: ");
+        }
+        catch (TableKeyNotDefinedException e) {
+            SmartDashboard.putNumber("Sensitivity: ", 0.020);
+        }
+        if (newTime - lastTime > sens) {
+            lastTime = newTime;
+            if (Math.abs(leftValue - lastSpeedLeft) > 0.7) {// drastic change = big acceleration
+                if (leftValue > 0) {
+                    lastSpeedLeft += 0.3;
+                }
+                else {
+                    lastSpeedLeft += -0.3;
+                }
+            }
+            else {
+                lastSpeedLeft = leftValue;
+            }
+            if (Math.abs(rightValue - lastSpeedRight) > 0.7) {
+                if (rightValue > 0) {
+                    lastSpeedRight += 0.3;
+                }
+                else
+                {
+                    lastSpeedRight += -0.3;
+                }
+            }
+            else {
+                lastSpeedRight = rightValue;
+            }
+        }
+        drivetrain.tankDrive(lastSpeedLeft, lastSpeedRight);
+        SmartDashboard.putNumber("Last Left: ", lastSpeedLeft);
+        SmartDashboard.putNumber("Last Right: ", lastSpeedRight);
+        SmartDashboard.putNumber("Curr Left: ", leftValue);
+        SmartDashboard.putNumber("Curr Right: ", rightValue);
     }
-    
+
     /**
      * Tank drive using a gamepad's left and right analog sticks.
+     *
      * @param gamepad Gamepad to tank drive with
      */
     public void tankDrive(Gamepad gamepad) {
@@ -96,11 +144,11 @@ public class Drivetrain {
     public Sonar getSonar() {
         return sonar;
     }
-    
+
     public double getSonarDistance() {
         return sonar.getDistance();
     }
-    
+
     public void putDistance() {
         SmartDashboard.putNumber("Sonar distance:", sonar.getDistance());
     }
@@ -108,23 +156,23 @@ public class Drivetrain {
     public double getAngle() {
         return gyro.getAngle();
     }
-    
+
     public void gyroReset() {
         gyro.reset();
     }
-    
+
     public void putAngle() {
         SmartDashboard.putNumber("Gyro angle:", gyro.getAngle());
     }
-    
+
     public void stopCompressor() {
         compressor.stop();
     }
- 
+
     public boolean getPressure() {
         return compressor.getPressureSwitchValue();
     }
-    
+
     public void enableDriveStraight(boolean forward) {
         if (forward) {
             forwardController.setSetpoint(0);
@@ -135,38 +183,38 @@ public class Drivetrain {
         }
     }
 
-    public void disableDriveStraight(){
-       forwardController.disable();
-       backwardController.disable();
+    public void disableDriveStraight() {
+        forwardController.disable();
+        backwardController.disable();
     }
-    
+
     public double getLeftEnc() {
         return encoderLeft.getDistance();
     }
-    
+
     public double getRightEnc() {
         return encoderRight.getDistance();
     }
-    
+
     public void forwardInchesRough(int inches) {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
         enableDriveStraight(fwd);
-        while (((fwd && getAvgDistance() < inches) ||
-                (!fwd && getAvgDistance() > inches)) && 
-               (Timer.getFPGATimestamp() - startTime) < 15.0) {
+        while (((fwd && getAvgDistance() < inches)
+                || (!fwd && getAvgDistance() > inches))
+                && (Timer.getFPGATimestamp() - startTime) < 15.0) {
             //do nothing because driveStraight is enabled.
         }
         disableDriveStraight();
 
     }
-    
+
     public void resetEncoders() {
         encoderLeft.reset();
         encoderRight.reset();
     }
-    
+
     public double getAvgDistance() {
         return (getLeftEnc() + getRightEnc()) / 2.0;
     }
