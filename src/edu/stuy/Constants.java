@@ -49,8 +49,8 @@ public class Constants {
     public static final int DUMMY_ANGLE = 69;
     
     /* DRIVETRAIN PID VALUES */
-    public static final double PVAL_D = .01;
-    public static final double IVAL_D = .01;
+    public static final double PVAL_D = 1.0; //P AND I last tested 7PM 2/1/13
+    public static final double IVAL_D = .5;
     public static final double DVAL_D = .01;
     
     /* The DESarray */

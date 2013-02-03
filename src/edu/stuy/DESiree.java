@@ -46,6 +46,8 @@ public class DESiree extends IterativeRobot {
 
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
+        drivetrain.disableDriveStraight();
+
     }
     
     public void autonomousInit() {
@@ -64,18 +66,18 @@ public class DESiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
-        SmartDashboard.putNumber("Sonar distance", drivetrain.getSonarDistance());
-        SmartDashboard.putNumber("Accel angle:", tilter.getAbsoluteAngle());
+        drivetrain.putAngle();
+        //SmartDashboard.putNumber("Accel angle:", tilter.getAbsoluteAngle());
         
         if(driverPad.getRawButton(4)){
             drivetrain.enableDriveStraight();
         }
         if(driverPad.getRawButton(3)){
             drivetrain.disableDriveStraight();
-        }
-        else{
             drivetrain.tankDrive(driverPad);
+
         }
+        
     }
     
     /**

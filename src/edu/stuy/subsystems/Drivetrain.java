@@ -36,15 +36,29 @@ public class Drivetrain {
         sonar.start();
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
+        gyro.reset();
         startOver();
         compressor = new Compressor(Constants.PRESSURE_SWITCH_CHANNEL, Constants.COMPRESSOR_RELAY_CHANNEL);
         compressor.start();
         
         straightController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-               drivetrain.arcadeDrive(0, output);
+               drivetrain.arcadeDrive(-0.65, output);
             }
         }, 0.005);
+        double dp = 0;
+        double di = 0;
+        double dd = 0;
+        SmartDashboard.putNumber("DP: ", 0.0);
+        SmartDashboard.putNumber("DI: ", 0.0);
+        SmartDashboard.putNumber("DD: ", 0.0);
+        
+        dp = SmartDashboard.getNumber("DP: ");
+        dp = SmartDashboard.getNumber("DI: ");
+        dp = SmartDashboard.getNumber("DD: ");
+        
+        straightController.setPID(dp, di, dd);
+        
         straightController.setInputRange(-360.0, 360.0);
         straightController.setPercentTolerance(1 / 90. * 100);
         straightController.disable();
