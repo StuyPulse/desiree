@@ -43,7 +43,7 @@ public class Drivetrain {
         sonar.start();
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
-        startOver();
+        gyroReset();
         
         encoderLeft = new Encoder(Constants.LEFT_ENCODER_CHANNEL_A, Constants.LEFT_ENCODER_CHANNEL_B);
         encoderRight = new Encoder(Constants.RIGHT_ENCODER_CHANNEL_A,Constants.RIGHT_ENCODER_CHANNEL_B);
@@ -90,7 +90,7 @@ public class Drivetrain {
      * @param gamepad Gamepad to tank drive with
      */
     public void tankDrive(Gamepad gamepad) {
-        tankDrive(-gamepad.getLeftY(), -gamepad.getRightY());
+        tankDrive(gamepad.getLeftY(), gamepad.getRightY());
     }
 
     public Sonar getSonar() {
@@ -109,7 +109,7 @@ public class Drivetrain {
         return gyro.getAngle();
     }
     
-    public void startOver() {
+    public void gyroReset() {
         gyro.reset();
     }
     

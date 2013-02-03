@@ -36,11 +36,11 @@ public class DESiree extends IterativeRobot {
      */
     public void robotInit() {
         drivetrain = Drivetrain.getInstance();
-        acquirer = Acquirer.getInstance();
-        conveyor = Conveyor.getInstance();
-        lights = Lights.getInstance();
-        shooter = Shooter.getInstance();
-        tilter = Tilter.getInstance();
+        //acquirer = Acquirer.getInstance();
+        //conveyor = Conveyor.getInstance();
+        //lights = Lights.getInstance();
+        //shooter = Shooter.getInstance();
+        //tilter = Tilter.getInstance();
 
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
@@ -64,11 +64,13 @@ public class DESiree extends IterativeRobot {
         drivetrain.tankDrive(driverPad);
         
         if(driverPad.getRawButton(4)){
-            drivetrain.enableDriveStraight();
+            drivetrain.enableDriveStraight(true);
         }
         if(driverPad.getRawButton(3)){
             drivetrain.disableDriveStraight();
         }
+        if(driverPad.getBottomButton())
+            drivetrain.forwardInchesRough(24);
         else{
             drivetrain.tankDrive(driverPad);
         }
