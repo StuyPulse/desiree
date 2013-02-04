@@ -61,4 +61,37 @@ public class Tilter {
         return MathUtils.atan(getYAcceleration() / getZAcceleration()) * 180.0 / Math.PI;
     }
     
+    private double square(double x) {
+        return x * x;
+    }
+    
+    /* 
+     * ======== v(q) uses distance formula ========
+     * v(q) = sqrt((zcosq - x)^2 + (zcosq - y)^2)
+     * v = leadscrew length
+     * q = angle of shooter
+     * z = distance from pivot to where leadscrew hits shooter
+     * x = distance from pivot to base of base of leadscrew
+     * y = height of the leadscrew
+     */
+    public double getInitialLeadscrewLength() {
+        double angle = getAbsoluteAngle() * Math.PI / 180;
+        return Math.sqrt(square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.cos(angle) - Constants.DISTANCE_TO_LEADSCREW_BASE)
+                + square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sin(angle) - Constants.LEADSCREW_HEIGHT));
+    }
+    
+    /*
+     * ======== q(v) adds two angles ========
+     * q(v) = atan(y/x) + acos( (v^2 + x^2 + y^2 - z^2) / (2vsqrt(x^2 + y^2)) )
+     * variables are defined above
+     */
+    public double getShooterAngle() {
+        double leadscrewLength = 0;
+        double heightSquared = square(Constants.LEADSCREW_HEIGHT);
+        double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
+        double hypSquared = square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW);
+        return MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE) + 
+               MathUtils.acos((square(leadscrewLength) + baseSquared + heightSquared - hypSquared) / 
+               (2 * leadscrewLength * Math.sqrt(baseSquared + heightSquared)));
+    }
 }
