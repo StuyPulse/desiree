@@ -4,6 +4,7 @@
  */
 package edu.stuy;
 
+
 /**
  * This is the location of the autonomous routines.
  * We assume that we always begin touching the front edge of the pyramid.
@@ -11,6 +12,7 @@ package edu.stuy;
  * @author Eric
  */
 public class Autonomous {
+    
     public static int getAutonSetting(){
         int setting = 0;
         return setting;
@@ -29,30 +31,77 @@ public class Autonomous {
         }
     }
     
-    
     /**
-     * Shoot two discs and then do nothing
+     * Start middle in front of pyramid
+     * CV shoot 2
+     * back up acquire both sets of disks going back to center line. 
+     * Don?t stop for pickup. Return to in front of pyramid. 
+     * Stop running acquirer on the way back. Shoot the 4 acquired disks.
      */
     public static void auton1() {
-        // get shooter ready to shoot
-        // shoot first disc
-        // wait for shooter to be ready again
-        // shoot second disc
+        
     }
     
     /**
-     * Shoot two discs, then move backwards under the pyramid to pick up the
-     * four in the middle of the field, move back to the front edge of the
-     * pyramid and shoot the four discs.
+     * Same as 1 but no CV at first.
      */
     public static void auton2() {
-        // get shooter ready to shoot
-        // shoot first disc
-        // wait for shooter to be ready again
-        // shoot second disc
-        // back up a certain distance and acquire 2 discs under pyramid
-        // backup again at certain distance to center of field to get discs making sure not to cross center
-        // Drive forward and under pyramid and shoot
-        // wait for shooter and shoot and repeat
+        
+    }
+    
+    /**
+     * Start in front of middle pyramid shoot 2 with CV go back under pyramid pick up 2 drive forward and fire those two with CV.
+     */
+    public static void auton3() {
+        
+    }
+    
+    /**
+     * Same as 3 no CV at start.
+     */
+    public static void auton4() {
+        
+    }
+    
+    /** 
+     * Start anywhere fire 2. CV.
+     */
+    public static void auton5() {
+        
+    }
+    
+    /**
+     * Same as 5 no CV.
+     */
+    public static void auton6() {
+        
+    }
+    
+    /**
+     * Same as 1 but back up to center at end of field.
+     */
+    public static void auton7() {
+        
+    }
+    
+    /**
+     * Same as 3 but back up to center of field. 
+     */
+    public static void auton8()  {
+        
+    }
+    
+    /**
+     * Same as 1 with 180 spin at end to face the disks.
+     */
+    public static void auton9() {
+        
+    }
+    
+    /**
+     * Same as 3 180 spin at end to face the disks. 
+     */
+    public static void auton10() {
+        
     }
 }
