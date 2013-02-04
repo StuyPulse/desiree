@@ -23,14 +23,11 @@ public class Drivetrain {
     private static Drivetrain instance;
     private RobotDrive drivetrain;
     private Gyro gyro;
-    private Sonar sonar;
     private Compressor compressor;
     
     private Drivetrain() {
-        drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_1_CHANNEL, Constants.DRIVETRAIN_LEFT_2_CHANNEL, Constants.DRIVETRAIN_RIGHT_1_CHANNEL, Constants.DRIVETRAIN_RIGHT_2_CHANNEL);
+        drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
         drivetrain.setSafetyEnabled(false);
-        sonar = new Sonar(Constants.SONAR_CHANNEL,Constants.ANALOG_SUPPLY_VOLTAGE_CHANNEL);
-        sonar.start();
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
         startOver();
@@ -56,19 +53,7 @@ public class Drivetrain {
     public void tankDrive(Gamepad gamepad) {
         tankDrive(gamepad.getLeftY(), gamepad.getRightY());
     }
-
-    public Sonar getSonar() {
-        return sonar;
-    }
     
-    public double getSonarDistance() {
-        return sonar.getDistance();
-    }
-    
-    public void putDistance() {
-        SmartDashboard.putNumber("Sonar distance:", sonar.getDistance());
-    }
-
     public double getAngle() {
         return gyro.getAngle();
     }

@@ -64,7 +64,6 @@ public class DESiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
-        SmartDashboard.putNumber("Sonar distance:", drivetrain.getSonarDistance());
         SmartDashboard.putNumber("Gyro angle:", drivetrain.getAngle());
         SmartDashboard.putNumber("Accel angle:", tilter.getAbsoluteAngle());
     }

@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.Relay;
 
 /**
  *
@@ -14,12 +15,14 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 public class Lights {
     
     private static Lights instance;
-    private DigitalOutput white;
-    private DigitalOutput colored;
+    private Relay cameraLight;
+    private Relay whiteSignal;
+    private Relay colorSignal;
     
     private Lights() {
-        white = new DigitalOutput(Constants.WHITE_LIGHTS_CHANNEL);
-        colored = new DigitalOutput(Constants.COLORED_LIGHTS_CHANNEL);
+        cameraLight = new Relay(Constants.CAMERA_LIGHT);
+        whiteSignal = new Relay(Constants.SIGNAL_LIGHT_A);
+        colorSignal = new Relay(Constants.SIGNAL_LIGHT_B);
     }
     
     public static Lights getInstance() {
@@ -29,6 +32,17 @@ public class Lights {
         return instance;
     }
     
+    public Relay getCameraLight() {
+        return cameraLight;
+    }
+    
+    public Relay signalWhiteLight() {
+        return whiteSignal;
+    }
+    
+    public Relay signalColorLight() {
+        return colorSignal;
+    }
     /*
      * run this in both tele and auton
      * flash when disc is picked up from ground or feeder
