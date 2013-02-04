@@ -40,14 +40,25 @@ public class Constants {
     public static final int LOWER_CONVEYOR_SENSOR = 10;
     public static final int PRESSURE_SWITCH_CHANNEL = 11;
     
+    /* I2C */
     public static final int ACCELEROMETER_CHANNEL = 2;
      
     /* ANALOG INPUTS */
     public static final int GYRO_CHANNEL = 1;
     
+    /* SOLDENOID */
+    public static final int SHOOTER_PLUNGER_OUT = 1;
+    public static final int SHOOTER_PLUNGER_IN = 2;
+    
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;
-
+    
+    /* TILTER CONSTANTS */
+    public static final double DISTANCE_TO_LEADSCREW_BASE = 10;
+    public static final double SHOOTER_DISTANCE_TO_LEADSCREW = 16;
+    public static final double LEADSCREW_HEIGHT = 5;
+    public static final double INCHES_PER_REV = 0.1;
+    
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};
 }
