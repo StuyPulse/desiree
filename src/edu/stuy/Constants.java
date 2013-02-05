@@ -29,6 +29,9 @@ public class Constants {
     public static final int SIGNAL_LIGHT_A = 4;
     public static final int SIGNAL_LIGHT_B = 5;
     
+    /* Solenoid */
+    public static final int CLIMBER_SOLENOID_CHANNEL = 3;
+    
     /* GPIO */
     public static final int DRIVE_ENCODER_LEFT_A = 1;
     public static final int DRIVE_ENCODER_LEFT_B = 2;
@@ -52,11 +55,13 @@ public class Constants {
     
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;
+    
     /* TILTER CONSTANTS */
     public static final double DISTANCE_TO_LEADSCREW_BASE = 10;
     public static final double SHOOTER_DISTANCE_TO_LEADSCREW = 16;
     public static final double LEADSCREW_HEIGHT = 5;
     public static final double INCHES_PER_REV = 0.1;
+    
     /* DRIVETRAIN PID VALUES */
     public static final double PVAL_D = .01;
     public static final double IVAL_D = .01;
