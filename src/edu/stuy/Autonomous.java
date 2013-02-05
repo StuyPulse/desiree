@@ -4,6 +4,10 @@
  */
 package edu.stuy;
 
+import edu.stuy.subsystems.Acquirer;
+import edu.stuy.subsystems.Drivetrain;
+import edu.stuy.subsystems.Shooter;
+
 
 
 /**
@@ -61,7 +65,7 @@ public class Autonomous {
      * Stop acquiring on the way back. Shoot the 4 acquired disks.
      */
     public static void auton1() {
-        
+     
         
     }
     
@@ -69,7 +73,12 @@ public class Autonomous {
      * Same as 1 but no CV at first.
      */
     public static void auton2() {
-    
+        Drivetrain.getInstance().enableDriveStraight(true);
+        Acquirer.getInstance().forwardSpin();
+        Drivetrain.getInstance().forwardInchesRough(-240);
+        Acquirer.getInstance().stop();
+        Drivetrain.getInstance().forwardInchesRough(240);
+        Shooter.getInstance().shoot();
     }
     
     /**
@@ -83,6 +92,8 @@ public class Autonomous {
      * Same as 3 no CV at start.
      */
     public static void auton4() {
+        Shooter.getInstance().shoot();
+        Drivetrain.getInstance().enableDriveStraight(true);
         
     }
     
@@ -97,7 +108,7 @@ public class Autonomous {
      * Same as 5 no CV.
      */
     public static void auton6() {
-        
+        Shooter.getInstance().shoot();
     }
     
     /**
