@@ -126,7 +126,7 @@ public class Drivetrain {
             forwardController.enable();
         } else {
             backwardController.setSetpoint(0);
-            forwardController.disable();
+            backwardController.enable();
         }
     }
 
