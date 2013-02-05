@@ -49,7 +49,7 @@ public class DESiree extends IterativeRobot {
     }
     
     public void autonomousInit() {
-        Autonomous.run();
+ 
     }
 
     /**
