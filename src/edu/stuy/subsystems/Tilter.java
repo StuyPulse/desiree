@@ -19,11 +19,15 @@ public class Tilter {
     private Talon tilter;
     private ADXL345_I2C accel;
     private Encoder e;
+    private double initialLeadLength;
     
     private Tilter() {
         tilter = new Talon(Constants.TILTER_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k16G);
         e = new Encoder(Constants.TILT_ENCODER_A,Constants.TILT_ENCODER_B);
+        initialLeadLength = getInitialLeadscrewLength();
+        e.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
+        e.start();
     }
     
     public static Tilter getInstance() {
@@ -61,6 +65,10 @@ public class Tilter {
         return MathUtils.atan(getYAcceleration() / getZAcceleration()) * 180.0 / Math.PI;
     }
     
+    public double getLeadLength() {
+        return initialLeadLength + e.getDistance();
+    }
+    
     private double square(double x) {
         return x * x;
     }
@@ -86,7 +94,7 @@ public class Tilter {
      * variables are defined above
      */
     public double getShooterAngle() {
-        double leadscrewLength = 0;
+        double leadscrewLength = getLeadLength();
         double heightSquared = square(Constants.LEADSCREW_HEIGHT);
         double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
         double hypSquared = square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW);
