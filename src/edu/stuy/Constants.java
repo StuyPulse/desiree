@@ -52,11 +52,7 @@ public class Constants {
     
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;
-    /* TILTER CONSTANTS */
-    public static final double DISTANCE_TO_LEADSCREW_BASE = 10;
-    public static final double SHOOTER_DISTANCE_TO_LEADSCREW = 16;
-    public static final double LEADSCREW_HEIGHT = 5;
-    public static final double INCHES_PER_REV = 0.1;
+    
     /* DRIVETRAIN PID VALUES */
     public static final double PVAL_D = .01;
     public static final double IVAL_D = .01;
@@ -66,6 +62,13 @@ public class Constants {
     private static final double GEAR_RATIO = 42/39; // Wheels turn 39 times every time gear turns 42
     private static final double WHEEL_RADIUS = 2.0; // inches of the wheel radius
     public static final double ENCODER_DISTANCE_PER_PULSE = 1 / (ENCODER_PULSE_PER_REV * GEAR_RATIO / ( 2 * Math.PI * WHEEL_RADIUS));
+    
+    /* TILTER CONSTANTS */
+    public static final double DISTANCE_TO_LEADSCREW_BASE = 10;
+    public static final double SHOOTER_DISTANCE_TO_LEADSCREW = 16;
+    public static final double LEADSCREW_HEIGHT = 5;
+    public static final double TILTER_INCHES_PER_REV = 0.1;
+    public static final double TILTER_DISTANCE_PER_PULSE = TILTER_INCHES_PER_REV / ENCODER_PULSE_PER_REV;
     
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};
