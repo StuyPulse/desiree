@@ -29,6 +29,9 @@ public class Constants {
     public static final int SIGNAL_LIGHT_A = 4;
     public static final int SIGNAL_LIGHT_B = 5;
     
+    /* Solenoid */
+    public static final int CLIMBER_SOLENOID_CHANNEL = 3;
+    
     /* GPIO */
     public static final int DRIVE_ENCODER_LEFT_A = 1;
     public static final int DRIVE_ENCODER_LEFT_B = 2;

@@ -18,16 +18,16 @@ public class Tilter {
     private static Tilter instance;
     private Talon tilter;
     private ADXL345_I2C accel;
-    private Encoder e;
+    private Encoder enc;
     private double initialLeadLength;
     
     private Tilter() {
         tilter = new Talon(Constants.TILTER_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k16G);
-        e = new Encoder(Constants.TILT_ENCODER_A,Constants.TILT_ENCODER_B);
+        enc = new Encoder(Constants.TILT_ENCODER_A,Constants.TILT_ENCODER_B);
         initialLeadLength = getInitialLeadscrewLength();
-        e.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
-        e.start();
+        enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
+        enc.start();
     }
     
     public static Tilter getInstance() {
@@ -66,7 +66,7 @@ public class Tilter {
     }
     
     public double getLeadLength() {
-        return initialLeadLength + e.getDistance();
+        return initialLeadLength + enc.getDistance();
     }
     
     private double square(double x) {

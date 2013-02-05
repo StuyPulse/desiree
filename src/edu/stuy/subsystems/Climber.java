@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
@@ -15,7 +16,8 @@ import edu.wpi.first.wpilibj.Talon;
 public class Climber {
     
     private static Climber instance;
-    private Talon winch;
+    private Talon wench;
+    private Solenoid deployer;
     
     public static Climber getInstance() {
         if (instance == null)
@@ -24,25 +26,33 @@ public class Climber {
     }
     
     private Climber() {
-        winch = new Talon(Constants.WENCH_CHANNEL);
+        wench = new Talon(Constants.WENCH_CHANNEL);
+        deployer = new Solenoid(Constants.CLIMBER_SOLENOID_CHANNEL);
        
     }
     
-    public void forwardWinch() {
-        winch.set(1);
+    public void forwardWench() {
+        wench.set(1);
     }
     
-    public void stopWinch() {
-        winch.set(0);
+    public void stopWench() {
+        wench.set(0);
     }
     
-    public void reverseWinch() {
-        winch.set(-1);
+    public void reverseWench() {
+        wench.set(-1);
     }
     
-    public void setWinch(double val) {
-        winch.set(val);
+    public void setWench(double val) {
+        wench.set(val);
     }
-       
+    
+    public void deploy() {
+        deployer.set(true);
+    }
+    
+    public void withdraw() {
+        deployer.set(true);
+    }
     
 }

@@ -31,11 +31,11 @@ public class Acquirer {
         acquirer.set(speed);
     }
     
-    public void forwardSpin(){
+    public void Acquire(){
         spin(1);
     }
 
-    public void backwardSpin(){
+    public void acquireReverse(){
         spin(-1);
     }
     
