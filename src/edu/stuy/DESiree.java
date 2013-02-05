@@ -68,7 +68,6 @@ public class DESiree extends IterativeRobot {
         SmartDashboard.putNumber("Gyro angle:", drivetrain.getAngle());
         SmartDashboard.putNumber("Accel angle:", tilter.getAbsoluteAngle());
         SmartDashboard.putNumber("Accel angle10:", tilter.getAbsoluteAngle10());
-        SmartDashboard.putNumber("Accel angle100:", tilter.getAbsoluteAngle100());
         SmartDashboard.putNumber("X:", tilter.getXAcceleration());
         SmartDashboard.putNumber("Y:", tilter.getYAcceleration());
         SmartDashboard.putNumber("Z:", tilter.getZAcceleration());
