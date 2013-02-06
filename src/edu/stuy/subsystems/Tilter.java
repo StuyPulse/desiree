@@ -32,6 +32,8 @@ public class Tilter {
     private Tilter() {
         tilter = new Talon(Constants.TILTER_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k16G);
+        measurements10 = new Vector();
+        measurements100 = new Vector();
         start();
     }
     
