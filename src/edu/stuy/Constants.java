@@ -24,10 +24,8 @@ public class Constants {
    
     /* RELAY OUTPUTS */
     public static final int COMPRESSOR_RELAY_CHANNEL = 1;
-    public static final int CAMERA_LIGHT = 2;
-    public static final int DIRECTION_LIGHT = 3;
-    public static final int SIGNAL_LIGHT_A = 4;
-    public static final int SIGNAL_LIGHT_B = 5;
+    public static final int CAMERA_AND_DIRECTION_RELAY_CHANNEL = 2;
+    public static final int SIGNAL_LIGHT_RELAY_CHANNEL = 3;
     
     /* Solenoid */
     public static final int CLIMBER_SOLENOID_CHANNEL = 3;
