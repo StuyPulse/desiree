@@ -52,7 +52,7 @@ public class Climber {
     }
     
     public void withdraw() {
-        deployer.set(true);
+        deployer.set(false);
     }
     
 }
