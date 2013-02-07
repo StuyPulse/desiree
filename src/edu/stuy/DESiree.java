@@ -4,7 +4,6 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package edu.stuy;
 
 import edu.stuy.subsystems.*;
@@ -20,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class DESiree extends IterativeRobot {
+
     Drivetrain drivetrain;
     Acquirer acquirer;
     Conveyor conveyor;
@@ -27,7 +27,6 @@ public class DESiree extends IterativeRobot {
     Shooter shooter;
     Tilter tilter;
     Climber climber;
-    
     Gamepad driverPad;
     Gamepad operatorPad;
 
@@ -47,16 +46,14 @@ public class DESiree extends IterativeRobot {
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
     }
-    
+
     public void autonomousInit() {
- 
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    
     }
 
     /**
@@ -65,13 +62,15 @@ public class DESiree extends IterativeRobot {
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
         tilter.manualTilterControl(operatorPad);
+        conveyor.manualConveyorControl(driverPad);
+        acquirer.manualAcquirerControl(driverPad);
+        shooter.manualShooterControl(driverPad);
+        
     }
-    
+
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-        
     }
-    
 }

@@ -7,6 +7,7 @@ package edu.stuy.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.stuy.Constants;
+import edu.stuy.util.Gamepad;
 
 /**
  *
@@ -66,7 +67,19 @@ public class Conveyor {
         else {
             stop();
         }               
-    } 
+    }
+    
+    public void manualConveyorControl(Gamepad gamepad) {
+        if(gamepad.getTopButton()){
+            convey();
+        }
+        else if(gamepad.getBottomButton()){
+            reverseConvey();
+        }
+        else {
+            stop();
+        }
+    }
     
 }
 

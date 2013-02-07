@@ -27,9 +27,6 @@ public class Constants {
     public static final int CAMERA_AND_DIRECTION_RELAY_CHANNEL = 2;
     public static final int SIGNAL_LIGHT_RELAY_CHANNEL = 3;
     
-    /* Solenoid */
-    public static final int CLIMBER_SOLENOID_CHANNEL = 3;
-    
     /* GPIO */
     public static final int DRIVE_ENCODER_LEFT_A = 1;
     public static final int DRIVE_ENCODER_LEFT_B = 2;

@@ -66,7 +66,7 @@ public class Autonomous {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(-240);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(240);
@@ -80,7 +80,7 @@ public class Autonomous {
     public static void auton2() {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(-240);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(240);
@@ -95,7 +95,7 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().forwardInchesRough(-85);
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(85);
         Shooter.getInstance().shoot();
     }
@@ -107,7 +107,7 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().forwardInchesRough(-85);
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(85);
         Shooter.getInstance().shoot();     
     }
@@ -136,7 +136,7 @@ public class Autonomous {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(-240);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(240);
@@ -151,7 +151,7 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().forwardInchesRough(-240);
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(85);
         Shooter.getInstance().shoot();
     }
@@ -178,8 +178,8 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().forwardInchesRough(-108);
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(108);
-        Acquirer.getInstance().Acquire();
+        Acquirer.getInstance().acquire();
     }
 }

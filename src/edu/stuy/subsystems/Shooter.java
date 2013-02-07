@@ -5,7 +5,9 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.Victor;
+
 
 /**
  *
@@ -41,6 +43,15 @@ public class Shooter {
     
     public void stop() {
         shooter.set(0);
+    }
+    
+    public void manualShooterControl(Gamepad gamepad) {
+        if(gamepad.getRightTrigger()) {
+            shoot();
+        }
+        else {
+            stop();
+        }
     }
     
 }
