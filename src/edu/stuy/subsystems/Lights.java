@@ -5,24 +5,36 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Relay;
 
 /**
- *
+ * run this in both tele and auton
+ * flash when disc is picked up from ground or feeder
+ * flash on color to signal human player for feed white discs as we approach
+ * flash different color for colored discs
+ * flash pickup frequency with shooting (please clarify)
  * @author Arfan
  */
 public class Lights {
-    
     private static Lights instance;
-    private Relay cameraLight;
-    private Relay whiteSignal;
-    private Relay colorSignal;
+    
+    /**
+     * Lights must be wired as follows:
+     * M+: Camera light
+     * M-: Direction light
+     */
+    private Relay cameraAndDirectionLightRelay;
+    
+    /**
+     * Lights must be wired as follows:
+     * M+: White signal light
+     * M-: Colored signal light
+     */
+    private Relay signalLightRelay;
     
     private Lights() {
-        cameraLight = new Relay(Constants.CAMERA_LIGHT);
-        whiteSignal = new Relay(Constants.SIGNAL_LIGHT_A);
-        colorSignal = new Relay(Constants.SIGNAL_LIGHT_B);
+        cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
+        signalLightRelay = new Relay(Constants.SIGNAL_LIGHT_RELAY_CHANNEL);
     }
     
     public static Lights getInstance() {
@@ -32,44 +44,83 @@ public class Lights {
         return instance;
     }
     
-    public Relay getCameraLight() {
-        return cameraLight;
+    public void setCameraLight(boolean on) {
+        Relay.Value currentVal = cameraAndDirectionLightRelay.get();
+        if (on) { // Turn camera light on
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Direction light is off
+                cameraAndDirectionLightRelay.set(Relay.Value.kForward);
+            }
+            else { // Direction light is on
+                cameraAndDirectionLightRelay.set(Relay.Value.kOn);
+            }
+        }
+        else { // Turn camera light off
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Direction light is off
+                cameraAndDirectionLightRelay.set(Relay.Value.kOff);
+            }
+            else { // Direction light is on
+                cameraAndDirectionLightRelay.set(Relay.Value.kReverse);
+            }
+        }
     }
     
-    public Relay signalWhiteLight() {
-        return whiteSignal;
+    public void setDirectionLight(boolean on) {
+        Relay.Value currentVal = cameraAndDirectionLightRelay.get();
+        if (on) { // Turn direction light on
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // Camera light is off
+                cameraAndDirectionLightRelay.set(Relay.Value.kReverse);
+            }
+            else { // Camera light is on
+                cameraAndDirectionLightRelay.set(Relay.Value.kOn);
+            }
+        }
+        else { // Turn direction light off
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // Camera light is off
+                cameraAndDirectionLightRelay.set(Relay.Value.kOff);
+            }
+            else { // Camera light is on
+                cameraAndDirectionLightRelay.set(Relay.Value.kForward);
+            }
+        }
     }
     
-    public Relay signalColorLight() {
-        return colorSignal;
+    public void setWhiteSignalLight(boolean on) {
+        Relay.Value currentVal = signalLightRelay.get();
+        if (on) { // Turn white light on
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Colored light is off
+                signalLightRelay.set(Relay.Value.kForward);
+            }
+            else { // Colored light is on
+                signalLightRelay.set(Relay.Value.kOn);
+            }
+        }
+        else { // Turn white light off
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Colored light is off
+                signalLightRelay.set(Relay.Value.kOff);
+            }
+            else { // Colored light is on
+                signalLightRelay.set(Relay.Value.kReverse);
+            }
+        }
     }
     
-    public void enableCameraLight(boolean on) {
-        if(on)
-            cameraLight.set(Relay.Value.kOn);
-        else
-            cameraLight.set(Relay.Value.kOff);
+    public void setColoredSignalLight(boolean on) {
+        Relay.Value currentVal = signalLightRelay.get();
+        if (on) { // Turn colored light on
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // White light is off
+                signalLightRelay.set(Relay.Value.kReverse);
+            }
+            else { // White light is on
+                signalLightRelay.set(Relay.Value.kOn);
+            }
+        }
+        else { // Turn colored light off
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // White light is off
+                signalLightRelay.set(Relay.Value.kOff);
+            }
+            else { // White light is on
+                signalLightRelay.set(Relay.Value.kForward);
+            }
+        }
     }
-    
-    public void enableWhiteLight(boolean on) {
-        if(on)
-            whiteSignal.set(Relay.Value.kOn);
-        else
-            whiteSignal.set(Relay.Value.kOff);
-    }
-    
-    public void enableColorLight(boolean on) {
-        if(on)
-            colorSignal.set(Relay.Value.kOn);
-        else
-            colorSignal.set(Relay.Value.kOff);
-    }
-    
-    /*
-     * run this in both tele and auton
-     * flash when disc is picked up from ground or feeder
-     * flash on color to signal human player for feed white discs as we approach
-     * flash different color for colored discs
-     * flash pickup frequency with shooting
-     */
 }
