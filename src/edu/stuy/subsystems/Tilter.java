@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
@@ -35,6 +36,15 @@ public class Tilter {
             instance = new Tilter();
         }
         return instance;
+    }
+    
+    public void manualTilterControl(Gamepad gamepad) {
+        if(gamepad.getLeftBumper())
+            tiltUp();
+        else if(gamepad.getLeftTrigger())
+            tiltDown();
+        else
+            stop();
     }
     
     public void tiltUp() {
