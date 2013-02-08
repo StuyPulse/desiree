@@ -5,7 +5,7 @@
 package edu.stuy.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 
@@ -16,7 +16,7 @@ import edu.stuy.util.Gamepad;
 public class Conveyor {
     
     private static Conveyor instance;
-    private Talon roller;
+    private Victor roller;
     private DigitalInput upperSensor;
     private DigitalInput lowerSensor;
     
@@ -27,7 +27,7 @@ public class Conveyor {
     }
     
     private Conveyor() {
-        roller = new Talon(Constants.CONVEYOR_CHANNEL);
+        roller = new Victor(Constants.CONVEYOR_CHANNEL);
         upperSensor = new DigitalInput(Constants.UPPER_CONVEYOR_SENSOR);
         lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
     }

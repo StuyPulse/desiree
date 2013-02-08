@@ -7,7 +7,7 @@ package edu.stuy.subsystems;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.Talon;
 public class Climber {
     
     private static Climber instance;
-    private Talon wench;
+    private Victor wench;
     private Solenoid deployer;
     private Solenoid withdrawer;
     
@@ -28,7 +28,7 @@ public class Climber {
     }
     
     private Climber() {
-        wench = new Talon(Constants.WENCH_CHANNEL);
+        wench = new Victor(Constants.WENCH_CHANNEL);
         deployer = new Solenoid(Constants.SHOOTER_PLUNGER_OUT);
         withdrawer = new Solenoid(Constants.SHOOTER_PLUNGER_IN);
     }

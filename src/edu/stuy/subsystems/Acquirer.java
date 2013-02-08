@@ -6,7 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.Talon;
 public class Acquirer {
 
     private static Acquirer instance;
-    private Talon acquirer;
+    private Victor acquirer;
 
     private Acquirer() {
-        acquirer = new Talon(Constants.ACQUIRER_CHANNEL);
+        acquirer = new Victor(Constants.ACQUIRER_CHANNEL);
     }
 
     public static Acquirer getInstance() {
