@@ -39,7 +39,7 @@ public class Constants {
     public static final int PRESSURE_SWITCH_CHANNEL = 11;
     
     /* I2C */
-    public static final int ACCELEROMETER_CHANNEL = 2;
+    public static final int ACCELEROMETER_CHANNEL = 1;
      
     /* ANALOG INPUTS */
     public static final int GYRO_CHANNEL = 1;

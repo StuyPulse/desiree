@@ -64,8 +64,8 @@ public class DESiree extends IterativeRobot {
         tilter.manualTilterControl(operatorPad);
         conveyor.manualConveyorControl(driverPad);
         acquirer.manualAcquirerControl(driverPad);
-        shooter.manualShooterControl(driverPad);
-        
+        shooter.manualShooterControl(operatorPad);
+        climber.manualClimberControl(operatorPad);
     }
 
     /**
