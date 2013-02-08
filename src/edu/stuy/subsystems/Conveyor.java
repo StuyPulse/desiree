@@ -81,5 +81,9 @@ public class Conveyor {
         }
     }
     
+    public void useLights() {
+        
+    }
+    
 }
 
