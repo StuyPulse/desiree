@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * run this in both tele and auton
@@ -31,10 +32,16 @@ public class Lights {
      * M-: Colored signal light
      */
     private Relay signalLightRelay;
+    private int WHITE_FLASH_FREQUENCY = 7;
+    private int COLORED_FLASH_FREQUENCY = 7;
+    private double lastTime = 0;
+    private boolean isWhiteOn, isRedOn;
     
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
         signalLightRelay = new Relay(Constants.SIGNAL_LIGHT_RELAY_CHANNEL);
+        isWhiteOn = false;
+        isRedOn = false;
     }
     
     public static Lights getInstance() {
@@ -93,6 +100,7 @@ public class Lights {
             else { // Colored light is on
                 signalLightRelay.set(Relay.Value.kOn);
             }
+            isWhiteOn = true;
         }
         else { // Turn white light off
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Colored light is off
@@ -101,6 +109,7 @@ public class Lights {
             else { // Colored light is on
                 signalLightRelay.set(Relay.Value.kReverse);
             }
+            isWhiteOn = false;
         }
     }
     
@@ -113,6 +122,7 @@ public class Lights {
             else { // White light is on
                 signalLightRelay.set(Relay.Value.kOn);
             }
+            isRedOn = true;
         }
         else { // Turn colored light off
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // White light is off
@@ -121,6 +131,40 @@ public class Lights {
             else { // White light is on
                 signalLightRelay.set(Relay.Value.kForward);
             }
+            isRedOn = false;
         }
     }
+    
+    public void flashWhiteSignalLight() {
+        double time = Timer.getFPGATimestamp();
+        if (Conveyor.getInstance().isBottomDiscDetected()) {
+            if (time - lastTime > (1.0 / WHITE_FLASH_FREQUENCY)) {
+                setWhiteSignalLight(!isWhiteOn);
+                time = lastTime;
+            }
+        }
+        else if (Conveyor.getInstance().isTopDiscDetected()) {
+            setWhiteSignalLight(true);
+        }
+        else {
+            setWhiteSignalLight(false);
+        }
+    }
+    
+    public void flashColoredSignalLight() {
+        double time = Timer.getFPGATimestamp();
+        if (Conveyor.getInstance().isBottomDiscDetected()) {
+            if (time - lastTime > (1.0 / COLORED_FLASH_FREQUENCY)) {
+                setColoredSignalLight(!isRedOn);
+                time = lastTime;
+            }
+        }
+        else if (Conveyor.getInstance().isTopDiscDetected()) {
+            setColoredSignalLight(true);
+        }
+        else {
+            setColoredSignalLight(false);
+        }
+    }
+    
 }
