@@ -143,7 +143,7 @@ public class Lights {
                 time = lastTime;
             }
         }
-        else if (Conveyor.getInstance().isTopDiscDetected()) {
+        else if (Conveyor.getInstance().isHopperFull()) {
             setWhiteSignalLight(true);
         }
         else {
@@ -159,7 +159,7 @@ public class Lights {
                 time = lastTime;
             }
         }
-        else if (Conveyor.getInstance().isTopDiscDetected()) {
+        else if (Conveyor.getInstance().isHopperFull()) {
             setColoredSignalLight(true);
         }
         else {
