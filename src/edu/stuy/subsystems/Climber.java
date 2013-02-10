@@ -69,6 +69,15 @@ public class Climber {
         else {
             stopWench();
         }
-    } 
+    }
+    
+    public void manualDeployerControl(Gamepad gamepad) {
+        if(gamepad.getLeftTrigger()) {
+            deploy();
+        }
+        else if(gamepad.getLeftBumper()) {
+            withdraw();
+        }
+    }
     
 }

@@ -61,6 +61,12 @@ public class DESiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
+        // Lights code to be removed for finished robot
+        lights.setColoredSignalLight(driverPad.getLeftButton());
+        lights.setWhiteSignalLight(driverPad.getRightButton());
+        lights.setCameraLight(driverPad.getTopButton());
+        lights.setDirectionLight(driverPad.getBottomButton());
+        
         tilter.manualTilterControl(operatorPad);
         conveyor.manualConveyorControl(operatorPad);
         acquirer.manualAcquirerControl(operatorPad);
