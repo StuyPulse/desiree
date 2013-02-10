@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  *
@@ -22,7 +21,7 @@ public class Tilter {
     private ADXL345_I2C accel;
     private Encoder enc;
     private double initialLeadLength;
-    private NetworkTable cameraTable;
+    private NetworkIO net;
 
     
     private Tilter() {
@@ -32,7 +31,7 @@ public class Tilter {
         initialLeadLength = getInitialLeadscrewLength();
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
-        cameraTable = NetworkTable.getTable("camera"); // get the networktable for the camera.
+        net = new NetworkIO();
     }
     
     public static Tilter getInstance() {
@@ -55,7 +54,7 @@ public class Tilter {
     }
 
     public double getCVRelativeAngle () {
-        double relativeAngle = cameraTable.getNumber("dAngle", 0.0);
+        double relativeAngle = net.getCurrent();
         return relativeAngle;
     }
     
