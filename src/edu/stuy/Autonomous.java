@@ -71,7 +71,6 @@ public class Autonomous {
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(240);
         Shooter.getInstance().shoot();
-        
     }
     
     /**
@@ -177,9 +176,9 @@ public class Autonomous {
     public static void auton11() {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
-        Drivetrain.getInstance().forwardInchesRough(-108);
+        Drivetrain.getInstance().forwardInchesRough(-Constants.LINE_TO_PYRAMID);
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(108);
+        Drivetrain.getInstance().forwardInchesRough(Constants.LINE_TO_PYRAMID);
         Acquirer.getInstance().acquire();
     }
 }

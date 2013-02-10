@@ -57,7 +57,7 @@ public class Constants {
     public static final double DVAL_D = .01;
     
     private static final double ENCODER_PULSE_PER_REV = 360; // From encoder
-    private static final double GEAR_RATIO = 42/39; // Wheels turn 39 times every time gear turns 42
+    private static final double GEAR_RATIO = 42.0 / 39.0; // Wheels turn 39 times every time gear turns 42
     private static final double WHEEL_RADIUS = 2.0; // inches of the wheel radius
     public static final double ENCODER_DISTANCE_PER_PULSE = 1 / (ENCODER_PULSE_PER_REV * GEAR_RATIO / ( 2 * Math.PI * WHEEL_RADIUS));
     
@@ -67,6 +67,14 @@ public class Constants {
     public static final double LEADSCREW_HEIGHT = 5;
     public static final double TILTER_INCHES_PER_REV = 0.1;
     public static final double TILTER_DISTANCE_PER_PULSE = TILTER_INCHES_PER_REV / ENCODER_PULSE_PER_REV;
+    
+    public static final double PVAL_T = 0.0;
+    public static final double IVAL_T = 0.0;
+    public static final double DVAL_T = 0.0;
+    
+    /* AUTONOMOUS DISTANCES */
+    public static final double LINE_TO_PYRAMID = 108;
+    public static final double PYRAMID_BASE_LENGTH = 94;
     
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};

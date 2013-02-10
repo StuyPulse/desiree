@@ -143,7 +143,7 @@ public class Drivetrain {
         return encoderRight.getDistance();
     }
 
-    public void forwardInchesRough(int inches) {
+    public void forwardInchesRough(double inches) {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
