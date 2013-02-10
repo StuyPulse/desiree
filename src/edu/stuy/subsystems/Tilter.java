@@ -9,12 +9,15 @@ import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
  *
  * @author kevin
  */
+
+
 public class Tilter {
     private static Tilter instance;
     private Talon tilter;
@@ -39,15 +42,11 @@ public class Tilter {
     }
     
     public void manualTilterControl(Gamepad gamepad) {
-        if(gamepad.getDPadY() > 0) {
-            tiltUp();
-        }
-        else if(gamepad.getDPadY() < 0) {
-            tiltDown();
-        }
-        else {
-            stop();
-        }
+        tilter.set(gamepad.getRightY());
+    }
+    
+    private void tilt(double speed){
+        tilter.set(speed);
     }
     
     public void tiltUp() {
