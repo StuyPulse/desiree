@@ -52,6 +52,8 @@ public class Autonomous {
             case 11:
                 auton11();
                 break;
+            default:
+                break;
         }
     }
     
