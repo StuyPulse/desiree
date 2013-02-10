@@ -22,6 +22,7 @@ public class Constants {
     public static final int TILTER_CHANNEL = 8;
     public static final int CONVEYOR_CHANNEL = 9;
     public static final int WENCH_CHANNEL = 10;
+    public static final int SHOOTER_SERVO_CHANNEL = 11;
    
     /* RELAY OUTPUTS */
     public static final int COMPRESSOR_RELAY_CHANNEL = 1;
@@ -45,7 +46,7 @@ public class Constants {
     /* ANALOG INPUTS */
     public static final int GYRO_CHANNEL = 1;
     
-    /* SOLDENOID */
+    /* SOLENOID */
     public static final int SHOOTER_PLUNGER_OUT = 1;
     public static final int SHOOTER_PLUNGER_IN = 2;
     
