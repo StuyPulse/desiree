@@ -77,14 +77,14 @@ public class Shooter {
     }
     
     public void manualShooterControl(Gamepad gamepad) {
-        if(gamepad.getRightTrigger()) {
-            shoot();
-        }
-        else if(gamepad.getLeftTrigger()) {
+        if(gamepad.getLeftTrigger()) {
             shootReverse();
         }
         else {
-            stop();
+            shoot();
+            if(gamepad.getBottomButton()) {
+                fire();
+            }
         }
     }
     
