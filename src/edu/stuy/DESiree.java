@@ -67,6 +67,8 @@ public class DESiree extends IterativeRobot {
         lights.setCameraLight(driverPad.getTopButton());
         lights.setDirectionLight(driverPad.getBottomButton());
         
+        conveyor.conveyAutomatic();
+        
         tilter.manualTilterControl(operatorPad);
         conveyor.manualConveyorControl(operatorPad);
         acquirer.manualAcquirerControl(operatorPad);
