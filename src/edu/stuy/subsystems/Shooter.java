@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 
 
@@ -17,9 +18,11 @@ public class Shooter {
 
     private static Shooter instance;
     private Victor shooter;
+    private DigitalInput hopperSensor;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
+        hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
     }
     
     public static Shooter getInstance() {
@@ -43,6 +46,14 @@ public class Shooter {
     
     public void stop() {
         shooter.set(0);
+    }
+    
+    public boolean isHopperFull() {
+        return hopperSensor.get();
+    }
+    
+    public void fire() {
+        
     }
     
     public void manualShooterControl(Gamepad gamepad) {

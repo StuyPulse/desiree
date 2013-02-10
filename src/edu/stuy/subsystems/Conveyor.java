@@ -17,7 +17,6 @@ public class Conveyor {
     
     private static Conveyor instance;
     private Victor roller;
-    private DigitalInput hopperSensor;
     private DigitalInput lowerSensor;
     
     public static Conveyor getInstance() {
@@ -28,7 +27,6 @@ public class Conveyor {
     
     private Conveyor() {
         roller = new Victor(Constants.CONVEYOR_CHANNEL);
-        hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
         lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
     }
     
@@ -50,10 +48,6 @@ public class Conveyor {
     
     public boolean isBottomDiscDetected() {
         return lowerSensor.get();
-    }
-    
-    public boolean isHopperFull() {
-        return hopperSensor.get();
     }
     
     public double getRoller() {
@@ -81,8 +75,11 @@ public class Conveyor {
         }
     }
     
-    public void useLights() {
-        
+    public void setLightsOn() {
+        if (isBottomDiscDetected()) {
+            Lights.getInstance().setWhiteSignalLight(true);
+            Lights.getInstance().setColoredSignalLight(true);   
+        }
     }
     
 }
