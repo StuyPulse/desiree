@@ -86,11 +86,8 @@ public class Conveyor {
             Acquirer.getInstance().acquire();
             conveyAutomatic();
         }
-        else if(gamepad.getLeftTrigger()){
+        else if(gamepad.getLeftAnalogButton()){
             convey();
-        }
-        else if(gamepad.getLeftBumper()){
-            reverseConvey();
         }
         else {
             stop();

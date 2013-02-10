@@ -54,10 +54,16 @@ public class Acquirer {
 
     public void manualAcquirerControl(Gamepad gamepad) {
         if (gamepad.getLeftTrigger()) {
-            acquire();
-        } else if (gamepad.getLeftBumper()) {
             acquireReverse();
-        } else {
+        } 
+        else if (gamepad.getLeftBumper()) {
+            acquire();
+        } 
+        else if (gamepad.getRightTrigger()) {
+            Conveyor.getInstance().conveyAutomatic();
+            acquire();
+        }
+        else {
             stop();
         }
 
