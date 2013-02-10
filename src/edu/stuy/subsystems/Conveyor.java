@@ -80,10 +80,14 @@ public class Conveyor {
     }
     
     public void manualConveyorControl(Gamepad gamepad) {
-        if(gamepad.getTopButton()){
+        if(gamepad.getRightTrigger()) {
+            Acquirer.getInstance().acquire();
+            conveyAutomatic();
+        }
+        else if(gamepad.getLeftTrigger()){
             convey();
         }
-        else if(gamepad.getBottomButton()){
+        else if(gamepad.getLeftBumper()){
             reverseConvey();
         }
         else {

@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -59,11 +60,11 @@ public class Climber {
         withdrawer.set(true);
     }
     
-    public void manualClimberControl(Gamepad gamepad) {
-        if(gamepad.getLeftButton()) {
+    public void manualClimberControl(Joystick stick) {
+        if(stick.getRawButton(1)) {
             forwardWench();
         }
-        else if(gamepad.getRightButton()) {
+        else if(stick.getRawButton(1)) {
             reverseWench();
         }
         else {
@@ -71,11 +72,11 @@ public class Climber {
         }
     }
     
-    public void manualDeployerControl(Gamepad gamepad) {
-        if(gamepad.getLeftTrigger()) {
+    public void manualDeployerControl(Joystick stick) {
+        if(stick.getRawButton(1)) {
             deploy();
         }
-        else if(gamepad.getLeftBumper()) {
+        else if(stick.getRawButton(1)) {
             withdraw();
         }
     }

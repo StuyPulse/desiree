@@ -5,6 +5,7 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -167,4 +168,18 @@ public class Lights {
         }
     }
     
+    public void manualLightsControl(Gamepad gamepad) {
+        if(gamepad.getLeftButton()) {
+            flashWhiteSignalLight();
+        }
+        else {
+            setWhiteSignalLight(false);
+        }
+        if(gamepad.getRightButton()) {
+            flashColoredSignalLight();
+        }
+        else {
+            setColoredSignalLight(false);
+        }
+    }
 }

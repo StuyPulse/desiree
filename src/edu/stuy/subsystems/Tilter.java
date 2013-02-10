@@ -53,7 +53,7 @@ public class Tilter {
     }
     
     public void manualTilterControl(Gamepad gamepad) {
-        tilter.set(gamepad.getRightY());
+        tilter.set(gamepad.getLeftY());
     }
     
     private void tilt(double speed){
