@@ -53,9 +53,9 @@ public class Acquirer {
     }
 
     public void manualAcquirerControl(Gamepad gamepad) {
-        if (gamepad.getTopButton()) {
+        if (gamepad.getRightBumper()) {
             acquire();
-        } else if (gamepad.getBottomButton()) {
+        } else if (gamepad.getLeftBumper()) {
             acquireReverse();
         } else {
             stop();

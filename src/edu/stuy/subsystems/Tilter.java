@@ -39,10 +39,10 @@ public class Tilter {
     }
     
     public void manualTilterControl(Gamepad gamepad) {
-        if(gamepad.getLeftBumper()) {
+        if(gamepad.getDPadY() > 0) {
             tiltUp();
         }
-        else if(gamepad.getLeftTrigger()) {
+        else if(gamepad.getDPadY() < 0) {
             tiltDown();
         }
         else {

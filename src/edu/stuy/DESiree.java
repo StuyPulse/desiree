@@ -62,8 +62,8 @@ public class DESiree extends IterativeRobot {
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
         tilter.manualTilterControl(operatorPad);
-        conveyor.manualConveyorControl(driverPad);
-        acquirer.manualAcquirerControl(driverPad);
+        conveyor.manualConveyorControl(operatorPad);
+        acquirer.manualAcquirerControl(operatorPad);
         shooter.manualShooterControl(operatorPad);
         climber.manualClimberControl(operatorPad);
     }

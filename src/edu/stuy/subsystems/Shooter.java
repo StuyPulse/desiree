@@ -49,7 +49,7 @@ public class Shooter {
         if(gamepad.getRightTrigger()) {
             shoot();
         }
-        else if(gamepad.getRightBumper()) {
+        else if(gamepad.getLeftTrigger()) {
             shootReverse();
         }
         else {
