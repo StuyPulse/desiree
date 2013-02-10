@@ -61,7 +61,7 @@ public class DESiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
-        
+
         if(driverPad.getLeftTrigger()) {
             lights.flashWhiteSignalLight();
         }
@@ -76,6 +76,10 @@ public class DESiree extends IterativeRobot {
         acquirer.manualAcquirerControl(operatorPad);
         shooter.manualShooterControl(operatorPad);
         climber.manualClimberControl(operatorPad);
+        
+        SmartDashboard.putNumber("Gyro angle:", drivetrain.getAngle());
+        SmartDashboard.putNumber("Accel angle Instant:", tilter.getInstantAngle());
+        SmartDashboard.putNumber("Accel angle Average:", tilter.getAbsoluteAngle());
     }
 
     /**

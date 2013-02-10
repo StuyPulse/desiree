@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
+
 
 /**
  *
@@ -25,9 +29,16 @@ public class Tilter {
     private Encoder enc;
     private double initialLeadLength;
     
+    private Vector accelMeasurements;
+    private Timer updateMeasurements;
+    private final int ACCEL_MEASUREMENT_SIZE = 10; //Number of measurements to average
+    private final int ACCEL_UPDATE_PERIOD = 10; //Time between measurements. DO NOT USE ANY VALUE LESS THAN 10.
+    
     private Tilter() {
         tilter = new Talon(Constants.TILTER_CHANNEL);
-        accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k16G);
+        accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
+        accelMeasurements = new Vector();
+        start();
         enc = new Encoder(Constants.TILT_ENCODER_A,Constants.TILT_ENCODER_B);
         initialLeadLength = getInitialLeadscrewLength();
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
@@ -61,6 +72,34 @@ public class Tilter {
         tilter.set(0);
     }
     
+     /**
+     * Starts the update thread.
+     */
+    public void start() {
+        accelStop();
+        updateMeasurements = new Timer();
+        updateMeasurements.schedule(new TimerTask() {
+            public void run() {
+                synchronized (accelMeasurements) {
+                    accelMeasurements.addElement(new Double(getInstantAngle()));
+                    if (accelMeasurements.size() > ACCEL_MEASUREMENT_SIZE) {
+                        accelMeasurements.removeElementAt(0);
+                    }
+                }
+            }
+        }, 0, ACCEL_UPDATE_PERIOD);
+    }
+    
+    public void accelStop() {
+        if (updateMeasurements != null) {
+            updateMeasurements.cancel();
+        }
+    }
+    
+    public void reset() {
+        accelMeasurements.removeAllElements();
+    }
+    
     public double getXAcceleration() {
         return accel.getAcceleration(ADXL345_I2C.Axes.kX);
     }
@@ -73,7 +112,22 @@ public class Tilter {
         return accel.getAcceleration(ADXL345_I2C.Axes.kZ);
     }
     
+    /* Gets the angle from the measurements of the last 10 accelerations */
     public double getAbsoluteAngle() {
+        if (accelMeasurements.isEmpty()) {
+            return 0;
+        }
+        double sum = 0;
+        synchronized (accelMeasurements) {
+            for (int i = 0; i < accelMeasurements.size(); i++) {
+                sum += ((Double) accelMeasurements.elementAt(i)).doubleValue();
+            }
+            return sum / accelMeasurements.size();
+        }
+    }
+    
+    /* Gets instantaneous angle */
+    public double getInstantAngle() {
         return MathUtils.atan(getYAcceleration() / getZAcceleration()) * 180.0 / Math.PI;
     }
     

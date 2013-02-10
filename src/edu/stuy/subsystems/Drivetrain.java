@@ -107,11 +107,7 @@ public class Drivetrain {
     public void gyroReset() {
         gyro.reset();
     }
-
-    public void putAngle() {
-        SmartDashboard.putNumber("Gyro angle:", gyro.getAngle());
-    }
-
+    
     public void stopCompressor() {
         compressor.stop();
     }
