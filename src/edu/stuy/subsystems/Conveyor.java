@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -18,6 +19,8 @@ public class Conveyor {
     private static Conveyor instance;
     private Victor roller;
     private DigitalInput lowerSensor;
+    private double lastTime = 0.;
+    private boolean isConveying;
     
     public static Conveyor getInstance() {
         if (instance == null)
@@ -28,6 +31,7 @@ public class Conveyor {
     private Conveyor() {
         roller = new Victor(Constants.CONVEYOR_CHANNEL);
         lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
+        isConveying = false;
     }
     
     public void roll(double speed) {
@@ -36,14 +40,20 @@ public class Conveyor {
     
     public void convey() {
         roll(1);
+        isConveying = true;
     }
     
     public void reverseConvey() {
         roll(-1);
+        isConveying = false;
     }
     
     public void stop() {
         roll(0);
+        isConveying = false;
+    }
+    public boolean isConveying() {
+        return isConveying;
     }
     
     public boolean isBottomDiscDetected() {
@@ -55,12 +65,18 @@ public class Conveyor {
     }
     
     public void conveyAutomatic() {
+        double time = Timer.getFPGATimestamp();
         if (Acquirer.getInstance().isAcquiring() && (isBottomDiscDetected())) {
-            convey();
+            isConveying = true;
+            lastTime = 0.0;
         }
-        else {
+        if (isConveying()) {
+            convey();        
+        }
+        if (time - lastTime >= 1.0) {
             stop();
-        }               
+        }
+            
     }
     
     public void manualConveyorControl(Gamepad gamepad) {
