@@ -27,7 +27,7 @@ public class Shooter {
     private Servo fire;
     private double lastTime = 0.0;
     private boolean isShooting;
-    
+    private boolean hasSemiShot;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
@@ -36,6 +36,7 @@ public class Shooter {
         shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
         fire = new Servo(Constants.SHOOTER_SERVO_CHANNEL);
         isShooting = false;
+        hasSemiShot = false;
     }
     
     public static Shooter getInstance() {
@@ -97,8 +98,12 @@ public class Shooter {
         if(gamepad.getTopButton()) {
             fire();
         }
-        if(gamepad.getRightBumper()) {
+        if(gamepad.getRightBumper() && !hasSemiShot) {
             fire();
+            hasSemiShot = true;
+        }
+        if(!gamepad.getRightBumper()) {
+            hasSemiShot = false;
         }
     }
     
