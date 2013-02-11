@@ -17,7 +17,7 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 /**
- *
+ * 
  * @author kevin
  */
 
@@ -44,6 +44,16 @@ public class Tilter {
         initialLeadLength = getInitialLeadscrewLength();
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
+        forwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, enc, new PIDOutput() {
+            public void pidWrite(double output) {
+                tilter.pidWrite(output);
+            }
+        }); // period parameter optional since we are using the default 50ms anyway --> , 0.005);
+        backwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, enc, new PIDOutput() {
+            public void pidWrite(double output) {
+                tilter.pidWrite(-output);
+            }
+        }); // period parameter optional since we are using the default 50ms anyway --> , 0.005);
     }
     
     public static Tilter getInstance() {

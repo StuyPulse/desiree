@@ -18,8 +18,6 @@ public class Climber {
     
     private static Climber instance;
     private Victor wench;
-//    private Solenoid deployer;
-//    private Solenoid withdrawer;
     
     public static Climber getInstance() {
         if (instance == null) {
@@ -30,8 +28,6 @@ public class Climber {
     
     private Climber() {
         wench = new Victor(Constants.WENCH_CHANNEL);
-//        deployer = new Solenoid(Constants.SHOOTER_PLUNGER_OUT);
-//        withdrawer = new Solenoid(Constants.SHOOTER_PLUNGER_IN);
     }
     
     public void forwardWench() {
@@ -50,16 +46,6 @@ public class Climber {
         wench.set(val);
     }
     
-//    public void deploy() {
-//        deployer.set(true);
-//        withdrawer.set(false);
-//    }
-    
-//    public void withdraw() {
-//        deployer.set(false);
-//        withdrawer.set(true);
-//    }
-    
     public void manualClimberControl(Joystick stick) {
         if(stick.getRawButton(1)) {
             forwardWench();
@@ -71,14 +57,5 @@ public class Climber {
             stopWench();
         }
     }
-/**    
-    public void manualDeployerControl(Joystick stick) {
-        if(stick.getRawButton(1)) {
-            deploy();
-        }
-        else if(stick.getRawButton(1)) {
-            withdraw();
-        }
-    }
-*/    
+    
 }
