@@ -9,23 +9,24 @@ import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Talon;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
-
 
 /**
  *
  * @author kevin
  */
 
-
 public class Tilter {
     private static Tilter instance;
     private Talon tilter;
     private ADXL345_I2C accel;
+    private PIDController forwardController;
+    private PIDController backwardController;
     private Encoder enc;
     private double initialLeadLength;
     
