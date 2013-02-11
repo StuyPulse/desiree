@@ -26,6 +26,7 @@ public class Shooter {
     private Solenoid shooterOut;
     private Servo fire;
     private double lastTime = 0.0;
+    private boolean isShooting;
     
     
     private Shooter() {
@@ -34,6 +35,7 @@ public class Shooter {
         shooterIn = new Solenoid(Constants.SHOOTER_PLUNGER_IN);
         shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT);   
         fire = new Servo(Constants.SHOOTER_SERVO_CHANNEL);
+        isShooting = false;
     }
     
     public static Shooter getInstance() {
@@ -64,28 +66,39 @@ public class Shooter {
     }
     
     public void fire() {
-        double lastTime = Timer.getFPGATimestamp();
-        shooterIn.set(false); 
-        shooterOut.set(true);
-        try {
-            Thread.sleep(400);
-        } catch (InterruptedException e) {
-            System.err.println(e);
+        if(shooter.get() >= 0) {
+            double lastTime = Timer.getFPGATimestamp();
+            shooterIn.set(false);
+            shooterOut.set(true);
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                System.err.println(e);
+            }
+            shooterOut.set(false);
+            shooterIn.set(true);
         }
-        shooterOut.set(false);
-        shooterIn.set(true);
     }
     
     public void manualShooterControl(Gamepad gamepad) {
-        if(gamepad.getRightTrigger()) {
-            shoot();
-            fire();
+        if(gamepad.getDPadX() < 0) {
+            shootReverse();
         }
         else {
-            shoot();
-            if(gamepad.getBottomButton()) {
-                fire();
+            if (gamepad.getDPadX() > 0) {
+                isShooting = true;
             }
+            else if (gamepad.getDPadX() < 0) {
+                isShooting = false;
+            }
+            if(isShooting)
+                shoot();
+        }
+        if(gamepad.getTopButton()) {
+            fire();
+        }
+        if(gamepad.getRightBumper()) {
+            fire();
         }
     }
     
