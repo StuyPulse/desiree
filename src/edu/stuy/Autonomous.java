@@ -80,7 +80,7 @@ public class Autonomous {
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
         Shooter.getInstance().shoot();
-        // add 180 degree spin
+        Drivetrain.getInstance().spin180();
     }
     
     /*
@@ -98,7 +98,7 @@ public class Autonomous {
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
         Shooter.getInstance().shoot();
-        // add 180 degree spin
+        Drivetrain.getInstance().spin180();
     }
     
     /*

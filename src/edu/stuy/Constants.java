@@ -63,6 +63,8 @@ public class Constants {
     private static final double WHEEL_RADIUS = 2.0; // inches of the wheel radius
     public static final double ENCODER_DISTANCE_PER_PULSE = 1 / (ENCODER_PULSE_PER_REV * GEAR_RATIO / ( 2 * Math.PI * WHEEL_RADIUS));
     
+    public static final long SPIN_TIME = 500; //Time to spin 180 in milliseconds
+    
     /* TILTER CONSTANTS */
     public static final double DISTANCE_TO_LEADSCREW_BASE = 10.;
     public static final double SHOOTER_DISTANCE_TO_LEADSCREW = 16.;

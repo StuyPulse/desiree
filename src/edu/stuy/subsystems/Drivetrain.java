@@ -160,4 +160,14 @@ public class Drivetrain {
     public double getAvgDistance() {
         return (getLeftEnc() + getRightEnc()) / 2.0;
     }
+    
+    public void spin180() {
+        tankDrive(-1,1);
+        try {
+            Thread.sleep(Constants.SPIN_TIME);
+        }
+        catch (InterruptedException e) {
+            System.err.println(e);
+        }          
+    }
 }

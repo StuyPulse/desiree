@@ -24,7 +24,6 @@ public class Shooter {
     private DigitalInput hopperSensor;
     private Solenoid shooterIn;
     private Solenoid shooterOut;
-    private Servo fire;
     private double lastTime = 0.0;
     
     
@@ -33,7 +32,6 @@ public class Shooter {
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
         shooterIn = new Solenoid(Constants.SHOOTER_PLUNGER_IN);
         shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT);   
-        fire = new Servo(Constants.SHOOTER_SERVO_CHANNEL);
     }
     
     public static Shooter getInstance() {
