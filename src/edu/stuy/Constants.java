@@ -19,10 +19,10 @@ public class Constants {
     public static final int DRIVETRAIN_RIGHT_CHANNEL = 2;
     public static final int ACQUIRER_CHANNEL = 5;
     public static final int SHOOTER_CHANNEL = 6;
+    public static final int SHOOTER_SERVO_CHANNEL = 7;
     public static final int TILTER_CHANNEL = 8;
     public static final int CONVEYOR_CHANNEL = 9;
     public static final int WENCH_CHANNEL = 10;
-    public static final int SHOOTER_SERVO_CHANNEL = 11;
    
     /* RELAY OUTPUTS */
     public static final int COMPRESSOR_RELAY_CHANNEL = 1;
@@ -47,8 +47,10 @@ public class Constants {
     public static final int GYRO_CHANNEL = 1;
     
     /* SOLENOID */
-    public static final int SHOOTER_PLUNGER_OUT = 1;
-    public static final int SHOOTER_PLUNGER_IN = 2;
+    public static final int SHOOTER_PLUNGER_OUT_CHANNEL = 1;
+    public static final int SHOOTER_PLUNGER_IN_CHANNEL = 2;
+    public static final int CLIMBER_DEPLOYER_CHANNEL = 3;
+    public static final int CLIMBER_WITHDRAWER_CHANNEL = 4;
     
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;

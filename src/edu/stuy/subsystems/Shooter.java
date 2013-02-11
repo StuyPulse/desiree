@@ -25,13 +25,16 @@ public class Shooter {
     private Solenoid shooterIn;
     private Solenoid shooterOut;
     private double lastTime = 0.0;
+    private boolean isShooting;
     
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
-        shooterIn = new Solenoid(Constants.SHOOTER_PLUNGER_IN);
-        shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT);   
+        shooterIn = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
+        shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
+        isShooting = false;
+
     }
     
     public static Shooter getInstance() {
@@ -62,28 +65,39 @@ public class Shooter {
     }
     
     public void fire() {
-        double lastTime = Timer.getFPGATimestamp();
-        shooterIn.set(false); 
-        shooterOut.set(true);
-        try {
-            Thread.sleep(400);
-        } catch (InterruptedException e) {
-            System.err.println(e);
+        if(shooter.get() >= 0) {
+            double lastTime = Timer.getFPGATimestamp();
+            shooterIn.set(false);
+            shooterOut.set(true);
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                System.err.println(e);
+            }
+            shooterOut.set(false);
+            shooterIn.set(true);
         }
-        shooterOut.set(false);
-        shooterIn.set(true);
     }
     
     public void manualShooterControl(Gamepad gamepad) {
-        if(gamepad.getRightTrigger()) {
-            shoot();
-            fire();
+        if(gamepad.getDPadX() < 0) {
+            shootReverse();
         }
         else {
-            shoot();
-            if(gamepad.getBottomButton()) {
-                fire();
+            if (gamepad.getDPadX() > 0) {
+                isShooting = true;
             }
+            else if (gamepad.getDPadX() < 0) {
+                isShooting = false;
+            }
+            if(isShooting)
+                shoot();
+        }
+        if(gamepad.getTopButton()) {
+            fire();
+        }
+        if(gamepad.getRightBumper()) {
+            fire();
         }
     }
     
