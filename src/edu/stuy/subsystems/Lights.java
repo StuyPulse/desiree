@@ -35,7 +35,8 @@ public class Lights {
     private Relay signalLightRelay;
     private int WHITE_FLASH_FREQUENCY = 7;
     private int COLORED_FLASH_FREQUENCY = 7;
-    private double lastTime = 0;
+    private double lastTimeWhite = 0;
+    private double lastTimeRed = 0;
     private boolean isWhiteOn, isRedOn;
     
     private Lights() {
@@ -138,33 +139,17 @@ public class Lights {
     
     public void flashWhiteSignalLight() {
         double time = Timer.getFPGATimestamp();
-        if (Conveyor.getInstance().isBottomDiscDetected()) {
-            if (time - lastTime > (1.0 / WHITE_FLASH_FREQUENCY)) {
-                setWhiteSignalLight(!isWhiteOn);
-                time = lastTime;
-            }
-        }
-        else if (Shooter.getInstance().isHopperFull()) {
-            setWhiteSignalLight(true);
-        }
-        else {
-            setWhiteSignalLight(false);
+        if (time - lastTimeWhite > (1.0 / WHITE_FLASH_FREQUENCY)) {
+            setWhiteSignalLight(!isWhiteOn);
+            lastTimeWhite = time;
         }
     }
     
     public void flashColoredSignalLight() {
         double time = Timer.getFPGATimestamp();
-        if (Conveyor.getInstance().isBottomDiscDetected()) {
-            if (time - lastTime > (1.0 / COLORED_FLASH_FREQUENCY)) {
-                setColoredSignalLight(!isRedOn);
-                time = lastTime;
-            }
-        }
-        else if (Shooter.getInstance().isHopperFull()) {
-            setColoredSignalLight(true);
-        }
-        else {
-            setColoredSignalLight(false);
+        if (time - lastTimeRed > (1.0 / COLORED_FLASH_FREQUENCY)) {
+            setColoredSignalLight(!isRedOn);
+            lastTimeRed = time;
         }
     }
     
@@ -183,4 +168,16 @@ public class Lights {
         }
     }
     
+    /**
+     * Go through all the logic for the lights.
+     * @param gamepad Gamepad to do manual lights control with
+     */
+    public void runLogic(Gamepad gamepad) {
+        if (false) { // Various cases for lights logic that are not manual control
+            
+        }
+        else { // Only control lights manually when they are not being controlled elsewhere
+            manualLightsControl(gamepad);
+        }
+    }
 }

@@ -67,7 +67,6 @@ public class Conveyor {
     public void conveyAutomatic() {
         double time = Timer.getFPGATimestamp();
         if (Acquirer.getInstance().isAcquiring() && isBottomDiscDetected()) {
-            Lights.getInstance().setWhiteSignalLight(true);
             isConveying = true;
             lastTime = time;
         }
@@ -76,7 +75,6 @@ public class Conveyor {
         }
         if (time - lastTime >= 1.0) {
             stop();
-            Lights.getInstance().setWhiteSignalLight(false);
             isConveying = false;
         }
             
@@ -90,13 +88,5 @@ public class Conveyor {
             conveyAutomatic();
         }
     }
-    
-    public void setLightsOn() {
-        if (isBottomDiscDetected()) {
-            Lights.getInstance().setWhiteSignalLight(true);
-            Lights.getInstance().setColoredSignalLight(true);   
-        }
-    }
-    
 }
 

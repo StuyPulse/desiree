@@ -70,8 +70,9 @@ public class DESiree extends IterativeRobot {
         tilter.manualTilterControl(operatorPad);
         acquirer.manualAcquirerControl(operatorPad);
         shooter.manualShooterControl(operatorPad);
-        lights.manualLightsControl(operatorPad);
         climber.manualClimberControl(climberStick);
+        
+        lights.runLogic(operatorPad);
         
         SmartDashboard.putNumber("Gyro angle:", drivetrain.getAngle());
         SmartDashboard.putNumber("Accel angle Instant:", tilter.getInstantAngle());
