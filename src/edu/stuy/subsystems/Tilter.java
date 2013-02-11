@@ -118,11 +118,16 @@ public class Tilter {
             return 0;
         }
         double sum = 0;
+        double min = ((Double) accelMeasurements.elementAt(0)).doubleValue();
+        double max = min;
         synchronized (accelMeasurements) {
             for (int i = 0; i < accelMeasurements.size(); i++) {
-                sum += ((Double) accelMeasurements.elementAt(i)).doubleValue();
+                double measure = ((Double) accelMeasurements.elementAt(i)).doubleValue();
+                sum += measure;
+                min = (min < measure) ? min : measure;
+                max = (max > measure) ? max : measure;
             }
-            return sum / accelMeasurements.size();
+            return (sum - min - max) / (accelMeasurements.size() - 2); //Removes the max and min values to get rid of any weird fluctuations
         }
     }
     

@@ -69,7 +69,7 @@ public class Conveyor {
         if (Acquirer.getInstance().isAcquiring() && isBottomDiscDetected()) {
             Lights.getInstance().setWhiteSignalLight(true);
             isConveying = true;
-            lastTime = 0.0;
+            lastTime = time;
         }
         if (isConveying()) {
             convey();        
@@ -77,6 +77,7 @@ public class Conveyor {
         if (time - lastTime >= 1.0) {
             stop();
             Lights.getInstance().setWhiteSignalLight(false);
+            isConveying = false;
         }
             
     }
@@ -86,11 +87,8 @@ public class Conveyor {
             Acquirer.getInstance().acquire();
             conveyAutomatic();
         }
-        else if(gamepad.getLeftTrigger()){
+        else if(gamepad.getLeftAnalogButton()){
             convey();
-        }
-        else if(gamepad.getLeftBumper()){
-            reverseConvey();
         }
         else {
             stop();
