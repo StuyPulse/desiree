@@ -32,8 +32,8 @@ public class Shooter {
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
-        shooterIn = new Solenoid(Constants.SHOOTER_PLUNGER_IN);
-        shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT);   
+        shooterIn = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
+        shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
         fire = new Servo(Constants.SHOOTER_SERVO_CHANNEL);
         isShooting = false;
     }

@@ -5,7 +5,6 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
-import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
@@ -18,8 +17,8 @@ public class Climber {
     
     private static Climber instance;
     private Victor wench;
-//    private Solenoid deployer;
-//    private Solenoid withdrawer;
+    private Solenoid deployer;
+    private Solenoid withdrawer;
     
     public static Climber getInstance() {
         if (instance == null) {
@@ -30,8 +29,8 @@ public class Climber {
     
     private Climber() {
         wench = new Victor(Constants.WENCH_CHANNEL);
-//        deployer = new Solenoid(Constants.SHOOTER_PLUNGER_OUT);
-//        withdrawer = new Solenoid(Constants.SHOOTER_PLUNGER_IN);
+        deployer = new Solenoid(Constants.CLIMBER_DEPLOYER_CHANNEL);
+        withdrawer = new Solenoid(Constants.CLIMBER_WITHDRAWER_CHANNEL);
     }
     
     public void forwardWench() {
