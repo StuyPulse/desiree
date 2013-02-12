@@ -12,6 +12,7 @@ public class NetworkIO{
     private String message;
     private double mostRecentOut;
     public NetworkIO(){
+        mostRecentOut = 694; // return a huge value by default, the caller better know this
         try {
             SocketConnection requestSocket = (SocketConnection) Connector.open("socket://" + HOST + ":" + PORT);
             requestSocket.setSocketOption(SocketConnection.LINGER, 5);
@@ -27,7 +28,6 @@ public class NetworkIO{
         try {
             
 
-            System.out.println("banana1");
             //ByteArrayOutputStream baos = new ByteArrayOutputStream();
             //byte[] netVal = new byte[128];
             //int curr = 0;
@@ -43,8 +43,7 @@ public class NetworkIO{
                 output = mostRecentOut;
             }
             message = "" + output;
-            System.out.println(message);
-            System.out.println("banana2");
+            //System.out.println(message);
             mostRecentOut = Double.parseDouble(message);
             //sendMessage("bye");
             //requestSocket.close();
