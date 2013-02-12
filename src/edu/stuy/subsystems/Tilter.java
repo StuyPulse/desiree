@@ -63,7 +63,12 @@ public class Tilter {
     }
     
     public void enableTilter() {
+        setTilterAngle(initialLeadLength);
         controller.enable();
+    }
+    
+    public void disableTilter() {
+        controller.disable();
     }
        
     public void setTilterAngle(double deltaAngle) {
