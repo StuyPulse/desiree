@@ -80,19 +80,24 @@ public class Shooter {
     }
     
     public void manualShooterControl(Gamepad gamepad) {
-        if(gamepad.getDPadLeft()) {
+        /* Shooting and stopping commands persist */
+        if (gamepad.getDPadRight()) {
+            isShooting = true;
+        }
+        else if (gamepad.getDPadLeft()) {
+            isShooting = false;
+        }
+        
+        if (gamepad.getDPadDown()) { // Reverse only when button is held
             shootReverse();
         }
-        else {
-            if (gamepad.getDPadRight()) {
-                isShooting = true;
-            }
-            else if (gamepad.getDPadLeft()) {
-                isShooting = false;
-            }
-            if(isShooting)
-                shoot();
+        else if (isShooting) {
+            shoot();
         }
+        else {
+            stop();
+        }
+        
         if(gamepad.getTopButton()) {
             fire();
         }
