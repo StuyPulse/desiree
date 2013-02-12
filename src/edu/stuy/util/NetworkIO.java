@@ -1,61 +1,64 @@
 package edu.stuy.util;
 
-import java.net.*;
+//import java.net.*;
+import javax.microedition.io.*;
 import java.io.*;
 public class NetworkIO{
     private static final int PORT = 6940;
-    private Socket requestSocket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    private static final String HOST = "10.6.95.242";
+    private SocketConnection requestSocket;
+    private DataOutputStream out;
+    private DataInputStream in;
     private String message;
     private double mostRecentOut;
-    public NetworkIO(){}
+    public NetworkIO(){
+        try {
+            SocketConnection requestSocket = (SocketConnection) Connector.open("socket://" + HOST + ":" + PORT);
+            requestSocket.setSocketOption(SocketConnection.LINGER, 5);
+            in = new DataInputStream(requestSocket.openInputStream());
+            out = new DataOutputStream(requestSocket.openOutputStream());
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void run()
     {
-        try{
-            //1. creating a socket to connect to the server
-            requestSocket = new Socket("localhost", PORT);
-            //2. get Input and Output streams
-            out = new ObjectOutputStream(requestSocket.getOutputStream());
-            out.flush();
-            in = new ObjectInputStream(requestSocket.getInputStream());
-            //3: Communicating with the server
-            do{
-                try{
-                    message = (String)in.readObject();
-                    mostRecentOut = Double.parseDouble(message);                //THIS IS WHERE 
-                    message = "bye";
-                    sendMessage(message);
-                }
-                catch(ClassNotFoundException classNot){
-                    System.err.println("data received in unknown format");
-                }
-            }while(!message.equals("bye"));
-        }
-        catch(UnknownHostException unknownHost){
-            System.err.println("You are trying to connect to an unknown host!");
-        }
-        catch(IOException ioException){
-            ioException.printStackTrace();
-        }
-        finally{
-            //4: Closing connection
-            try{
-                in.close();
-                out.close();
-                requestSocket.close();
+        try {
+            
+
+            System.out.println("banana1");
+            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //byte[] netVal = new byte[128];
+            //int curr = 0;
+            //while ((curr = in.read(netVal)) != -1){
+                //baos.write(netVal, 0, curr);
+            //}
+            //message = new String(baos.toByteArray());
+            double output;
+            if (in.available() > 0) {
+                output  = in.readDouble();
             }
-            catch(IOException ioException){
-                ioException.printStackTrace();
+            else {
+                output = mostRecentOut;
             }
+            message = "" + output;
+            System.out.println(message);
+            System.out.println("banana2");
+            mostRecentOut = Double.parseDouble(message);
+            //sendMessage("bye");
+            //requestSocket.close();
+            //in.close();
+            //out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     void sendMessage(String msg)
     {
         try{
-            out.writeObject(msg);
+            out.write(msg.getBytes());
             out.flush();
-            System.out.println("client>" + msg);
         }
         catch(IOException ioException){
             ioException.printStackTrace();
@@ -66,7 +69,7 @@ public class NetworkIO{
     }
     public double getCurrent()
     {
-        client.run();
-        return client.getMostRecent();
+        run();
+        return getMostRecent();
     }
 }
