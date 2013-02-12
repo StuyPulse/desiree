@@ -173,10 +173,15 @@ public class Lights {
      * @param gamepad Gamepad to do manual lights control with
      */
     public void runLogic(Gamepad gamepad) {
-        if (false) { // Various cases for lights logic that are not manual control
-            
+        // Various cases for lights logic that are not manual control
+        if (Conveyor.getInstance().isBottomDiscDetected()) {
+            flashWhiteSignalLight();
         }
-        else { // Only control lights manually when they are not being controlled elsewhere
+        else if (Shooter.getInstance().isHopperFull()) {
+            flashColoredSignalLight();
+        }
+        // Only control lights manually when they are not being controlled elsewhere
+        else {
             manualLightsControl(gamepad);
         }
     }
