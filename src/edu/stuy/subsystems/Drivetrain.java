@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * The robot drivetrain.
  *
- * @author kevin,arfan
+ * @author kevin, arfan
  */
 
 public class Drivetrain {

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Servo;
 
 /**
  *
- * @author Arfan
+ * @author abdullah, Arfan
  */
 public class Climber {
     
