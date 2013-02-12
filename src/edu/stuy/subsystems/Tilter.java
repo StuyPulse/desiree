@@ -7,32 +7,58 @@ package edu.stuy.subsystems;
 import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
 import edu.stuy.util.NetworkIO;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Talon;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
 
 
 /**
- *
+ * 
  * @author kevin
  */
+
 public class Tilter {
     private static Tilter instance;
-    private Talon tilter;
+    
+    private Talon leadscrew;
+    /**
+     * Mount upside down, with the y-axis positive arrow pointed towards the
+     * mouth of the shooter.
+     */
     private ADXL345_I2C accel;
+    
+    private PIDController controller;
     private Encoder enc;
     private double initialLeadLength;
     private NetworkIO net;
 
     
+    private Vector accelMeasurements;
+    private Timer updateMeasurements;
+    private final int ACCEL_MEASUREMENT_SIZE = 10; //Number of measurements to average
+    private final int ACCEL_UPDATE_PERIOD = 10; //Time between measurements. DO NOT USE ANY VALUE LESS THAN 10.
+    
     private Tilter() {
-        tilter = new Talon(Constants.TILTER_CHANNEL);
-        accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k16G);
+        leadscrew = new Talon(Constants.TILTER_CHANNEL);
+        accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
+        accelMeasurements = new Vector();
+        start();
         enc = new Encoder(Constants.TILT_ENCODER_A,Constants.TILT_ENCODER_B);
         initialLeadLength = getInitialLeadscrewLength();
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
         net = new NetworkIO();
+        controller = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, enc, new PIDOutput() {
+            public void pidWrite(double output) {
+                tilt(output);
+            }
+        }); // period parameter optional since we are using the default 50ms anyway --> , 0.005);
     }
     
     public static Tilter getInstance() {
@@ -41,17 +67,49 @@ public class Tilter {
         }
         return instance;
     }
+
+    private void tilt(double speed){
+        leadscrew.set(speed);
+    }
     
     public void tiltUp() {
-        tilter.set(1);
+        leadscrew.set(1);
     }
     
     public void tiltDown() {
-        tilter.set(-1);
+        leadscrew.set(-1);
     }
     
     public void stop() {
-        tilter.set(0);
+        leadscrew.set(0);
+    }
+    
+     /**
+     * Starts the update thread.
+     */
+    public void start() {
+        accelStop();
+        updateMeasurements = new Timer();
+        updateMeasurements.schedule(new TimerTask() {
+            public void run() {
+                synchronized (accelMeasurements) {
+                    accelMeasurements.addElement(new Double(getInstantAngle()));
+                    if (accelMeasurements.size() > ACCEL_MEASUREMENT_SIZE) {
+                        accelMeasurements.removeElementAt(0);
+                    }
+                }
+            }
+        }, 0, ACCEL_UPDATE_PERIOD);
+    }
+    
+    public void accelStop() {
+        if (updateMeasurements != null) {
+            updateMeasurements.cancel();
+        }
+    }
+    
+    public void reset() {
+        accelMeasurements.removeAllElements();
     }
 
     public double getCVRelativeAngle () {
@@ -71,8 +129,32 @@ public class Tilter {
         return accel.getAcceleration(ADXL345_I2C.Axes.kZ);
     }
     
+    /**
+     * Gets the angle from the measurements of the last 10 accelerations
+     */
     public double getAbsoluteAngle() {
-        return MathUtils.atan(getYAcceleration() / getZAcceleration()) * 180.0 / Math.PI;
+        if (accelMeasurements.isEmpty()) {
+            return 0;
+        }
+        double sum = 0;
+        double min = ((Double) accelMeasurements.elementAt(0)).doubleValue();
+        double max = min;
+        synchronized (accelMeasurements) {
+            for (int i = 0; i < accelMeasurements.size(); i++) {
+                double measure = ((Double) accelMeasurements.elementAt(i)).doubleValue();
+                sum += measure;
+                min = (min < measure) ? min : measure;
+                max = (max > measure) ? max : measure;
+            }
+            return (sum - min - max) / (accelMeasurements.size() - 2); //Removes the max and min values to get rid of any weird fluctuations
+        }
+    }
+    
+    /**
+     * Gets instantaneous angle
+     */
+    public double getInstantAngle() {
+        return MathUtils.atan(getYAcceleration() / -getZAcceleration()) * 180.0 / Math.PI;
     }
     
     public double getLeadLength() {
@@ -83,7 +165,7 @@ public class Tilter {
         return x * x;
     }
     
-    /* 
+    /**
      * ======== v(q) uses distance formula ========
      * v(q) = sqrt((zcosq - x)^2 + (zcosq - y)^2)
      * v = leadscrew length
@@ -98,7 +180,7 @@ public class Tilter {
                 + square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sin(angle) - Constants.LEADSCREW_HEIGHT));
     }
     
-    /*
+    /**
      * ======== q(v) adds two angles ========
      * q(v) = atan(y/x) + acos( (v^2 + x^2 + y^2 - z^2) / (2vsqrt(x^2 + y^2)) )
      * variables are defined above
@@ -111,5 +193,9 @@ public class Tilter {
         return MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE) + 
                MathUtils.acos((square(leadscrewLength) + baseSquared + heightSquared - hypSquared) / 
                (2 * leadscrewLength * Math.sqrt(baseSquared + heightSquared)));
+    }
+    
+    public void manualTilterControl(Gamepad gamepad) {
+        leadscrew.set(gamepad.getRightY());
     }
 }

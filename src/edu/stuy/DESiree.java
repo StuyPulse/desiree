@@ -4,12 +4,12 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package edu.stuy;
 
 import edu.stuy.subsystems.*;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class DESiree extends IterativeRobot {
+
     Drivetrain drivetrain;
     Acquirer acquirer;
     Conveyor conveyor;
@@ -27,9 +28,9 @@ public class DESiree extends IterativeRobot {
     Shooter shooter;
     Tilter tilter;
     Climber climber;
-    
     Gamepad driverPad;
     Gamepad operatorPad;
+    Joystick climberStick;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -46,17 +47,16 @@ public class DESiree extends IterativeRobot {
 
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
+        climberStick = new Joystick(Constants.CLIMBER_STICK_PORT);
     }
-    
+
     public void autonomousInit() {
- 
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    
     }
 
     /**
@@ -64,14 +64,24 @@ public class DESiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
-        System.out.println(tilter.getCVRelativeAngle());
+        
+        conveyor.conveyAutomatic();
+        
+        tilter.manualTilterControl(operatorPad);
+        acquirer.manualAcquirerControl(operatorPad);
+        shooter.manualShooterControl(operatorPad);
+        climber.manualClimberControl(climberStick);
+        
+        lights.runLogic(operatorPad);
+        
+        SmartDashboard.putNumber("Gyro angle:", drivetrain.getAngle());
+        SmartDashboard.putNumber("Accel angle Instant:", tilter.getInstantAngle());
+        SmartDashboard.putNumber("Accel angle Average:", tilter.getAbsoluteAngle());
     }
-    
+
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-        
     }
-    
 }

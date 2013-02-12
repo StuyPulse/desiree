@@ -5,19 +5,20 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
-import edu.wpi.first.wpilibj.Talon;
+import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
  * @author 694
  */
 public class Acquirer {
-    
+
     private static Acquirer instance;
-    private Talon acquirer;
+    private Victor acquirer;
 
     private Acquirer() {
-        acquirer = new Talon(Constants.ACQUIRER_CHANNEL);
+        acquirer = new Victor(Constants.ACQUIRER_CHANNEL);
     }
 
     public static Acquirer getInstance() {
@@ -26,30 +27,41 @@ public class Acquirer {
         }
         return instance;
     }
-    
+
     private void spin(double speed) {
         acquirer.set(speed);
     }
-    
-    public void Acquire(){
+
+    public void acquire() {
         spin(1);
     }
 
-    public void acquireReverse(){
+    public void acquireReverse() {
         spin(-1);
     }
-    
+
     public void stop() {
         spin(0);
     }
-    
+
     public double getRollerSpeed() {
         return acquirer.get();
     }
-    
+
     public boolean isAcquiring() {
         return getRollerSpeed() > 0;
     }
 
-}
+    public void manualAcquirerControl(Gamepad gamepad) {
+        if (gamepad.getLeftTrigger()) {
+            acquireReverse();
+        }
+        else if (gamepad.getRightTrigger()) {
+            acquire();
+        }
+        else {
+            stop();
+        }
 
+    }
+}

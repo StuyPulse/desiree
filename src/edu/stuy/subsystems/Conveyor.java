@@ -5,8 +5,10 @@
 package edu.stuy.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.stuy.Constants;
+import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -15,9 +17,10 @@ import edu.stuy.Constants;
 public class Conveyor {
     
     private static Conveyor instance;
-    private Talon roller;
-    private DigitalInput upperSensor;
+    private Victor roller;
     private DigitalInput lowerSensor;
+    private double lastTime = 0.;
+    private boolean isConveying;
     
     public static Conveyor getInstance() {
         if (instance == null)
@@ -26,9 +29,9 @@ public class Conveyor {
     }
     
     private Conveyor() {
-        roller = new Talon(Constants.CONVEYOR_CHANNEL);
-        upperSensor = new DigitalInput(Constants.UPPER_CONVEYOR_SENSOR);
+        roller = new Victor(Constants.CONVEYOR_CHANNEL);
         lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
+        isConveying = false;
     }
     
     public void roll(double speed) {
@@ -37,22 +40,24 @@ public class Conveyor {
     
     public void convey() {
         roll(1);
+        isConveying = true;
     }
     
     public void reverseConvey() {
         roll(-1);
+        isConveying = false;
     }
     
     public void stop() {
         roll(0);
+        isConveying = false;
+    }
+    public boolean isConveying() {
+        return isConveying;
     }
     
     public boolean isBottomDiscDetected() {
         return lowerSensor.get();
-    }
-    
-    public boolean isTopDiscDetected() {
-        return upperSensor.get();
     }
     
     public double getRoller() {
@@ -60,13 +65,28 @@ public class Conveyor {
     }
     
     public void conveyAutomatic() {
-        if ((Acquirer.getInstance().isAcquiring() && (isBottomDiscDetected())) || isTopDiscDetected()) {
-            convey();
+        double time = Timer.getFPGATimestamp();
+        if (Acquirer.getInstance().isAcquiring() && isBottomDiscDetected()) {
+            isConveying = true;
+            lastTime = time;
+        }
+        if (isConveying()) {
+            convey();        
+        }
+        if (time - lastTime >= 1.0) {
+            stop();
+            isConveying = false;
+        }
+            
+    }
+    
+    public void manualConveyorControl(Gamepad gamepad) {
+        if(Math.abs(gamepad.getLeftY()) > 0.05) {
+            roll(gamepad.getLeftY());
         }
         else {
-            stop();
-        }               
-    } 
-    
+            conveyAutomatic();
+        }
+    }
 }
 

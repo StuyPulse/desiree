@@ -6,7 +6,6 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
-import edu.stuy.util.Sonar;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
@@ -14,14 +13,13 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * The robot drivetrain.
  *
  * @author kevin,arfan
  */
+
 public class Drivetrain {
 
     double driveStraightSpeed = 0.8;
@@ -92,12 +90,12 @@ public class Drivetrain {
     }
 
     /**
-     * Tank drive using a gamepad's left and right analog sticks.
+     * Tank drive using a gamepad's left and right analog sticks. Square inputs.
      *
      * @param gamepad Gamepad to tank drive with
      */
     public void tankDrive(Gamepad gamepad) {
-        tankDrive(gamepad.getLeftY(), gamepad.getRightY());
+        drivetrain.tankDrive(gamepad.getLeftY(), gamepad.getRightY(), true);
     }
 
     public double getAngle() {
@@ -107,11 +105,7 @@ public class Drivetrain {
     public void gyroReset() {
         gyro.reset();
     }
-
-    public void putAngle() {
-        SmartDashboard.putNumber("Gyro angle:", gyro.getAngle());
-    }
-
+    
     public void stopCompressor() {
         compressor.stop();
     }
@@ -143,7 +137,7 @@ public class Drivetrain {
         return encoderRight.getDistance();
     }
 
-    public void forwardInchesRough(int inches) {
+    public void forwardInchesRough(double inches) {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
@@ -163,5 +157,15 @@ public class Drivetrain {
 
     public double getAvgDistance() {
         return (getLeftEnc() + getRightEnc()) / 2.0;
+    }
+    
+    public void spin180() {
+        tankDrive(-1,1);
+        try {
+            Thread.sleep(Constants.SPIN_TIME);
+        }
+        catch (InterruptedException e) {
+            System.err.println(e);
+        }          
     }
 }

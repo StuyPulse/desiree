@@ -5,7 +5,9 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * run this in both tele and auton
@@ -31,10 +33,17 @@ public class Lights {
      * M-: Colored signal light
      */
     private Relay signalLightRelay;
+    private int WHITE_FLASH_FREQUENCY = 7;
+    private int COLORED_FLASH_FREQUENCY = 7;
+    private double lastTimeWhite = 0;
+    private double lastTimeRed = 0;
+    private boolean isWhiteOn, isRedOn;
     
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
         signalLightRelay = new Relay(Constants.SIGNAL_LIGHT_RELAY_CHANNEL);
+        isWhiteOn = false;
+        isRedOn = false;
     }
     
     public static Lights getInstance() {
@@ -93,6 +102,7 @@ public class Lights {
             else { // Colored light is on
                 signalLightRelay.set(Relay.Value.kOn);
             }
+            isWhiteOn = true;
         }
         else { // Turn white light off
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Colored light is off
@@ -101,6 +111,7 @@ public class Lights {
             else { // Colored light is on
                 signalLightRelay.set(Relay.Value.kReverse);
             }
+            isWhiteOn = false;
         }
     }
     
@@ -113,6 +124,7 @@ public class Lights {
             else { // White light is on
                 signalLightRelay.set(Relay.Value.kOn);
             }
+            isRedOn = true;
         }
         else { // Turn colored light off
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // White light is off
@@ -121,6 +133,51 @@ public class Lights {
             else { // White light is on
                 signalLightRelay.set(Relay.Value.kForward);
             }
+            isRedOn = false;
+        }
+    }
+    
+    public void flashWhiteSignalLight() {
+        double time = Timer.getFPGATimestamp();
+        if (time - lastTimeWhite > (1.0 / WHITE_FLASH_FREQUENCY)) {
+            setWhiteSignalLight(!isWhiteOn);
+            lastTimeWhite = time;
+        }
+    }
+    
+    public void flashColoredSignalLight() {
+        double time = Timer.getFPGATimestamp();
+        if (time - lastTimeRed > (1.0 / COLORED_FLASH_FREQUENCY)) {
+            setColoredSignalLight(!isRedOn);
+            lastTimeRed = time;
+        }
+    }
+    
+    public void manualLightsControl(Gamepad gamepad) {
+        if(gamepad.getLeftButton()) {
+            flashWhiteSignalLight();
+        }
+        else {
+            setWhiteSignalLight(false);
+        }
+        if(gamepad.getRightButton()) {
+            flashColoredSignalLight();
+        }
+        else {
+            setColoredSignalLight(false);
+        }
+    }
+    
+    /**
+     * Go through all the logic for the lights.
+     * @param gamepad Gamepad to do manual lights control with
+     */
+    public void runLogic(Gamepad gamepad) {
+        if (false) { // Various cases for lights logic that are not manual control
+            
+        }
+        else { // Only control lights manually when they are not being controlled elsewhere
+            manualLightsControl(gamepad);
         }
     }
 }
