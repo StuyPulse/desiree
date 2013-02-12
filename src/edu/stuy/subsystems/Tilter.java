@@ -23,16 +23,15 @@ import java.util.Vector;
 
 public class Tilter {
     private static Tilter instance;
-    private Talon tilter;
     
+    private Talon leadscrew;
     /**
      * Mount upside down, with the y-axis positive arrow pointed towards the
      * mouth of the shooter.
      */
     private ADXL345_I2C accel;
     
-    private PIDController forwardController;
-    private PIDController backwardController;
+    private PIDController controller;
     private Encoder enc;
     private double initialLeadLength;
     
@@ -42,7 +41,7 @@ public class Tilter {
     private final int ACCEL_UPDATE_PERIOD = 10; //Time between measurements. DO NOT USE ANY VALUE LESS THAN 10.
     
     private Tilter() {
-        tilter = new Talon(Constants.TILTER_CHANNEL);
+        leadscrew = new Talon(Constants.TILTER_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
         accelMeasurements = new Vector();
         start();
@@ -50,14 +49,9 @@ public class Tilter {
         initialLeadLength = getInitialLeadscrewLength();
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
-        forwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, enc, new PIDOutput() {
+        controller = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, enc, new PIDOutput() {
             public void pidWrite(double output) {
-                tilter.pidWrite(output);
-            }
-        }); // period parameter optional since we are using the default 50ms anyway --> , 0.005);
-        backwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, enc, new PIDOutput() {
-            public void pidWrite(double output) {
-                tilter.pidWrite(-output);
+                tilt(output);
             }
         }); // period parameter optional since we are using the default 50ms anyway --> , 0.005);
     }
@@ -70,19 +64,19 @@ public class Tilter {
     }
 
     private void tilt(double speed){
-        tilter.set(speed);
+        leadscrew.set(speed);
     }
     
     public void tiltUp() {
-        tilter.set(1);
+        leadscrew.set(1);
     }
     
     public void tiltDown() {
-        tilter.set(-1);
+        leadscrew.set(-1);
     }
     
     public void stop() {
-        tilter.set(0);
+        leadscrew.set(0);
     }
     
      /**
@@ -192,6 +186,6 @@ public class Tilter {
     }
     
     public void manualTilterControl(Gamepad gamepad) {
-        tilter.set(gamepad.getRightY());
+        leadscrew.set(gamepad.getRightY());
     }
 }
