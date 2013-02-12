@@ -140,7 +140,7 @@ public class Tilter {
     
     /* Gets instantaneous angle */
     public double getInstantAngle() {
-        return MathUtils.atan(getYAcceleration() / getZAcceleration()) * 180.0 / Math.PI;
+        return MathUtils.atan(getYAcceleration() / -getZAcceleration()) * 180.0 / Math.PI;
     }
     
     public double getLeadLength() {
