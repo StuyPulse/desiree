@@ -83,15 +83,11 @@ public class Conveyor {
     }
     
     public void manualConveyorControl(Gamepad gamepad) {
-        if(gamepad.getRightTrigger()) {
-            Acquirer.getInstance().acquire();
-            conveyAutomatic();
-        }
-        else if(gamepad.getLeftAnalogButton()){
-            convey();
+        if(Math.abs(gamepad.getLeftY()) > 0.05) {
+            roll(gamepad.getLeftY());
         }
         else {
-            stop();
+            conveyAutomatic();
         }
     }
     

@@ -46,7 +46,7 @@ public class Climber {
     }
     
     public void manualClimberControl(Joystick stick) {
-        if(stick.getRawButton(1)) {
+        if(stick.getRawButton(3)) {
             forwardWench();
         }
         else if(stick.getRawButton(1)) {
@@ -56,5 +56,4 @@ public class Climber {
             stopWench();
         }
     }
-    
 }

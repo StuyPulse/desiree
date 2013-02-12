@@ -62,11 +62,7 @@ public class Tilter {
         }
         return instance;
     }
-    
-    public void manualTilterControl(Gamepad gamepad) {
-        tilter.set(gamepad.getLeftY());
-    }
-    
+
     private void tilt(double speed){
         tilter.set(speed);
     }
@@ -183,5 +179,9 @@ public class Tilter {
         return MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE) + 
                MathUtils.acos((square(leadscrewLength) + baseSquared + heightSquared - hypSquared) / 
                (2 * leadscrewLength * Math.sqrt(baseSquared + heightSquared)));
+    }
+    
+    public void manualTilterControl(Gamepad gamepad) {
+        tilter.set(gamepad.getRightY());
     }
 }
