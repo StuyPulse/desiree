@@ -53,7 +53,7 @@ public class Autonomous {
     public static void auton1() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
     }
       
     /*
@@ -63,7 +63,7 @@ public class Autonomous {
     public static void auton2() {
         // add CV 
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
     } 
     
     /*
@@ -74,12 +74,12 @@ public class Autonomous {
     public static void auton3() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Drivetrain.getInstance().spin180();
     }
     
@@ -92,12 +92,12 @@ public class Autonomous {
     public static void auton4() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Drivetrain.getInstance().spin180();
     }
     
@@ -109,12 +109,12 @@ public class Autonomous {
      */
     public static void auton5() {
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Drivetrain.getInstance().forwardInchesRough(-Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().stop();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
     } 
    
     /*
@@ -133,12 +133,12 @@ public class Autonomous {
     public static void auton7() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
     }
     
@@ -148,12 +148,12 @@ public class Autonomous {
     public static void auton8()  {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
-        Shooter.getInstance().shoot();
+        Shooter.getInstance().runShooterOut();
         Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
     }   
 }
