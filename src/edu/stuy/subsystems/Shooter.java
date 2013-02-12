@@ -80,14 +80,14 @@ public class Shooter {
     }
     
     public void manualShooterControl(Gamepad gamepad) {
-        if(gamepad.getDPadX() < 0) {
+        if(gamepad.getDPadLeft()) {
             shootReverse();
         }
         else {
-            if (gamepad.getDPadX() > 0) {
+            if (gamepad.getDPadRight()) {
                 isShooting = true;
             }
-            else if (gamepad.getDPadX() < 0) {
+            else if (gamepad.getDPadLeft()) {
                 isShooting = false;
             }
             if(isShooting)

@@ -43,6 +43,22 @@ public class Gamepad extends Joystick {
         return getRawAxis(6);
     }
     
+    public boolean getDPadUp() {
+        return getDPadY() < -.5;
+    }
+    
+    public boolean getDPadDown() {
+        return getDPadY() > .5;
+    }
+    
+    public boolean getDPadLeft() {
+        return getDPadX() < -.5;
+    }
+    
+    public boolean getDPadRight() {
+        return getDPadX() > .5;
+    }
+    
     public boolean getLeftBumper() {
         return getRawButton(5);
     }
