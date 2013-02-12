@@ -24,7 +24,13 @@ import java.util.Vector;
 public class Tilter {
     private static Tilter instance;
     private Talon tilter;
+    
+    /**
+     * Mount upside down, with the y-axis positive arrow pointed towards the
+     * mouth of the shooter.
+     */
     private ADXL345_I2C accel;
+    
     private PIDController forwardController;
     private PIDController backwardController;
     private Encoder enc;
@@ -119,7 +125,9 @@ public class Tilter {
         return accel.getAcceleration(ADXL345_I2C.Axes.kZ);
     }
     
-    /* Gets the angle from the measurements of the last 10 accelerations */
+    /**
+     * Gets the angle from the measurements of the last 10 accelerations
+     */
     public double getAbsoluteAngle() {
         if (accelMeasurements.isEmpty()) {
             return 0;
@@ -138,7 +146,9 @@ public class Tilter {
         }
     }
     
-    /* Gets instantaneous angle */
+    /**
+     * Gets instantaneous angle
+     */
     public double getInstantAngle() {
         return MathUtils.atan(getYAcceleration() / -getZAcceleration()) * 180.0 / Math.PI;
     }
@@ -151,7 +161,7 @@ public class Tilter {
         return x * x;
     }
     
-    /* 
+    /**
      * ======== v(q) uses distance formula ========
      * v(q) = sqrt((zcosq - x)^2 + (zcosq - y)^2)
      * v = leadscrew length
@@ -166,7 +176,7 @@ public class Tilter {
                 + square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sin(angle) - Constants.LEADSCREW_HEIGHT));
     }
     
-    /*
+    /**
      * ======== q(v) adds two angles ========
      * q(v) = atan(y/x) + acos( (v^2 + x^2 + y^2 - z^2) / (2vsqrt(x^2 + y^2)) )
      * variables are defined above
