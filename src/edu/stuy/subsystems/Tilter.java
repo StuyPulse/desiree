@@ -63,7 +63,7 @@ public class Tilter {
     }
     
     public void enableTilter() {
-        setTilterAngle(initialLeadLength);
+        setTilterAngle(getCVRelativeAngle());
         controller.enable();
     }
     
