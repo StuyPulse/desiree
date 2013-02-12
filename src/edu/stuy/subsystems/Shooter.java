@@ -83,16 +83,19 @@ public class Shooter {
             shooterIn.set(true);
     }
     
+    /**
+     * Runs continuously to update the state of the piston.
+     */
     public void runPistonLogic() {
         double time = Timer.getFPGATimestamp();
-        if (!readyToExtendPiston()) { // Piston is retracting; let it finish
+        if (!hasPistonFinishedRetracting()) { // Piston is still retracting; let it finish
             pistonRetract();
         }
-        else if (time - lastExtendTime < .4) { // Piston recently extended; stay extended until the 400 ms has passed
+        else if (time - lastExtendTime < PISTON_EXTEND_TIME) { // Piston recently extended or is about to be extended; stay extended until PISTON_EXTEND_TIME has passed
             firstShot = false;
             pistonExtend();
         }
-        else if (pistonExtended) { // Has been extended for more than 400 ms
+        else if (pistonExtended) { // Has been extended for more than PISTON_EXTEND_TIME; start retracting
             lastRetractTime = time;
             pistonRetract();
             pistonExtended = false;
@@ -102,8 +105,22 @@ public class Shooter {
         }
     }
     
-    private boolean readyToExtendPiston() {
-        return Timer.getFPGATimestamp() - lastRetractTime >= .1 && (lastRetractTime > lastExtendTime || firstShot);
+    /**
+     * Returns whether the piston has had ample time to retract since the last shot.
+     * @return Whether the piston is ready to fire
+     */
+    private boolean hasPistonFinishedRetracting() {
+        return Timer.getFPGATimestamp() - lastRetractTime >= PISTON_RETRACT_TIME && (lastRetractTime > lastExtendTime || firstShot);
+    }
+    
+    /**
+     * Start extending the piston for PISTON_EXTEND_TIME seconds.
+     * runPistonLogic() must be running in teleopPeriodic() for this to actually
+     * extend the piston.
+     */
+    public void firePiston() {
+        pistonExtended = true;
+        lastExtendTime = Timer.getFPGATimestamp();
     }
     
     public void manualShooterControl(Gamepad gamepad) {
@@ -123,16 +140,14 @@ public class Shooter {
         }
         
         // Make sure that the piston has been retracted 
-        if(gamepad.getTopButton() && readyToExtendPiston()) { //full-auto
+        if(gamepad.getTopButton() && hasPistonFinishedRetracting()) { //full-auto
             //feed continuously
-            pistonExtended = true;
-            lastExtendTime = Timer.getFPGATimestamp();
+            firePiston();
             
         }
-        if(gamepad.getRightBumper() && !lastSemiAutoShootButtonState && readyToExtendPiston()) { //semi-auto
+        if(gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedRetracting()) { //semi-auto
             //feed if it's been enough time (0.4 seconds)
-            pistonExtended = true;
-            lastExtendTime = Timer.getFPGATimestamp();
+            firePiston();
             
         }
         lastSemiAutoShootButtonState = gamepad.getRightBumper();
