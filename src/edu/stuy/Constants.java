@@ -17,6 +17,8 @@ public class Constants {
     /* PWM OUTPUTS */
     public static final int DRIVETRAIN_LEFT_CHANNEL = 1;
     public static final int DRIVETRAIN_RIGHT_CHANNEL = 2;
+    public static final int CLIMBER_SERVO_1_CHANNEL = 3;
+    public static final int CLIMBER_SERVO_2_CHANNEL = 4;
     public static final int ACQUIRER_CHANNEL = 5;
     public static final int SHOOTER_CHANNEL = 6;
     public static final int SHOOTER_SERVO_CHANNEL = 7;
