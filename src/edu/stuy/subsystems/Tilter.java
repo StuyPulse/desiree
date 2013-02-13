@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -24,7 +25,6 @@ import java.util.Vector;
 
 public class Tilter {
     private static Tilter instance;
-    
     private Talon leadscrew;
     /**
      * Mount upside down, with the y-axis positive arrow pointed towards the
@@ -60,6 +60,7 @@ public class Tilter {
         });
         controller.setPercentTolerance(0.01d);
         controller.disable();
+        updateSmartDashboard();
     }
     
     public void enableTilter() {
@@ -70,7 +71,13 @@ public class Tilter {
     public void disableTilter() {
         controller.disable();
     }
-       
+    
+    public void updateSmartDashboard() {
+        SmartDashboard.putNumber("Proportional Term Constant: ", Constants.PVAL_T);
+        SmartDashboard.putNumber("Integral Term Constant: ", Constants.IVAL_T);
+        SmartDashboard.putNumber("Derivative Term Constant: ", Constants.DVAL_T);
+    }
+    
     public void setTilterAngle(double deltaAngle) {
         double initialAngle = getShooterAngle();
         double finalAngle = deltaAngle + initialAngle;
