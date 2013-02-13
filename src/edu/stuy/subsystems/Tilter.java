@@ -53,7 +53,7 @@ public class Tilter {
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
         net = new NetworkIO();
-        controller = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, enc, new PIDOutput() {
+        controller = new PIDController(Constants.PVAL_T, Constants.IVAL_T, Constants.DVAL_T, enc, new PIDOutput() {
             public void pidWrite(double output) {
                 tilt(output);
             }
