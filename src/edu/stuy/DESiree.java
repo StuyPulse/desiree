@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class DESiree extends IterativeRobot {
-
+    /* SUBSYSTEMS */
     Drivetrain drivetrain;
     Acquirer acquirer;
     Conveyor conveyor;
@@ -28,6 +28,8 @@ public class DESiree extends IterativeRobot {
     Shooter shooter;
     Tilter tilter;
     Climber climber;
+    
+    /* CONTROLLERS */
     Gamepad driverPad;
     Gamepad operatorPad;
     Joystick climberStick;
@@ -37,6 +39,7 @@ public class DESiree extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        /* SUBSYSTEMS */
         drivetrain = Drivetrain.getInstance();
         acquirer = Acquirer.getInstance();
         conveyor = Conveyor.getInstance();
@@ -45,6 +48,7 @@ public class DESiree extends IterativeRobot {
         tilter = Tilter.getInstance();
         climber = Climber.getInstance();
 
+        /* CONTROLLERS */
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
         climberStick = new Joystick(Constants.CLIMBER_STICK_PORT);
