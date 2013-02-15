@@ -22,8 +22,8 @@ public class Shooter {
     private static Shooter instance;
     private Victor shooter;
     private DigitalInput hopperSensor;
-    private Solenoid shooterIn;
-    private Solenoid shooterOut;
+    private Solenoid shooterSpit;
+    private Solenoid shooterSwallow;
     private double lastExtendTime = 0.0;
     private double lastRetractTime = 0.0;
     private boolean firstShot;
@@ -38,8 +38,8 @@ public class Shooter {
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
-        shooterIn = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
-        shooterOut = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
+        shooterSpit = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
+        shooterSwallow = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
         firstShot = true;
         isShooting = false;
         pistonExtended = false;
@@ -74,13 +74,13 @@ public class Shooter {
     }
     
     private void pistonExtend() {
-            shooterIn.set(false);
-            shooterOut.set(true);
+            shooterSpit.set(false);
+            shooterSwallow.set(true);
     }
     
     private void pistonRetract() {
-            shooterOut.set(false);
-            shooterIn.set(true);
+            shooterSwallow.set(false);
+            shooterSpit.set(true);
     }
     
     /**
