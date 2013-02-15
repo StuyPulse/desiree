@@ -62,6 +62,7 @@ public class Tilter {
         controller.setPercentTolerance(0.01);
         controller.disable();
         updatePID();
+        printAngle();
     }
     
     public static Tilter getInstance() {
@@ -239,6 +240,21 @@ public class Tilter {
         else {
             disableAiming();
             leadscrew.set(gamepad.getRightY());
+        }
+    }
+    
+    public void printAngle() {
+        if (getCVRelativeAngle() != 694) {
+            SmartDashboard.putNumber("CV Angle", getCVRelativeAngle());
+            SmartDashboard.putNumber("Absolute Angle", getAbsoluteAngle());
+            SmartDashboard.putNumber("LS-Based Angle", getShooterAngle());
+            SmartDashboard.putNumber("Instant Angle", getInstantAngle());
+        }
+        else {
+            SmartDashboard.putString("CV Angle", "DRIPTO THE ANGLE'S SMOKING!");
+            SmartDashboard.putNumber("Absolute Angle", getAbsoluteAngle());
+            SmartDashboard.putNumber("LS-Based Angle", getShooterAngle());
+            SmartDashboard.putNumber("Instant Angle", getInstantAngle());
         }
     }
 }
