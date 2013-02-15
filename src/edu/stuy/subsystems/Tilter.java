@@ -60,7 +60,7 @@ public class Tilter {
         });
         controller.setPercentTolerance(0.01);
         controller.disable();
-        updateSmartDashboard();
+        updatePID();
     }
     
     public static Tilter getInstance() {
@@ -79,7 +79,7 @@ public class Tilter {
         controller.disable();
     }
     
-    public void updateSmartDashboard() {
+    public void updatePID() {
         SmartDashboard.putNumber("Proportional Term Constant: ", Constants.PVAL_T);
         SmartDashboard.putNumber("Integral Term Constant: ", Constants.IVAL_T);
         SmartDashboard.putNumber("Derivative Term Constant: ", Constants.DVAL_T);
