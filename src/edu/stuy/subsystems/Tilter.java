@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -80,9 +81,19 @@ public class Tilter {
     }
     
     public void updatePID() {
-        SmartDashboard.putNumber("Proportional Term Constant: ", Constants.PVAL_T);
-        SmartDashboard.putNumber("Integral Term Constant: ", Constants.IVAL_T);
-        SmartDashboard.putNumber("Derivative Term Constant: ", Constants.DVAL_T);
+        double pVal;
+        double iVal;
+        double dVal;
+        try {
+            pVal = SmartDashboard.getNumber("Tilter P");
+            iVal = SmartDashboard.getNumber("Tilter I");
+            dVal = SmartDashboard.getNumber("Tilter D");
+            controller.setPID(pVal, iVal, dVal);
+        } catch (TableKeyNotDefinedException e) {
+            SmartDashboard.putNumber("Tilter P", 0.0);
+            SmartDashboard.putNumber("Tilter I", 0.0);
+            SmartDashboard.putNumber("Tilter D", 0.0);
+        }
     }
     
     public void setTilterAngle(double deltaAngle) {
