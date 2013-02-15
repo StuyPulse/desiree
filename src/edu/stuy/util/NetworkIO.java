@@ -1,8 +1,8 @@
 package edu.stuy.util;
 
-//import java.net.*;
 import javax.microedition.io.*;
 import java.io.*;
+
 public class NetworkIO{
     private static final int PORT = 6940;
     private static final String HOST = "10.6.95.242";
@@ -26,15 +26,6 @@ public class NetworkIO{
     public void run()
     {
         try {
-            
-
-            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //byte[] netVal = new byte[128];
-            //int curr = 0;
-            //while ((curr = in.read(netVal)) != -1){
-                //baos.write(netVal, 0, curr);
-            //}
-            //message = new String(baos.toByteArray());
             double output;
             if (in.available() > 0) {
                 output  = in.readDouble();
@@ -43,12 +34,7 @@ public class NetworkIO{
                 output = mostRecentOut;
             }
             message = "" + output;
-            //System.out.println(message);
             mostRecentOut = Double.parseDouble(message);
-            //sendMessage("bye");
-            //requestSocket.close();
-            //in.close();
-            //out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
