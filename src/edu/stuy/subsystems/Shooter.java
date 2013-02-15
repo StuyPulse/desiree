@@ -60,7 +60,7 @@ public class Shooter {
         shooter.set(0);
     }
     
-    public boolean isHopperFull() {
+    public boolean isHopperNotEmpty() {
         return hopperSensor.get();
     }
     
