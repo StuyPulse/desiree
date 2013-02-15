@@ -84,6 +84,7 @@ public class Constants {
     /* AUTONOMOUS DISTANCES */
     public static final double CENTER_TO_BACK_OF_PYRAMID = 108.;
     public static final double PYRAMID_BASE_LENGTH = 94.;
+    public static final double ADD_TO_MIDDLE_OF_PYRAMID = 5;
     public static final double FRONT_PYRAMID_TO_CENTER = 94. + 108.;
     
     /* The DESarray */

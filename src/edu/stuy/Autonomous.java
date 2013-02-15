@@ -74,9 +74,9 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().driveStraightInches(-Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveStraightInches(-Constants.PYRAMID_BASE_LENGTH / 2.0 + -Constants.ADD_TO_MIDDLE_OF_PYRAMID);
         Acquirer.getInstance().stop();
-        Drivetrain.getInstance().driveStraightInches(Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveStraightInches(Constants.PYRAMID_BASE_LENGTH / 2.0 + Constants.ADD_TO_MIDDLE_OF_PYRAMID);
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().spin180();
     }
@@ -108,8 +108,8 @@ public class Autonomous {
     public static void auton5() {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
-        Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().acquire();
+        Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_BACK_OF_PYRAMID);
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Shooter.getInstance().shoot();
@@ -148,9 +148,9 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().driveStraightInches(-Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveStraightInches(-Constants.PYRAMID_BASE_LENGTH / 2.0 + -Constants.ADD_TO_MIDDLE_OF_PYRAMID);
         Acquirer.getInstance().stop();
-        Drivetrain.getInstance().driveStraightInches(Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveStraightInches(Constants.PYRAMID_BASE_LENGTH / 2.0 + Constants.ADD_TO_MIDDLE_OF_PYRAMID);
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().driveStraightInches(-Constants.FRONT_PYRAMID_TO_CENTER);
     }   
