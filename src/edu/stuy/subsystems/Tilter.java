@@ -70,12 +70,12 @@ public class Tilter {
         return instance;
     }
     
-    public void enableTilter() {
+    public void enableAiming() {
         setTilterAngle(getCVRelativeAngle());
         controller.enable();
     }
     
-    public void disableTilter() {
+    public void disableAiming() {
         controller.disable();
     }
     
