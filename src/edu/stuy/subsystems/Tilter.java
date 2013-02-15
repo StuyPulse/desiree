@@ -233,6 +233,12 @@ public class Tilter {
     }
     
     public void manualTilterControl(Gamepad gamepad) {
-        leadscrew.set(gamepad.getRightY());
+        if( gamepad.getBottomButton() ) {
+            enableAiming();
+        }
+        else {
+            disableAiming();
+            leadscrew.set(gamepad.getRightY());
+        }
     }
 }
