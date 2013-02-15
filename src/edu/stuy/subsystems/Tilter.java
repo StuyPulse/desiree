@@ -65,11 +65,13 @@ public class Tilter {
     
     public void enableTilter() {
         setTilterAngle(getCVRelativeAngle());
+        Lights.getInstance().setCameraLight(true);
         controller.enable();
     }
     
     public void disableTilter() {
         controller.disable();
+        Lights.getInstance().setCameraLight(false);
     }
     
     public void updateSmartDashboard() {

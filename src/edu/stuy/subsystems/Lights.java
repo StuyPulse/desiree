@@ -35,9 +35,12 @@ public class Lights {
     private Relay signalLightRelay;
     private int WHITE_FLASH_FREQUENCY = 7;
     private int COLORED_FLASH_FREQUENCY = 7;
+    private int DIRECTION_FLASH_FREQUENCY = 10;
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
-    private boolean isWhiteOn, isRedOn;
+    private double lastTimeDirection = 0;
+    private boolean isWhiteOn, isRedOn, isDirectionOn;
+
     
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
@@ -73,7 +76,15 @@ public class Lights {
         }
     }
     
-    public void setDirectionLight(boolean on) {
+    public void flashDirectionLight(boolean on){
+        double time = Timer.getFPGATimestamp();
+        if (time - lastTimeDirection > (1.0 / DIRECTION_FLASH_FREQUENCY)) {
+            directionLight(!isDirectionOn);
+            lastTimeDirection = time;
+        }
+    }
+    
+    public void directionLight(boolean on) {
         Relay.Value currentVal = cameraAndDirectionLightRelay.get();
         if (on) { // Turn direction light on
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // Camera light is off
