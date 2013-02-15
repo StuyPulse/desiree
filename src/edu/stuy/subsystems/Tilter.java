@@ -47,7 +47,7 @@ public class Tilter {
         leadscrew = new Talon(Constants.TILTER_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
         accelMeasurements = new Vector();
-        start();
+        updateAccel();
         enc = new Encoder(Constants.TILT_ENCODER_A,Constants.TILT_ENCODER_B);
         initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
@@ -112,7 +112,7 @@ public class Tilter {
      /**
      * Starts the update thread.
      */
-    public void start() {
+    public void updateAccel() {
         accelStop();
         updateMeasurements = new Timer();
         updateMeasurements.schedule(new TimerTask() {
