@@ -133,7 +133,7 @@ public class Tilter {
         }
     }
     
-    public void reset() {
+    public void resetAccelMeasurements() {
         accelMeasurements.removeAllElements();
     }
 
