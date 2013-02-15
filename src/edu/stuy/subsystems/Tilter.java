@@ -63,6 +63,13 @@ public class Tilter {
         updateSmartDashboard();
     }
     
+    public static Tilter getInstance() {
+        if (instance == null) {
+            instance = new Tilter();
+        }
+        return instance;
+    }
+    
     public void enableTilter() {
         setTilterAngle(getCVRelativeAngle());
         controller.enable();
@@ -84,13 +91,6 @@ public class Tilter {
         double finalLeadScrewLength = getLeadscrewLength(finalAngle);
         double deltaLeadScrewLength = finalLeadScrewLength - getLeadscrewLength();
         controller.setSetpoint(deltaLeadScrewLength + enc.getDistance()); 
-    }
-    
-    public static Tilter getInstance() {
-        if (instance == null) {
-            instance = new Tilter();
-        }
-        return instance;
     }
 
     private void tilt(double speed){
