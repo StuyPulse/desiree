@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
+import edu.stuy.subsystems.Lights;
 import edu.stuy.util.NetworkIO;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
@@ -76,8 +77,12 @@ public class Tilter {
         if (getCVRelativeAngle() != 694) {
             setTilterAngle(getCVRelativeAngle());
             controller.enable();
+            Lights.getInstance().directionLight(false);
+            Lights.getInstance().setCameraLight(true);
         } else {
-            
+            Lights.getInstance().flashWhiteSignalLight();
+            Lights.getInstance().setCameraLight(false);
+            Lights.getInstance().directionLight(true);
         }
     }
     
