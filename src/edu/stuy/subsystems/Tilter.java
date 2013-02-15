@@ -58,7 +58,7 @@ public class Tilter {
                 tilt(output);
             }
         });
-        controller.setPercentTolerance(0.01d);
+        controller.setPercentTolerance(0.01);
         controller.disable();
         updateSmartDashboard();
     }
