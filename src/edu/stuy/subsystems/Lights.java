@@ -188,7 +188,7 @@ public class Lights {
         if (Conveyor.getInstance().isBottomDiscDetected()) {
             flashWhiteSignalLight();
         }
-        else if (Shooter.getInstance().isHopperFull()) {
+        else if (Shooter.getInstance().isHopperNotEmpty()) {
             flashColoredSignalLight();
         }
         // Only control lights manually when they are not being controlled elsewhere
