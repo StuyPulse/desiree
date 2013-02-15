@@ -1,7 +1,7 @@
 package edu.stuy.util;
 
-import javax.microedition.io.*;
 import java.io.*;
+import javax.microedition.io.*;
 
 public class NetworkIO{
     private static final int PORT = 6940;
