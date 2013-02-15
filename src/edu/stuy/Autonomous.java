@@ -52,7 +52,6 @@ public class Autonomous {
      */
     public static void auton1() {
         // add CV
-        Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
     }
       
@@ -62,7 +61,6 @@ public class Autonomous {
      */
     public static void auton2() {
         // add CV 
-        Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
     } 
     
