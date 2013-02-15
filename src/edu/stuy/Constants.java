@@ -67,6 +67,7 @@ public class Constants {
     private static final double WHEEL_RADIUS = 2.0; // inches of the wheel radius
     public static final double ENCODER_DISTANCE_PER_PULSE = 1 / (ENCODER_PULSE_PER_REV * GEAR_RATIO / ( 2 * Math.PI * WHEEL_RADIUS));
     
+    public static final double DRIVE_STRAIGHT_TIMEOUT = 7.0;
     public static final long SPIN_TIME = 500; //Time to spin 180 in milliseconds
     
     /* TILTER CONSTANTS */
@@ -83,6 +84,7 @@ public class Constants {
     /* AUTONOMOUS DISTANCES */
     public static final double CENTER_TO_BACK_OF_PYRAMID = 108.;
     public static final double PYRAMID_BASE_LENGTH = 94.;
+    public static final double ADD_TO_MIDDLE_OF_PYRAMID = 5;
     public static final double FRONT_PYRAMID_TO_CENTER = 94. + 108.;
     
     /* The DESarray */

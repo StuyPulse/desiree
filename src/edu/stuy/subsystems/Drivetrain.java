@@ -23,8 +23,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class Drivetrain {
 
     double driveStraightSpeed = 0.8;
-    private double lastTime;
-    private double startTime;
     private double lastSpeedLeft;
     private double lastSpeedRight;
     
@@ -72,8 +70,6 @@ public class Drivetrain {
         backwardController.setPercentTolerance(1 / 90. * 100);
         backwardController.disable();
         
-        startTime = Timer.getFPGATimestamp();
-        lastTime = startTime;
         lastSpeedLeft = 0;
         lastSpeedRight = 0;
     }
@@ -137,14 +133,14 @@ public class Drivetrain {
         return encoderRight.getDistance();
     }
 
-    public void forwardInchesRough(double inches) {
+    public void driveStraightInches(double inches) {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
         enableDriveStraight(fwd);
         while (((fwd && getAvgDistance() < inches)
                 || (!fwd && getAvgDistance() > inches))
-                && (Timer.getFPGATimestamp() - startTime) < 15.0) {
+                && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {
             //do nothing because driveStraight is enabled.
         }
         disableDriveStraight();
@@ -160,12 +156,8 @@ public class Drivetrain {
     }
     
     public void spin180() {
-        tankDrive(-1,1);
-        try {
-            Thread.sleep(Constants.SPIN_TIME);
-        }
-        catch (InterruptedException e) {
-            System.err.println(e);
-        }          
+        tankDrive(-1, 1);
+        Timer.delay(Constants.SPIN_TIME);
+        tankDrive(0, 0);
     }
 }

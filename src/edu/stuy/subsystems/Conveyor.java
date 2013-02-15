@@ -52,16 +52,9 @@ public class Conveyor {
         roll(0);
         isConveying = false;
     }
-    public boolean isConveying() {
-        return isConveying;
-    }
     
     public boolean isBottomDiscDetected() {
         return lowerSensor.get();
-    }
-    
-    public double getRoller() {
-        return roller.get();
     }
     
     public void conveyAutomatic() {
@@ -70,7 +63,7 @@ public class Conveyor {
             isConveying = true;
             lastTime = time;
         }
-        if (isConveying()) {
+        if (isConveying) {
             convey();        
         }
         if (time - lastTime >= 1.0) {

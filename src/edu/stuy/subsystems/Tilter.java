@@ -82,6 +82,7 @@ public class Tilter {
     
     public void disableAiming() {
         controller.disable();
+        Lights.getInstance().setCameraLight(false);
     }
     
     public void updatePID() {
