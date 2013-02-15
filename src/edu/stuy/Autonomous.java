@@ -52,7 +52,7 @@ public class Autonomous {
      */
     public static void auton1() {
         // add CV
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
     }
       
     /**
@@ -61,7 +61,7 @@ public class Autonomous {
      */
     public static void auton2() {
         // add CV
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
     } 
     
     /**
@@ -72,12 +72,12 @@ public class Autonomous {
     public static void auton3() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.PYRAMID_BASE_LENGTH / 2.0 + Constants.ADD_TO_MIDDLE_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-(Constants.PYRAMID_BASE_LENGTH / 2.0 + Constants.ADD_TO_MIDDLE_OF_PYRAMID));
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Drivetrain.getInstance().spin180();
     }
     
@@ -90,12 +90,12 @@ public class Autonomous {
     public static void auton4() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.FRONT_PYRAMID_TO_CENTER);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-Constants.FRONT_PYRAMID_TO_CENTER);
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Drivetrain.getInstance().spin180();
     }
     
@@ -107,12 +107,12 @@ public class Autonomous {
      */
     public static void auton5() {
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
         Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().stop();
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
     } 
    
     /*
@@ -131,12 +131,12 @@ public class Autonomous {
     public static void auton7() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.FRONT_PYRAMID_TO_CENTER);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-Constants.FRONT_PYRAMID_TO_CENTER);
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Drivetrain.getInstance().driveStraightInches(Constants.FRONT_PYRAMID_TO_CENTER);
     }
     
@@ -146,12 +146,18 @@ public class Autonomous {
     public static void auton8()  {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.PYRAMID_BASE_LENGTH / 2.0 + Constants.ADD_TO_MIDDLE_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-(Constants.PYRAMID_BASE_LENGTH / 2.0 + Constants.ADD_TO_MIDDLE_OF_PYRAMID));
-        Shooter.getInstance().runShooterOut();
+        shootUntilEmpty();
         Drivetrain.getInstance().driveStraightInches(Constants.FRONT_PYRAMID_TO_CENTER);
-    }   
+    }
+    
+    public static void shootUntilEmpty() {
+        Shooter.getInstance().runShooterOut();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().stop();
+    }
 }

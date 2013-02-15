@@ -75,6 +75,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+        shooter.runPistonLogic();
     }
 
     /**

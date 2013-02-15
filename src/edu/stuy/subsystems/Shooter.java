@@ -138,6 +138,14 @@ public class Shooter {
         lastExtendTime = Timer.getFPGATimestamp();
     }
     
+    public void fireAutoUntilEmpty() {
+        while (isHopperNotEmpty()) {
+            if (hasPistonFinishedRetracting()) {
+                firePiston();
+            }
+        }
+    }
+    
     public void manualShooterControl(Gamepad gamepad) {
         /* Shooting and stopping commands persist */
         if (gamepad.getDPadRight()) {
