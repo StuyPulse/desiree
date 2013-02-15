@@ -65,7 +65,7 @@ public class Autonomous {
     } 
     
     /**
-     * Start in front of middle pyramid.
+     * Start in front of the middle of the pyramid.
      * Use CV to shoot 2. Go forward under pyramid and pick up 2. 
      * Drive backwards. Use CV to fire those two. 180 degree spin at end. 
      */
@@ -82,9 +82,9 @@ public class Autonomous {
     }
     
     /**
-     * Start middle in front of pyramid.
+     * Start in front of the middle of the pyramid.
      * Use CV to shoot 2. Move forward and acquire disks under pyramid and at center of field. 
-     * Don't stop for pickup. After acquired, drive backwards to in front of pyramid. 
+     * Don't stop for pickup. After acquired, drive backwards to the front of pyramid. 
      * Stop running acquirer on the way back. Use CV to shoot the 4 acquired disks. Spin 180 at end.
      */ 
     public static void auton4() {
@@ -126,7 +126,7 @@ public class Autonomous {
     // DO NOT CROSS COMPLETELY INTO THE OTHER SIDE OF THE FIELD!
     // -------------------------------------------------------------------------
     /**
-     * Same as 4 with NO 180 SPIN but move forward to center at end of auton.
+     * Same as 4 but NO 180 SPIN, move forward to center at end of auton.
      */
     public static void auton7() {
         // add CV
