@@ -68,25 +68,25 @@ public class Autonomous {
     
     /**
      * Start in front of middle pyramid.
-     * Use CV to shoot 2. Go back under pyramid and pick up 2. 
-     * Drive forward. Use CV to fire those two. 180 degree spin at end. 
+     * Use CV to shoot 2. Go forward under pyramid and pick up 2. 
+     * Drive backwards. Use CV to fire those two. 180 degree spin at end. 
      */
     public static void auton3() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
-        Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Acquirer.getInstance().stop();
+        Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().spin180();
     }
     
     /**
      * Start middle in front of pyramid.
-     * Use CV to shoot 2. Back up and acquire disks under pyramid and at center of field. 
-     * Don't stop for pickup. After acquired, drive forward to in front of pyramid. 
+     * Use CV to shoot 2. Move forward and acquire disks under pyramid and at center of field. 
+     * Don't stop for pickup. After acquired, drive backwards to in front of pyramid. 
      * Stop running acquirer on the way back. Use CV to shoot the 4 acquired disks. Spin 180 at end.
      */ 
     public static void auton4() {
@@ -94,25 +94,25 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
-        Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
+        Acquirer.getInstance().stop();
+        Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().spin180();
     }
     
     /**
      * Start at the back of the pyramid.
-     * Shoot 3. Back up and acquire disks at center of field. 
+     * Shoot 3. Move forward and acquire disks at center of field. 
      * Return and shoot 4.
      * You might have 4 depending on how many people have left there from other robots.
      */
     public static void auton5() {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.CENTER_TO_BACK_OF_PYRAMID);
-        Acquirer.getInstance().acquire();
         Drivetrain.getInstance().forwardInchesRough(Constants.CENTER_TO_BACK_OF_PYRAMID);
+        Acquirer.getInstance().acquire();
+        Drivetrain.getInstance().forwardInchesRough(-Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Shooter.getInstance().shoot();
     } 
@@ -128,32 +128,32 @@ public class Autonomous {
     // DO NOT CROSS COMPLETELY INTO THE OTHER SIDE OF THE FIELD!
     // -------------------------------------------------------------------------
     /**
-     * Same as 4 with NO 180 SPIN but back up to center at end of auton 
+     * Same as 4 with NO 180 SPIN but move forward to center at end of auton.
      */
     public static void auton7() {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
-        Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
-        Shooter.getInstance().shoot();
+        Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
+        Shooter.getInstance().shoot();
+        Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
     }
     
     /**
-     * Same as 3 but NO 180 SPIN, backup to center of field. 
+     * Same as 3 but NO 180 SPIN, move forward to center of field. 
      */
     public static void auton8()  {
         // add CV
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
-        Acquirer.getInstance().stop();
         Drivetrain.getInstance().forwardInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Acquirer.getInstance().stop();
+        Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
         Shooter.getInstance().shoot();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
+        Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
     }   
 }
