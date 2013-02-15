@@ -72,6 +72,7 @@ public class DESiree extends IterativeRobot {
         shooter.manualShooterControl(operatorPad);
         climber.manualClimberControl(climberStick);
         
+        shooter.runPistonLogic();
         lights.runLogic(operatorPad);
         
         SmartDashboard.putNumber("Gyro angle:", drivetrain.getAngle());
