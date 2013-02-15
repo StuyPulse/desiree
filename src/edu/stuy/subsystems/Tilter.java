@@ -174,7 +174,12 @@ public class Tilter {
                 min = (min < measure) ? min : measure;
                 max = (max > measure) ? max : measure;
             }
-            return (sum - min - max) / (accelMeasurements.size() - 2); //Removes the max and min values to get rid of any weird fluctuations
+            if (accelMeasurements.size() >= 3) {
+                return (sum - min - max) / (accelMeasurements.size() - 2); //Removes the max and min values to get rid of any weird fluctuations
+            }
+            else {
+                return sum;
+            }
         }
     }
     
