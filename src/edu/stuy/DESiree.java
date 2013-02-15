@@ -10,6 +10,7 @@ import edu.stuy.subsystems.*;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -33,6 +34,8 @@ public class DESiree extends IterativeRobot {
     Gamepad driverPad;
     Gamepad operatorPad;
     Joystick climberStick;
+    
+    SendableChooser autonChooser;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -52,9 +55,20 @@ public class DESiree extends IterativeRobot {
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
         climberStick = new Joystick(Constants.CLIMBER_STICK_PORT);
+        
+        /* AUTON SENDABLECHOOSER */
+        autonChooser.addDefault("1 - Shoot 2 from front of pyramid", Integer.valueOf(1));
+        autonChooser.addObject("2 - Shoot 3 from back of pyramid, spin 180", Integer.valueOf(2));
+        autonChooser.addObject("3 - Shoot 2 from front of pyramid, acquire 2, shoot 2, spin 180", Integer.valueOf(3));
+        autonChooser.addObject("4 - Shoot 2 from front of pyramid, acquire 4, shoot 4, spin 180", Integer.valueOf(4));
+        autonChooser.addObject("5 - Shoot 3 from back of pyramid, acquire 4, shoot 4", Integer.valueOf(5));
+        autonChooser.addObject("6 - Do nothing", Integer.valueOf(6));
+        autonChooser.addObject("7 - Routine 4 without 180, drive to center of field", Integer.valueOf(7));
+        autonChooser.addObject("8 - Routine 3 without 180, drive to center of field", Integer.valueOf(8));
     }
 
     public void autonomousInit() {
+        Autonomous.run(((Integer)autonChooser.getSelected()).intValue());
     }
 
     /**
