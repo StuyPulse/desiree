@@ -74,9 +74,9 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
         Acquirer.getInstance().stop();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().spin180();
     }
@@ -92,9 +92,9 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
+        Drivetrain.getInstance().driveInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
         Acquirer.getInstance().stop();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
+        Drivetrain.getInstance().driveInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
         Shooter.getInstance().shoot();
         Drivetrain.getInstance().spin180();
     }
@@ -108,9 +108,9 @@ public class Autonomous {
     public static void auton5() {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
-        Drivetrain.getInstance().forwardInchesRough(Constants.CENTER_TO_BACK_OF_PYRAMID);
+        Drivetrain.getInstance().driveInchesRough(-Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.CENTER_TO_BACK_OF_PYRAMID);
+        Drivetrain.getInstance().driveInchesRough(Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Shooter.getInstance().shoot();
     } 
@@ -133,11 +133,11 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
+        Drivetrain.getInstance().driveInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
         Acquirer.getInstance().stop();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
+        Drivetrain.getInstance().driveInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
         Shooter.getInstance().shoot();
-        Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
+        Drivetrain.getInstance().driveInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
     }
     
     /**
@@ -148,10 +148,10 @@ public class Autonomous {
         Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().shoot();
         Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().forwardInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
         Acquirer.getInstance().stop();
-        Drivetrain.getInstance().forwardInchesRough(-Constants.PYRAMID_BASE_LENGTH / 2.0);
+        Drivetrain.getInstance().driveInchesRough(Constants.PYRAMID_BASE_LENGTH / 2.0);
         Shooter.getInstance().shoot();
-        Drivetrain.getInstance().forwardInchesRough(Constants.FRONT_PYRAMID_TO_CENTER);
+        Drivetrain.getInstance().driveInchesRough(-Constants.FRONT_PYRAMID_TO_CENTER);
     }   
 }
