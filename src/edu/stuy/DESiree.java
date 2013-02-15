@@ -91,10 +91,6 @@ public class DESiree extends IterativeRobot {
         climber.manualClimberControl(climberStick);
         
         lights.runLogic(operatorPad);
-        
-        SmartDashboard.putNumber("Gyro angle:", drivetrain.getAngle());
-        SmartDashboard.putNumber("Accel angle Instant:", tilter.getInstantAngle());
-        SmartDashboard.putNumber("Accel angle Average:", tilter.getAbsoluteAngle());
     }
 
     /**
