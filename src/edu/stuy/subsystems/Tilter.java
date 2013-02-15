@@ -108,14 +108,6 @@ public class Tilter {
         leadscrew.set(speed);
     }
     
-    public void tiltUp() {
-        leadscrew.set(1);
-    }
-    
-    public void tiltDown() {
-        leadscrew.set(-1);
-    }
-    
     public void stop() {
         leadscrew.set(0);
     }
