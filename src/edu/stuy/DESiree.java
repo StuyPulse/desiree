@@ -8,10 +8,10 @@ package edu.stuy;
 
 import edu.stuy.subsystems.*;
 import edu.stuy.util.Gamepad;
+import edu.stuy.util.ThreeLaws;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class DESiree extends IterativeRobot {
+public class DESiree extends IterativeRobot implements ThreeLaws {
     /* SUBSYSTEMS */
     Drivetrain drivetrain;
     Acquirer acquirer;
@@ -96,5 +96,14 @@ public class DESiree extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    }
+
+    public void doNoHarm() {
+    }
+
+    public void obeyOrders() {
+    }
+
+    public void protectSelf() {
     }
 }
