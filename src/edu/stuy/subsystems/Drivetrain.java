@@ -156,12 +156,8 @@ public class Drivetrain {
     }
     
     public void spin180() {
-        tankDrive(-1,1);
-        try { //Uses dead-reckoning
-            Thread.sleep(Constants.SPIN_TIME);
-        }
-        catch (InterruptedException e) {
-            System.err.println(e);
-        }          
+        tankDrive(-1, 1);
+        Timer.delay(Constants.SPIN_TIME);
+        tankDrive(0, 0);
     }
 }
