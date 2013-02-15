@@ -22,8 +22,17 @@ public class Shooter {
     private static Shooter instance;
     private Victor shooter;
     private DigitalInput hopperSensor;
-    private Solenoid shooterSpit;
-    private Solenoid shooterSwallow;
+    
+    /**
+     * Extends the piston.
+     */
+    private Solenoid pistonResetSolenoid;
+    
+    /**
+     * Retracts the piston.
+     */
+    private Solenoid pistonLaunchSolenoid;
+    
     private double lastExtendTime = 0.0;
     private double lastRetractTime = 0.0;
     private boolean firstShot;
@@ -38,8 +47,8 @@ public class Shooter {
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
-        shooterSpit = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
-        shooterSwallow = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
+        pistonResetSolenoid = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
+        pistonLaunchSolenoid = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
         firstShot = true;
         isShooting = false;
         pistonExtended = false;
@@ -73,14 +82,20 @@ public class Shooter {
         return hopperSensor.get();
     }
     
-    private void pistonExtend() {
-            shooterSpit.set(false);
-            shooterSwallow.set(true);
+    /**
+     * Retracts the piston to launch the disc.
+     */
+    private void pistonLaunch() {
+            pistonResetSolenoid.set(false);
+            pistonLaunchSolenoid.set(true);
     }
     
-    private void pistonRetract() {
-            shooterSwallow.set(false);
-            shooterSpit.set(true);
+    /**
+     * Extends the piston to reset.
+     */
+    private void pistonReset() {
+            pistonLaunchSolenoid.set(false);
+            pistonResetSolenoid.set(true);
     }
     
     /**
@@ -89,19 +104,19 @@ public class Shooter {
     public void runPistonLogic() {
         double time = Timer.getFPGATimestamp();
         if (!hasPistonFinishedRetracting()) { // Piston is still retracting; let it finish
-            pistonRetract();
+            pistonReset();
         }
         else if (time - lastExtendTime < PISTON_EXTEND_TIME) { // Piston recently extended or is about to be extended; stay extended until PISTON_EXTEND_TIME has passed
             firstShot = false;
-            pistonExtend();
+            pistonLaunch();
         }
         else if (pistonExtended) { // Has been extended for more than PISTON_EXTEND_TIME; start retracting
             lastRetractTime = time;
-            pistonRetract();
+            pistonReset();
             pistonExtended = false;
         }
         else { // Nothing has happened for a while; stay retracted
-            pistonRetract();
+            pistonReset();
         }
     }
     
