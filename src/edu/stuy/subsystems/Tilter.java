@@ -72,8 +72,12 @@ public class Tilter {
     }
     
     public void enableAiming() {
-        setTilterAngle(getCVRelativeAngle());
-        controller.enable();
+        if (getCVRelativeAngle() != 694) {
+            setTilterAngle(getCVRelativeAngle());
+            controller.enable();
+        } else {
+            
+        }
     }
     
     public void disableAiming() {
