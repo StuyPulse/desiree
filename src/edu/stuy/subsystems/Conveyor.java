@@ -23,8 +23,9 @@ public class Conveyor {
     private boolean isConveying;
     
     public static Conveyor getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new Conveyor();
+        }
         return instance;
     }
     
