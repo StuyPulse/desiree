@@ -36,7 +36,7 @@ public class Sonar {
         updateMeasurements.schedule(new TimerTask() {
 
             public void run() {
-                synchronized (measurements) {
+                synchronized (Sonar.this) {
                     measurements.addElement(new Double(getInstantaneousDistance()));
                     if (measurements.size() > 10) {
                         measurements.removeElementAt(0);
@@ -65,7 +65,7 @@ public class Sonar {
             return 0;
         }
         double sum = 0;
-        synchronized (measurements) {
+        synchronized (Sonar.this) {
             for (int i = 0; i < measurements.size(); i++) {
                 sum += ((Double) measurements.elementAt(i)).doubleValue();
             }
