@@ -77,12 +77,12 @@ public class Tilter {
         if (getCVRelativeAngle() != 694) {
             setTilterAngle(getCVRelativeAngle());
             controller.enable();
-            Lights.getInstance().directionLight(false);
+            Lights.getInstance().setDirectionLight(false);
             Lights.getInstance().setCameraLight(true);
         } else {
             Lights.getInstance().flashWhiteSignalLight();
             Lights.getInstance().setCameraLight(false);
-            Lights.getInstance().directionLight(true);
+            Lights.getInstance().setDirectionLight(true);
         }
     }
     

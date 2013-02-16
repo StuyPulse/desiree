@@ -38,13 +38,15 @@ public class Lights {
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
     private double lastTimeDirection = 0;
-    private boolean isWhiteOn, isRedOn, isManualControlling;
+    private boolean isWhiteOn, isRedOn, isCameraOn, isDirectionOn, isManualControlling;
     
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
         signalLightRelay = new Relay(Constants.SIGNAL_LIGHT_RELAY_CHANNEL);
         isWhiteOn = false;
         isRedOn = false;
+        isCameraOn = false;
+        isDirectionOn = false;
         isManualControlling = false;
     }
     
@@ -54,7 +56,7 @@ public class Lights {
         }
         return instance;
     }
-    
+
     public void setCameraLight(boolean on) {
         Relay.Value currentVal = cameraAndDirectionLightRelay.get();
         if (on) { // Turn camera light on
@@ -64,6 +66,7 @@ public class Lights {
             else { // Direction light is on
                 cameraAndDirectionLightRelay.set(Relay.Value.kOn);
             }
+            isCameraOn = true;
         }
         else { // Turn camera light off
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Direction light is off
@@ -72,6 +75,7 @@ public class Lights {
             else { // Direction light is on
                 cameraAndDirectionLightRelay.set(Relay.Value.kReverse);
             }
+            isCameraOn = false;
         }
     }
     
@@ -84,6 +88,7 @@ public class Lights {
             else { // Camera light is on
                 cameraAndDirectionLightRelay.set(Relay.Value.kOn);
             }
+            isDirectionOn = true;
         }
         else { // Turn direction light off
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // Camera light is off
@@ -92,6 +97,7 @@ public class Lights {
             else { // Camera light is on
                 cameraAndDirectionLightRelay.set(Relay.Value.kForward);
             }
+            isDirectionOn = false;
         }
     }
     
@@ -168,6 +174,9 @@ public class Lights {
         else {
             setColoredSignalLight(false);
         }
+        if (gamepad.getTopButton()) {
+            setDirectionLight(!isDirectionOn);
+        }  
     }
     
     /**
