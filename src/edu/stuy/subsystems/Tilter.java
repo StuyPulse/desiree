@@ -6,9 +6,8 @@ package edu.stuy.subsystems;
 
 import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
-import edu.stuy.subsystems.Lights;
-import edu.stuy.util.NetworkIO;
 import edu.stuy.util.Gamepad;
+import edu.stuy.util.NetworkIO;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;

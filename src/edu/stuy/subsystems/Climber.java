@@ -6,8 +6,8 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
