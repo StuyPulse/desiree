@@ -38,6 +38,7 @@ public class Shooter {
     private boolean isShooting;
     private boolean lastSemiAutoShootButtonState;
     private boolean pistonExtended;
+    private boolean lastShooterToggleButtonState;
     
     // Time in seconds to allow piston to extend and retract before changing its state again
     public static final double PISTON_EXTEND_TIME = .4;
@@ -147,11 +148,10 @@ public class Shooter {
     
     public void manualShooterControl(Gamepad gamepad) {
         /* Shooting and stopping commands persist */
-        if (gamepad.getDPadRight()) {
-            isShooting = true;
-        } else if (gamepad.getDPadLeft()) {
-            isShooting = false;
+        if (gamepad.getDPadRight() && !lastShooterToggleButtonState) {
+            isShooting = !isShooting;
         }
+        lastShooterToggleButtonState = gamepad.getDPadRight();
         
         if (gamepad.getDPadDown()) { // Reverse only when button is held
             runShooterIn();
