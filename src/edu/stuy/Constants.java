@@ -55,7 +55,7 @@ public class Constants {
     public static final int CLIMBER_WITHDRAWER_CHANNEL = 4;
     
     /* SHOOTING ANGLES */
-    public static final int DUMMY_ANGLE = 69;
+    public static final int FEEDER_STATION_ANGLE = 69;
     
     /* GYRO DRIVE STRAIGHT PID VALUES */
     public static final double PVAL_D = .01;
