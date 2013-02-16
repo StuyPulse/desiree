@@ -57,16 +57,18 @@ public class Constants {
     /* SHOOTING ANGLES */
     public static final int DUMMY_ANGLE = 69;
     
-    /* DRIVETRAIN PID VALUES */
+    /* GYRO DRIVE STRAIGHT PID VALUES */
     public static final double PVAL_D = .01;
     public static final double IVAL_D = .01;
     public static final double DVAL_D = .01;
     
+    /* DRIVETRAIN DISTANCE MEASUREMENT CONSTANTS */
     private static final double ENCODER_PULSE_PER_REV = 360.; // From encoder
     private static final double GEAR_RATIO = 42.0 / 39.0; // Wheels turn 39 times every time gear turns 42
     private static final double WHEEL_RADIUS = 2.0; // inches of the wheel radius
     public static final double ENCODER_DISTANCE_PER_PULSE = 1 / (ENCODER_PULSE_PER_REV * GEAR_RATIO / ( 2 * Math.PI * WHEEL_RADIUS));
     
+    /* AUTON DRIVE TIMEOUTS */
     public static final double DRIVE_STRAIGHT_TIMEOUT = 7.0;
     public static final long SPIN_TIME = 500; //Time to spin 180 in milliseconds
     
@@ -77,6 +79,7 @@ public class Constants {
     public static final double TILTER_INCHES_PER_REV = 0.1;
     public static final double TILTER_DISTANCE_PER_PULSE = TILTER_INCHES_PER_REV / ENCODER_PULSE_PER_REV;
     
+    /* TILTER ANGLE CONTROL PID VALUES */
     public static final double PVAL_T = 0.0;
     public static final double IVAL_T = 0.0;
     public static final double DVAL_T = 0.0;
