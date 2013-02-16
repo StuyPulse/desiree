@@ -23,8 +23,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class Drivetrain {
 
     double driveStraightSpeed = 0.8;
-    private double lastSpeedLeft;
-    private double lastSpeedRight;
     
     private static Drivetrain instance;
     private RobotDrive drivetrain;
@@ -69,9 +67,6 @@ public class Drivetrain {
         backwardController.setInputRange(-360.0, 360.0);
         backwardController.setPercentTolerance(1 / 90. * 100);
         backwardController.disable();
-        
-        lastSpeedLeft = 0;
-        lastSpeedRight = 0;
     }
 
     public static Drivetrain getInstance() {
