@@ -87,8 +87,9 @@ public class Constants {
     /* AUTONOMOUS DISTANCES */
     public static final double CENTER_TO_BACK_OF_PYRAMID = 108.;
     public static final double PYRAMID_BASE_LENGTH = 94.;
-    public static final double ADD_TO_MIDDLE_OF_PYRAMID = 5;
-    public static final double FRONT_PYRAMID_TO_CENTER = 94. + 108.;
+    public static final double CENTER_TO_FRONT_OF_PYRAMID = PYRAMID_BASE_LENGTH + CENTER_TO_BACK_OF_PYRAMID;
+    public static final double MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE = 5;
+    public static final double FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID = PYRAMID_BASE_LENGTH / 2. + MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE;
     
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};
