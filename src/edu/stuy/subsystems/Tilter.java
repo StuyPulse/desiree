@@ -74,7 +74,7 @@ public class Tilter {
     
     public void enableAiming() {
         if (getCVRelativeAngle() != 694) {
-            setTilterAngle(getCVRelativeAngle());
+            setRelativeAngle(getCVRelativeAngle());
             controller.enable();
             Lights.getInstance().setDirectionLight(false);
             Lights.getInstance().setCameraLight(true);
@@ -105,12 +105,16 @@ public class Tilter {
         }
     }
     
-    public void setTilterAngle(double deltaAngle) {
+    public void setRelativeAngle(double deltaAngle) {
         double initialAngle = getShooterAngle();
-        double finalAngle = deltaAngle + initialAngle;
-        double finalLeadScrewLength = getLeadscrewLength(finalAngle);
-        double deltaLeadScrewLength = finalLeadScrewLength - getLeadscrewLength();
-        controller.setSetpoint(deltaLeadScrewLength + enc.getDistance()); 
+        double absoluteAngle = deltaAngle + initialAngle;
+        setAbsoluteAngle(absoluteAngle);
+    }
+    
+    public void setAbsoluteAngle(double angle) {
+        double leadScrewLength = getLeadscrewLength(angle);
+        double deltaLeadScrewLength = leadScrewLength - getLeadscrewLength();
+        controller.setSetpoint(deltaLeadScrewLength + enc.getDistance());
     }
 
     private void tilt(double speed){
