@@ -57,7 +57,7 @@ public class Lights {
         return instance;
     }
 
-    public void setCameraLight(boolean on) {
+    private void setCameraLight(boolean on) {
         Relay.Value currentVal = cameraAndDirectionLightRelay.get();
         if (on) { // Turn camera light on
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Direction light is off
@@ -79,7 +79,7 @@ public class Lights {
         }
     }
     
-    public void setDirectionLight(boolean on) {
+    private void setDirectionLight(boolean on) {
         Relay.Value currentVal = cameraAndDirectionLightRelay.get();
         if (on) { // Turn direction light on
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // Camera light is off
@@ -101,7 +101,7 @@ public class Lights {
         }
     }
     
-    public void setWhiteSignalLight(boolean on) {
+    private void setWhiteSignalLight(boolean on) {
         Relay.Value currentVal = signalLightRelay.get();
         if (on) { // Turn white light on
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Colored light is off
@@ -123,7 +123,7 @@ public class Lights {
         }
     }
     
-    public void setColoredSignalLight(boolean on) {
+    private void setColoredSignalLight(boolean on) {
         Relay.Value currentVal = signalLightRelay.get();
         if (on) { // Turn colored light on
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // White light is off
@@ -145,7 +145,7 @@ public class Lights {
         }
     }
     
-    public void flashWhiteSignalLight() {
+    private void flashWhiteSignalLight() {
         double time = Timer.getFPGATimestamp();
         if (time - lastTimeWhite > (1.0 / WHITE_FLASH_FREQUENCY)) {
             setWhiteSignalLight(!isWhiteOn);
@@ -153,7 +153,7 @@ public class Lights {
         }
     }
     
-    public void flashColoredSignalLight() {
+    private void flashColoredSignalLight() {
         double time = Timer.getFPGATimestamp();
         if (time - lastTimeRed > (1.0 / COLORED_FLASH_FREQUENCY)) {
             setColoredSignalLight(!isRedOn);
@@ -161,7 +161,7 @@ public class Lights {
         }
     }
     
-    public void manualLightsControl(Gamepad gamepad) {
+    private void manualLightsControl(Gamepad gamepad) {
         if (gamepad.getLeftButton()) {
             flashWhiteSignalLight();
         }
@@ -174,9 +174,6 @@ public class Lights {
         else {
             setColoredSignalLight(false);
         }
-        if (gamepad.getTopButton()) {
-            setDirectionLight(!isDirectionOn);
-        }  
     }
     
     /**
@@ -195,5 +192,11 @@ public class Lights {
         else if (Shooter.getInstance().isHopperNotEmpty() && !isManualControlling) {
             flashColoredSignalLight();
         }
+        
+        // Turn on direction light only if shooter is running and tilter is not CV aiming
+        setDirectionLight(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming());
+        
+        // Turn on camera light only when CV aiming
+        setCameraLight(Tilter.getInstance().isCVAiming());
     }
 }

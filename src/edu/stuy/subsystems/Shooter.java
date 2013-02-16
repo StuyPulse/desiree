@@ -78,6 +78,10 @@ public class Shooter {
         shooter.set(0);
     }
     
+    public boolean isShooterRunning() {
+        return isShooting;
+    }
+    
     public boolean isHopperNotEmpty() {
         return hopperSensor.get();
     }
@@ -147,7 +151,7 @@ public class Shooter {
     }
     
     public void manualShooterControl(Gamepad gamepad) {
-        /* Shooting and stopping commands persist */
+        /* Toggle shooter on/off */
         if (gamepad.getDPadRight() && !lastShooterToggleButtonState) {
             isShooting = !isShooting;
         }
@@ -161,16 +165,14 @@ public class Shooter {
             stop();
         }
         
-        // Make sure that the piston has been retracted 
-        if(gamepad.getTopButton() && hasPistonFinishedRetracting()) { //full-auto
-            //feed continuously
+        /* Full auto shooting */
+        if (gamepad.getTopButton() && hasPistonFinishedRetracting()) {
             firePiston();
-            
         }
-        if(gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedRetracting()) { //semi-auto
-            //feed if it's been enough time (0.4 seconds)
+        
+        /* Semi-automatic shooting */
+        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedRetracting()) { //semi-auto
             firePiston();
-            
         }
         lastSemiAutoShootButtonState = gamepad.getRightBumper();
     }

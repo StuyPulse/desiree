@@ -37,7 +37,8 @@ public class Tilter {
     private Encoder enc;
     private double initialLeadLength;
     private NetworkIO net;
-
+    
+    private boolean isCVAiming = false;
     
     private Vector accelMeasurements;
     private Timer updateMeasurements;
@@ -72,21 +73,16 @@ public class Tilter {
         return instance;
     }
     
-    public void enableAiming() {
-        if (getCVRelativeAngle() != 694) {
-            setRelativeAngle(getCVRelativeAngle());
-            controller.enable();
-            Lights.getInstance().setDirectionLight(false);
-            Lights.getInstance().setCameraLight(true);
-        } else {
-            Lights.getInstance().flashWhiteSignalLight();
-            Lights.getInstance().setCameraLight(false);
-            Lights.getInstance().setDirectionLight(true);
-        }
+    public void enableAngleControl() {
+        controller.enable();
     }
     
-    public void disableAiming() {
+    public void disableAngleControl() {
         controller.disable();
+    }
+    
+    public boolean isCVAiming() {
+        return isCVAiming;
     }
     
     public void updatePID() {
@@ -241,11 +237,19 @@ public class Tilter {
     }
     
     public void manualTilterControl(Gamepad gamepad) {
-        if( gamepad.getBottomButton() ) {
-            enableAiming();
+        if (gamepad.getBottomButton()) {
+            isCVAiming = true;
+            setRelativeAngle(getCVRelativeAngle());
+            enableAngleControl();
+        }
+        else if (gamepad.getTopButton()) {
+            isCVAiming = false;
+            setAbsoluteAngle(Constants.FEEDER_STATION_ANGLE);
+            enableAngleControl();
         }
         else {
-            disableAiming();
+            isCVAiming = false;
+            disableAngleControl();
             leadscrew.set(gamepad.getRightY());
         }
     }
