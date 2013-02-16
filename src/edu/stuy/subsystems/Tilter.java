@@ -56,7 +56,7 @@ public class Tilter {
         net = new NetworkIO();
         controller = new PIDController(Constants.PVAL_T, Constants.IVAL_T, Constants.DVAL_T, enc, new PIDOutput() {
             public void pidWrite(double output) {
-                tilt(output);
+                setLeadscrewMotor(output);
             }
         });
         controller.setPercentTolerance(0.01);
@@ -117,11 +117,11 @@ public class Tilter {
         controller.setSetpoint(deltaLeadScrewLength + enc.getDistance());
     }
 
-    private void tilt(double speed){
+    private void setLeadscrewMotor(double speed){
         leadscrew.set(speed);
     }
     
-    public void stop() {
+    public void stopLeadscrewMotor() {
         leadscrew.set(0);
     }
     
