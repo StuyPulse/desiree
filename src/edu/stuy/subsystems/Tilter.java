@@ -129,7 +129,7 @@ public class Tilter {
         updateMeasurements = new Timer();
         updateMeasurements.schedule(new TimerTask() {
             public void run() {
-                synchronized (accelMeasurements) {
+                synchronized (Tilter.this) {
                     accelMeasurements.addElement(new Double(getInstantAngle()));
                     if (accelMeasurements.size() > ACCEL_MEASUREMENT_SIZE) {
                         accelMeasurements.removeElementAt(0);
@@ -176,7 +176,7 @@ public class Tilter {
         double sum = 0;
         double min = ((Double) accelMeasurements.elementAt(0)).doubleValue();
         double max = min;
-        synchronized (accelMeasurements) {
+        synchronized (this) {
             for (int i = 0; i < accelMeasurements.size(); i++) {
                 double measure = ((Double) accelMeasurements.elementAt(i)).doubleValue();
                 sum += measure;
