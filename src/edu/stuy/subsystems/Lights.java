@@ -146,7 +146,7 @@ public class Lights {
     
     private void flashWhiteSignalLight() {
         double time = Timer.getFPGATimestamp();
-        if (time - lastTimeWhite > (1.0 / WHITE_FLASH_FREQUENCY)) {
+        if (time - lastTimeWhite > (1.0 / WHITE_FLASH_FREQUENCY)) { // Flashes (on and off) white light every 1/7 second
             setWhiteSignalLight(!isWhiteOn);
             lastTimeWhite = time;
         }
@@ -154,7 +154,7 @@ public class Lights {
     
     private void flashColoredSignalLight() {
         double time = Timer.getFPGATimestamp();
-        if (time - lastTimeRed > (1.0 / COLORED_FLASH_FREQUENCY)) {
+        if (time - lastTimeRed > (1.0 / COLORED_FLASH_FREQUENCY)) { // Flashes (on and off) red light every 1/7 second 
             setColoredSignalLight(!isRedOn);
             lastTimeRed = time;
         }

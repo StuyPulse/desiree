@@ -156,6 +156,9 @@ public class Autonomous {
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
     }
     
+    /**
+     * Shoots until the hopper, containing the discs, is empty.
+     */
     public static void shootUntilEmpty() {
         Shooter.getInstance().runShooterOut();
         Timer.delay(0.5);

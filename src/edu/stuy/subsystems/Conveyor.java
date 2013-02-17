@@ -57,7 +57,10 @@ public class Conveyor {
     public boolean isBottomDiscDetected() {
         return lowerSensor.get();
     }
-    
+    /**
+     * If acquirer is conveying and the bottom disc is detected, it starts conveying.
+     * Stops conveying after 1 second.
+     */
     public void conveyAutomatic() {
         double time = Timer.getFPGATimestamp();
         if (Acquirer.getInstance().isAcquiring() && isBottomDiscDetected()) {

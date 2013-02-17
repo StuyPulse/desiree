@@ -23,7 +23,6 @@ public class Climber {
     private Solenoid deployOut;
     private Solenoid deployIn;
     
-    
     public static Climber getInstance() {
         if (instance == null) {
             instance = new Climber();
