@@ -191,6 +191,10 @@ public class Lights {
         else if (Shooter.getInstance().isHopperNotEmpty()) {
             flashColoredSignalLight();
         }
+        else {
+            setWhiteSignalLight(false);
+            setColoredSignalLight(false);
+        }
         
         // Turn on direction light only if shooter is running and tilter is not CV aiming
         setDirectionLight(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming());
