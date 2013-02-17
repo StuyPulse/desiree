@@ -23,7 +23,6 @@ public class NetworkIO {
             out.flush();
             lastTime = System.currentTimeMillis();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     
