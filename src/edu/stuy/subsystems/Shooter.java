@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
- * @author Arfan, eric
+ * @author R4D4, eric
  */
 public class Shooter {
 

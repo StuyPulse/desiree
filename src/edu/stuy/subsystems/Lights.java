@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
  * flash on color to signal human player for feed white discs as we approach
  * flash different color for colored discs
  * flash pickup frequency with shooting (please clarify)
- * @author Arfan
+ * @author R4D4
  */
 public class Lights {
     private static Lights instance;

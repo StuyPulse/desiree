@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
- * @author abdullah, Arfan
+ * @author abdullah, R4D4
  */
 public class Climber {
     

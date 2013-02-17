@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
- * @author 694
+ * @author R4D4
  */
 public class Acquirer {
 

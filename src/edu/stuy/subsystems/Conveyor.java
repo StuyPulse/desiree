@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
- * @author Arfan
+ * @author Arfan, R4D4
  */
 public class Conveyor {
     
