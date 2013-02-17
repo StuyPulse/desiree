@@ -1,5 +1,6 @@
 package edu.stuy.util;
 
+import edu.stuy.Constants;
 import java.io.*;
 import javax.microedition.io.*;
 
@@ -34,7 +35,7 @@ public class NetworkIO {
                 lastTime = System.currentTimeMillis();
             }
             else {
-                if (System.currentTimeMillis() - lastTime > Constant.CV_TIMEOUT) {
+                if (System.currentTimeMillis() - lastTime > Constants.CV_TIMEOUT) {
                     mostRecentOut = Constants.CV_DEFAULT_VALUE;
                 }
                 output = mostRecentOut;
@@ -42,7 +43,7 @@ public class NetworkIO {
             message = "" + output;
             mostRecentOut = Double.parseDouble(message);
         } catch (Exception e) {
-            if (DEBUG)
+            if (Constants.DEBUG)
                 e.printStackTrace();
         }
     }
@@ -52,7 +53,7 @@ public class NetworkIO {
             out.write(msg.getBytes());
             out.flush();
         } catch(IOException ioException) {
-            if (DEBUG)
+            if (Constants.DEBUG)
                 ioException.printStackTrace();
         }
     }
