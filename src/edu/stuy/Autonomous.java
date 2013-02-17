@@ -8,6 +8,7 @@ import edu.stuy.subsystems.Acquirer;
 import edu.stuy.subsystems.Conveyor;
 import edu.stuy.subsystems.Drivetrain;
 import edu.stuy.subsystems.Shooter;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * This is the location of the autonomous routines.
@@ -157,6 +158,7 @@ public class Autonomous {
     
     public static void shootUntilEmpty() {
         Shooter.getInstance().runShooterOut();
+        Timer.delay(0.5);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().stop();
     }
