@@ -188,7 +188,7 @@ public class Tilter {
     }
 
     /**
-     * Gets the relative angle to the target from the Pi
+     * Gets the relative angle to the target from the Pi.
      * @return angle difference from the target
      */
     public double getCVRelativeAngle () {
@@ -200,7 +200,7 @@ public class Tilter {
     }
     
     /**
-     * Gets X-axis acceleration of the shooter. This is not used on DESiree
+     * Gets X-axis acceleration of the shooter. This is not used on DESiree, as it is perpendicular to the side of the robot.
      * @return x-axis acceleration
      */
     public double getXAcceleration() {
@@ -275,6 +275,7 @@ public class Tilter {
     }
     
     /**
+     * Gets the leadscrew length given a specified angle.
      * ======== v(q) uses distance formula ========
      * v(q) = sqrt((zcosq - x)^2 + (zcosq - y)^2)
      * v = leadscrew length
@@ -282,6 +283,8 @@ public class Tilter {
      * z = distance from pivot to where leadscrew hits shooter
      * x = distance from pivot to base of base of leadscrew
      * y = height of the leadscrew
+     * @param angle
+     * @return the leadscrew length, from the base to the point of connection to the shooter
      */
     public double getLeadscrewLength(double angle) {
         return Math.sqrt(square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.cos(angle) - Constants.DISTANCE_TO_LEADSCREW_BASE)
@@ -289,9 +292,11 @@ public class Tilter {
     }
     
     /**
+     * Shooter angle as gotten from the leadscrew length.
      * ======== q(v) adds two angles ========
      * q(v) = atan(y/x) + acos( (v^2 + x^2 + y^2 - z^2) / (2vsqrt(x^2 + y^2)) )
      * variables are defined above
+     * @return shooter angle
      */
     public double getShooterAngle() {
         double leadscrewLength = getLeadscrewLength();
