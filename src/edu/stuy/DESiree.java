@@ -12,6 +12,7 @@ import edu.stuy.util.ThreeLaws;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -92,6 +93,8 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         
         shooter.runPistonLogic();
         lights.runLogic(operatorPad);
+        
+        SmartDashboard.putBoolean("Acquirer sensor",conveyor.isBottomDiscDetected());
     }
 
     /**
