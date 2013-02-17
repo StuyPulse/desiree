@@ -39,6 +39,7 @@ public class Shooter {
     private boolean lastSemiAutoShootButtonState;
     private boolean pistonExtended;
     private boolean lastShooterToggleButtonState;
+    private boolean isShooterForward;
     
     // Time in seconds to allow piston to extend and retract before changing its state again
     public static final double PISTON_EXTEND_TIME = .4;
@@ -53,6 +54,7 @@ public class Shooter {
         isShooting = false;
         pistonExtended = false;
         lastSemiAutoShootButtonState = false;
+        isShooterForward = false;
     }
     
     public static Shooter getInstance() {
@@ -68,6 +70,7 @@ public class Shooter {
     
     public void runShooterOut() {
         shooter.set(1);
+        isShooterForward = true;
     }
     
     public void runShooterIn() {
@@ -90,16 +93,16 @@ public class Shooter {
      * Retracts the piston to launch the disc.
      */
     private void pistonLaunch() {
-            pistonResetSolenoid.set(false);
-            pistonLaunchSolenoid.set(true);
+        pistonResetSolenoid.set(false);
+        pistonLaunchSolenoid.set(true);
     }
     
     /**
      * Extends the piston to reset.
      */
     private void pistonReset() {
-            pistonLaunchSolenoid.set(false);
-            pistonResetSolenoid.set(true);
+        pistonLaunchSolenoid.set(false);
+        pistonResetSolenoid.set(true);
     }
     
     /**
@@ -143,10 +146,8 @@ public class Shooter {
     }
     
     public void fireAutoUntilEmpty() {
-        while (isHopperNotEmpty()) {
-            if (hasPistonFinishedRetracting()) {
-                firePiston();
-            }
+        if (hasPistonFinishedRetracting() && isShooterForward) {
+            firePiston();
         }
     }
     
@@ -163,15 +164,15 @@ public class Shooter {
             runShooterOut();
         } else {
             stop();
-        }
+        }//
         
         /* Full auto shooting */
-        if (gamepad.getTopButton() && hasPistonFinishedRetracting()) {
+        if (gamepad.getTopButton() && hasPistonFinishedRetracting() && isShooterForward) {
             firePiston();
         }
         
         /* Semi-automatic shooting */
-        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedRetracting()) { //semi-auto
+        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedRetracting() && isShooterForward) { //semi-auto
             firePiston();
         }
         lastSemiAutoShootButtonState = gamepad.getRightBumper();

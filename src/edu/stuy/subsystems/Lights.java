@@ -38,7 +38,7 @@ public class Lights {
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
     private double lastTimeDirection = 0;
-    private boolean isWhiteOn, isRedOn, isCameraOn, isDirectionOn, isManualControlling;
+    private boolean isWhiteOn, isRedOn, isCameraOn, isDirectionOn;
     
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
@@ -47,7 +47,6 @@ public class Lights {
         isRedOn = false;
         isCameraOn = false;
         isDirectionOn = false;
-        isManualControlling = false;
     }
     
     public static Lights getInstance() {
@@ -186,10 +185,10 @@ public class Lights {
             manualLightsControl(gamepad);
         }
         // Various cases for lights logic that are not manual control
-        else if (Conveyor.getInstance().isBottomDiscDetected() && !isManualControlling) {
+        else if (Conveyor.getInstance().isBottomDiscDetected()) {
             flashWhiteSignalLight();
         }
-        else if (Shooter.getInstance().isHopperNotEmpty() && !isManualControlling) {
+        else if (Shooter.getInstance().isHopperNotEmpty()) {
             flashColoredSignalLight();
         }
         
