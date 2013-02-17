@@ -58,6 +58,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         climberStick = new Joystick(Constants.CLIMBER_STICK_PORT);
         
         /* AUTON SENDABLECHOOSER */
+        autonChooser = new SendableChooser();
         autonChooser.addDefault("1 - Shoot 2 from front of pyramid", Integer.valueOf(1));
         autonChooser.addObject("2 - Shoot 3 from back of pyramid, spin 180", Integer.valueOf(2));
         autonChooser.addObject("3 - Shoot 2 from front of pyramid, acquire 2, shoot 2, spin 180", Integer.valueOf(3));
