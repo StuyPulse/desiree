@@ -41,6 +41,8 @@ public class Constants {
     public static final int DRIVE_ENCODER_RIGHT_B = 4;
     public static final int TILT_ENCODER_A = 5;
     public static final int TILT_ENCODER_B = 6;
+    public static final int UPPER_LIMIT_SWITCH_CHANNEL = 7;
+    public static final int LOWER_LIMIT_SWITCH_CHANNEL = 8;
     public static final int HOPPER_SENSOR = 9;
     public static final int LOWER_CONVEYOR_SENSOR = 10;
     public static final int PRESSURE_SWITCH_CHANNEL = 11;

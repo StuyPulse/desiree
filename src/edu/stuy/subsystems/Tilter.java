@@ -6,13 +6,13 @@ package edu.stuy.subsystems;
 
 import com.sun.squawk.util.MathUtils;
 import edu.stuy.Constants;
+import edu.stuy.util.BoundedTalon;
 import edu.stuy.util.Gamepad;
 import edu.stuy.util.NetworkIO;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 import java.util.Timer;
@@ -26,7 +26,7 @@ import java.util.Vector;
 
 public class Tilter {
     private static Tilter instance;
-    private Talon leadscrew;
+    private BoundedTalon leadscrew;
     /**
      * Mount upside down, with the y-axis positive arrow pointed towards the
      * mouth of the shooter.
@@ -46,7 +46,7 @@ public class Tilter {
     private final int ACCEL_UPDATE_PERIOD = 10; //Time between measurements. DO NOT USE ANY VALUE LESS THAN 10.
     
     private Tilter() {
-        leadscrew = new Talon(Constants.TILTER_CHANNEL);
+        leadscrew = new BoundedTalon(Constants.TILTER_CHANNEL, Constants.UPPER_LIMIT_SWITCH_CHANNEL, Constants.UPPER_LIMIT_SWITCH_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
         accelMeasurements = new Vector();
         updateAccel();
