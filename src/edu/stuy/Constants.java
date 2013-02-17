@@ -96,7 +96,7 @@ public class Constants {
     
     /* NETWORKING AND CV VALUES */
     public static final int CV_SERVER_PORT = 6940;
-    public static final String CV_SERVER_IP = "10.6.94.14";
+    public static final String CV_IP = "10.6.94.14";
     public static final int CV_DEFAULT_VALUE = 694; 
     public static final long CV_TIMEOUT = 3000; //Timeout in ms
 
