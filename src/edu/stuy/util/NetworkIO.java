@@ -42,7 +42,8 @@ public class NetworkIO {
             message = "" + output;
             mostRecentOut = Double.parseDouble(message);
         } catch (Exception e) {
-            e.printStackTrace();
+            if (DEBUG)
+                e.printStackTrace();
         }
     }
     
@@ -51,7 +52,8 @@ public class NetworkIO {
             out.write(msg.getBytes());
             out.flush();
         } catch(IOException ioException) {
-            ioException.printStackTrace();
+            if (DEBUG)
+                ioException.printStackTrace();
         }
     }
     
