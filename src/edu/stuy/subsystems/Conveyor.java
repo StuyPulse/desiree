@@ -69,13 +69,11 @@ public class Conveyor {
         }
         if (time - lastTime >= 1.0) {
             stop();
-            isConveying = false;
-        }
-            
+        }       
     }
     
     public void manualConveyorControl(Gamepad gamepad) {
-        if(Math.abs(gamepad.getLeftY()) > 0.05) {
+        if(Math.abs(gamepad.getLeftY()) > 0.1) {
             roll(gamepad.getLeftY());
         }
         else {
