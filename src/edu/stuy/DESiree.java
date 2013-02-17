@@ -95,6 +95,11 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         lights.runLogic(operatorPad);
         
         SmartDashboard.putBoolean("Acquirer sensor",conveyor.isBottomDiscDetected());
+        SmartDashboard.putBoolean("Hopper empty",shooter.isHopperNotEmpty());
+        SmartDashboard.putNumber("Gyro angle",drivetrain.getAngle());
+        SmartDashboard.putNumber("Left encoder",drivetrain.getLeftEnc());
+        SmartDashboard.putNumber("Right encoder",drivetrain.getRightEnc());
+        SmartDashboard.putNumber("Acceleromter",tilter.getInstantAngle());
     }
 
     /**
