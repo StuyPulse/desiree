@@ -46,11 +46,11 @@ public class Tilter {
     private final int ACCEL_UPDATE_PERIOD = 10; //Time between measurements. DO NOT USE ANY VALUE LESS THAN 10.
     
     private Tilter() {
-        leadscrew = new BoundedTalon(Constants.TILTER_CHANNEL, Constants.UPPER_LIMIT_SWITCH_CHANNEL, Constants.UPPER_LIMIT_SWITCH_CHANNEL);
+        leadscrew = new BoundedTalon(Constants.TILTER_CHANNEL, Constants.TILTER_UPPER_LIMIT_SWITCH_CHANNEL, Constants.TILTER_UPPER_LIMIT_SWITCH_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
         accelMeasurements = new Vector();
         updateAccel();
-        enc = new Encoder(Constants.TILT_ENCODER_A,Constants.TILT_ENCODER_B);
+        enc = new Encoder(Constants.LEADSCREW_ENCODER_A_CHANNEL,Constants.LEADSCREW_ENCODER_B_CHANNEL);
         initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();

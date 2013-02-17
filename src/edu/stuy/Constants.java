@@ -35,16 +35,16 @@ public class Constants {
     public static final int SIGNAL_LIGHT_RELAY_CHANNEL = 3;
     
     /* GPIO */
-    public static final int DRIVE_ENCODER_LEFT_A = 1;
-    public static final int DRIVE_ENCODER_LEFT_B = 2;
-    public static final int DRIVE_ENCODER_RIGHT_A = 3;
-    public static final int DRIVE_ENCODER_RIGHT_B = 4;
-    public static final int TILT_ENCODER_A = 5;
-    public static final int TILT_ENCODER_B = 6;
-    public static final int UPPER_LIMIT_SWITCH_CHANNEL = 7;
-    public static final int LOWER_LIMIT_SWITCH_CHANNEL = 8;
-    public static final int HOPPER_SENSOR = 9;
-    public static final int LOWER_CONVEYOR_SENSOR = 10;
+    public static final int DRIVE_ENCODER_LEFT_A_CHANNEL = 1;
+    public static final int DRIVE_ENCODER_LEFT_B_CHANNEL = 2;
+    public static final int DRIVE_ENCODER_RIGHT_A_CHANNEL = 3;
+    public static final int DRIVE_ENCODER_RIGHT_B_CHANNEL = 4;
+    public static final int LEADSCREW_ENCODER_A_CHANNEL = 5;
+    public static final int LEADSCREW_ENCODER_B_CHANNEL = 6;
+    public static final int TILTER_UPPER_LIMIT_SWITCH_CHANNEL = 7;
+    public static final int TILTER_LOWER_LIMIT_SWITCH_CHANNEL = 8;
+    public static final int HOPPER_SENSOR_CHANNEL = 9;
+    public static final int LOWER_CONVEYOR_SENSOR_CHANNEL = 10;
     public static final int PRESSURE_SWITCH_CHANNEL = 11;
     
     /* I2C */
@@ -98,8 +98,8 @@ public class Constants {
     public static final double FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID = PYRAMID_BASE_LENGTH / 2. + MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE;
     
     /* NETWORKING AND CV VALUES */
-    public static final int CV_PORT = 6940;
-    public static final String CV_IP = "10.6.94.14";
+    public static final int CV_SERVER_PORT = 6940;
+    public static final String CV_SERVER_IP = "10.6.94.14";
     public static final int CV_DEFAULT_VALUE = 694; 
     public static final long CV_TIMEOUT = 3000; //Timeout in ms
 

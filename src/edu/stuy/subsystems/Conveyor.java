@@ -31,7 +31,7 @@ public class Conveyor {
     
     private Conveyor() {
         roller = new Victor(Constants.CONVEYOR_CHANNEL);
-        lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
+        lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR_CHANNEL);
         isConveying = false;
     }
     

@@ -40,8 +40,8 @@ public class Drivetrain {
         gyro.setSensitivity(0.007);
         gyroReset();
 
-        encoderLeft = new Encoder(Constants.DRIVE_ENCODER_LEFT_A, Constants.DRIVE_ENCODER_LEFT_B);
-        encoderRight = new Encoder(Constants.DRIVE_ENCODER_RIGHT_A, Constants.DRIVE_ENCODER_RIGHT_B);
+        encoderLeft = new Encoder(Constants.DRIVE_ENCODER_LEFT_A_CHANNEL, Constants.DRIVE_ENCODER_LEFT_B_CHANNEL);
+        encoderRight = new Encoder(Constants.DRIVE_ENCODER_RIGHT_A_CHANNEL, Constants.DRIVE_ENCODER_RIGHT_B_CHANNEL);
         encoderLeft.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
         encoderRight.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
         encoderLeft.start();

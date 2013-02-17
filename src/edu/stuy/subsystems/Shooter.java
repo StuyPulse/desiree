@@ -47,7 +47,7 @@ public class Shooter {
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
-        hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR);
+        hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR_CHANNEL);
         pistonResetSolenoid = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
         pistonLaunchSolenoid = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
         firstShot = true;
