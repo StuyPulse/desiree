@@ -77,18 +77,31 @@ public class Tilter {
         return instance;
     }
     
+    /**
+     * Enables tilter PID controller.
+     */
     public void enableAngleControl() {
         controller.enable();
     }
     
+    /**
+     * Disables tilter PID controller.
+     */
     public void disableAngleControl() {
         controller.disable();
     }
     
+    /**
+     * Checks for CV aiming.
+     * @return if CV aiming is being used
+     */
     public boolean isCVAiming() {
         return isCVAiming;
     }
     
+    /**
+     * Uses Smart Dashboard to update PID values.
+     */
     public void updatePID() {
         double pVal;
         double iVal;
@@ -105,28 +118,43 @@ public class Tilter {
         }
     }
     
+    /**
+     * Sets angle based on a difference in angle to move.
+     * @param deltaAngle 
+     */
     public void setRelativeAngle(double deltaAngle) {
         double initialAngle = getShooterAngle();
         double absoluteAngle = deltaAngle + initialAngle;
         setAbsoluteAngle(absoluteAngle);
     }
     
+    /**
+     * Sets angle by using the maths and then sets that setpoint distance.
+     * @param angle 
+     */
     public void setAbsoluteAngle(double angle) {
         double leadScrewLength = getLeadscrewLength(angle);
         double deltaLeadScrewLength = leadScrewLength - getLeadscrewLength();
         controller.setSetpoint(deltaLeadScrewLength + enc.getDistance());
     }
 
+    /**
+     * Set leadscrew motor speed.
+     * @param speed 
+     */
     private void setLeadscrewMotor(double speed){
         leadscrew.set(speed);
     }
     
+    /**
+     * Stops leadscrew motor.
+     */
     public void stopLeadscrewMotor() {
         leadscrew.set(0);
     }
     
      /**
-     * Starts the update thread.
+     * Starts the update thread for the accelerometer.
      */
     public void updateAccel() {
         accelStop();
@@ -143,16 +171,26 @@ public class Tilter {
         }, 0, ACCEL_UPDATE_PERIOD);
     }
     
+    /**
+     * Stops the accelerometer update thread.
+     */
     public void accelStop() {
         if (updateMeasurements != null) {
             updateMeasurements.cancel();
         }
     }
     
+    /**
+     * Resets the accelerometer update thread.
+     */
     public void resetAccelMeasurements() {
         accelMeasurements.removeAllElements();
     }
 
+    /**
+     * Gets the relative angle to the target from the Pi
+     * @return angle difference from the target
+     */
     public double getCVRelativeAngle () {
         if (Tilter.net == null) {
             return Constants.CV_DEFAULT_VALUE;
@@ -161,20 +199,32 @@ public class Tilter {
         return relativeAngle;
     }
     
+    /**
+     * Gets X-axis acceleration of the shooter. This is not used on DESiree
+     * @return x-axis acceleration
+     */
     public double getXAcceleration() {
         return accel.getAcceleration(ADXL345_I2C.Axes.kX);
     }
     
+    /**
+     * Gets Y-axis acceleration of the shooter. This is pointing in the direction of the shooter.
+     * @return y-axis acceleration
+     */
     public double getYAcceleration() {
         return accel.getAcceleration(ADXL345_I2C.Axes.kY);
     }
     
+    /**
+     * Gets Z-axis acceleration of the shooter. This is pointing perpendicular to the shooter.
+     * @return z-axis acceleration
+     */
     public double getZAcceleration() {
         return accel.getAcceleration(ADXL345_I2C.Axes.kZ);
     }
     
     /**
-     * Gets the angle from the measurements of the last 10 accelerations
+     * Gets the angle from the measurements of the last 10 accelerations.
      */
     public double getAbsoluteAngle() {
         if (accelMeasurements.isEmpty()) {
@@ -200,16 +250,26 @@ public class Tilter {
     }
     
     /**
-     * Gets instantaneous angle
+     * Gets instantaneous angle of hte tilter directly from the accelerometer measurements.
+     * @return the instant angle read from the accelerometer
      */
     public double getInstantAngle() {
         return MathUtils.atan(getYAcceleration() / -getZAcceleration()) * 180.0 / Math.PI;
     }
     
+    /**
+     * Gets the leadscrew length by adding the initial to the distance the encoder has read.
+     * @return the leadscrew length, from the base to the point of connection to the shooter
+     */
     public double getLeadscrewLength() {
         return initialLeadLength + enc.getDistance();
     }
     
+    /**
+     * Simple math method that squares a number.
+     * @param x
+     * @return the square of x
+     */
     private double square(double x) {
         return x * x;
     }
@@ -243,6 +303,10 @@ public class Tilter {
                (2 * leadscrewLength * Math.sqrt(baseSquared + heightSquared)));
     }
     
+    /**
+     * Manually allows for tilter control and aiming.
+     * @param gamepad 
+     */
     public void manualTilterControl(Gamepad gamepad) {
         if (gamepad.getBottomButton()) {
             isCVAiming = true;
@@ -267,6 +331,9 @@ public class Tilter {
         printAngle();
     }
     
+    /**
+     * Prints angles to the SmartDashboard.
+     */
     public void printAngle() {
         if (getCVRelativeAngle() != 694) {
             SmartDashboard.putNumber("CV Angle", getCVRelativeAngle());
