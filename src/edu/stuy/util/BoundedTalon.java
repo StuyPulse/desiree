@@ -23,7 +23,7 @@ public class BoundedTalon extends Talon {
     }
 
     /**
-     * Checks limit switches to allow for soft bounds for motion
+     * Checks limit switches to allow for soft bounds for motion.
      * @param value
      */
     public void set(double value) {
@@ -35,7 +35,7 @@ public class BoundedTalon extends Talon {
     }
     
     /**
-     * Checks if the limit switch for forward motion is triggered
+     * Checks if the limit switch for forward motion is triggered.
      * @return if the forward switch is triggered
      */
     public boolean isFwdSwitchTriggered() {
@@ -43,7 +43,7 @@ public class BoundedTalon extends Talon {
     }
     
     /**
-     * Checks if the limit switch for backward motion is triggered
+     * Checks if the limit switch for backward motion is triggered.
      * @return if the backward switch is triggered
      */
     public boolean isRevSwitchTriggered() {

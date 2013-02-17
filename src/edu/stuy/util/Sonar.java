@@ -80,7 +80,7 @@ public class Sonar {
     }
     
     /**
-     * Gets the distance measurement of the sonar in inches
+     * Gets the distance measurement of the sonar in inches.
      * @return Distance in inches
      */
     public double getInstantaneousDistance() {

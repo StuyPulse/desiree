@@ -20,7 +20,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The left analog stick x-axis
+     * The left analog stick x-axis.
      * @return value of left analog x-axis
      */
     public double getLeftX() {
@@ -28,7 +28,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The left analog stick y-axis
+     * The left analog stick y-axis.
      * @return value of left analog y-axis
      */
     public double getLeftY() {
@@ -36,7 +36,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The right analog stick x-axis
+     * The right analog stick x-axis.
      * @return value of right analog x-axis
      */
     public double getRightX() {
@@ -44,7 +44,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The right analog stick y-axis
+     * The right analog stick y-axis.
      * @return value of right analog y-axis
      */
     public double getRightY() {
@@ -52,7 +52,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The directional pad of the gamepad
+     * The directional pad of the gamepad.
      * @return value of the left/right d-pad buttons
      */
     public double getDPadX() {
@@ -60,7 +60,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The direction pad of the gamepad
+     * The direction pad of the gamepad.
      * @return value of the up/down d-pad buttons
      */
     public double getDPadY() {
@@ -68,7 +68,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The upper d-pad button
+     * The upper d-pad button.
      * @return if upper d-pad button is pressed
      */
     public boolean getDPadUp() {
@@ -76,7 +76,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The lower d-pad button
+     * The lower d-pad button.
      * @return if the lower d-pad button is pressed
      */
     public boolean getDPadDown() {
@@ -84,7 +84,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The left d-pad button
+     * The left d-pad button.
      * @return if the left d-pad button is pressed
      */
     public boolean getDPadLeft() {
@@ -92,7 +92,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The right d-pad button
+     * The right d-pad button.
      * @return if the right d-pad button is pressed
      */
     public boolean getDPadRight() {
@@ -100,7 +100,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The left bumper
+     * The left bumper.
      * @return if the left bumper is pressed
      */
     public boolean getLeftBumper() {
@@ -108,7 +108,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The right bumper
+     * The right bumper.
      * @return if the right bumper is pressed
      */
     public boolean getRightBumper() {
@@ -116,7 +116,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The left trigger
+     * The left trigger.
      * @return if the left trigger is pressed
      */
     public boolean getLeftTrigger() {
@@ -124,7 +124,7 @@ public class Gamepad extends Joystick {
     }
     
     /**
-     * The right trigger
+     * The right trigger.
      * @return if the right trigger is pressed
      */
     public boolean getRightTrigger() {
@@ -132,7 +132,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The left button of the button group. On some gamepads this is X
+     * The left button of the button group. On some gamepads this is X.
      * @return if the left button is pressed
      */
     public boolean getLeftButton() {
@@ -140,7 +140,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The left button of the button group. On some gamepads this is A
+     * The left button of the button group. On some gamepads this is A.
      * @return if the bottom button is pressed
      */
     public boolean getBottomButton() {
@@ -148,7 +148,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The left button of the button group. On some gamepads this is B
+     * The left button of the button group. On some gamepads this is B.
      * @return if the right button is pressed
      */
     public boolean getRightButton() {
@@ -156,7 +156,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The left button of the button group. On some gamepads this is Y
+     * The left button of the button group. On some gamepads this is Y.
      * @return if the top button is pressed
      */
     public boolean getTopButton() {
@@ -164,7 +164,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The central left button. On some gamepads this is the select button
+     * The central left button. On some gamepads this is the select button.
      * @return if the back button is pressed
      */
     public boolean getBackButton() {
@@ -172,7 +172,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The central right button. On some gamepads this is the start button
+     * The central right button. On some gamepads this is the start button.
      * @return if the start button is pressed
      */
     public boolean getStartButton() {
@@ -180,7 +180,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The click-function of the left analog stick
+     * The click-function of the left analog stick.
      * @return if the left analog stick is being clicked down
      */
     public boolean getLeftAnalogButton() {
@@ -188,7 +188,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * The click-function of the right analog stick
+     * The click-function of the right analog stick.
      * @return if the right analog stick is being clicked down
      */
     public boolean getRightAnalogButton() {
