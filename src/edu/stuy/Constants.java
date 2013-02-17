@@ -59,6 +59,7 @@ public class Constants {
     
     /* SHOOTING ANGLES */
     public static final int FEEDER_STATION_ANGLE = 69;
+    public static final int DEFAULT_SHOOTER_ANGLE = 60;
     
     /* GYRO DRIVE STRAIGHT PID VALUES */
     public static final double PVAL_D = .01;

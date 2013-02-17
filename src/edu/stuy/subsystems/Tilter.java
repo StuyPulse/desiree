@@ -239,8 +239,13 @@ public class Tilter {
     public void manualTilterControl(Gamepad gamepad) {
         if (gamepad.getBottomButton()) {
             isCVAiming = true;
-            setRelativeAngle(getCVRelativeAngle());
-            enableAngleControl();
+            if (getCVRelativeAngle() != 694) {
+                setRelativeAngle(getCVRelativeAngle());
+                enableAngleControl();
+            } else {
+                setRelativeAngle(Constants.DEFAULT_SHOOTER_ANGLE);
+                enableAngleControl();
+            }
         }
         else if (gamepad.getTopButton()) {
             isCVAiming = false;
