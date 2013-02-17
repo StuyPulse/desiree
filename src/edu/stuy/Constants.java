@@ -91,6 +91,12 @@ public class Constants {
     public static final double MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE = 5;
     public static final double FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID = PYRAMID_BASE_LENGTH / 2. + MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE;
     
+    /* NETWORKING AND CV VALUES */
+    public static final int CV_PORT = 6940;
+    public static final String CV_IP = "10.6.94.14";
+    public static final int CV_DEFAULT_VALUE = 694; 
+    public static final long CV_TIMEOUT = 3000; //Timeout in ms
+
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};
 }
