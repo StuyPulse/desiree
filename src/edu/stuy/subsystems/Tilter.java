@@ -36,7 +36,7 @@ public class Tilter {
     private PIDController controller;
     private Encoder enc;
     private double initialLeadLength;
-    private NetworkIO net;
+    private static NetworkIO net;
     
     private boolean isCVAiming = false;
     
@@ -54,7 +54,12 @@ public class Tilter {
         initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
-        net = new NetworkIO();
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                Tilter.net = new NetworkIO();
+            }
+        });
+        t.start();
         controller = new PIDController(Constants.PVAL_T, Constants.IVAL_T, Constants.DVAL_T, enc, new PIDOutput() {
             public void pidWrite(double output) {
                 setLeadscrewMotor(output);
@@ -149,7 +154,10 @@ public class Tilter {
     }
 
     public double getCVRelativeAngle () {
-        double relativeAngle = net.getCurrent();
+        if (Tilter.net == null) {
+            return Constants.CV_DEFAULT_VALUE;
+        }
+        double relativeAngle = Tilter.net.getCurrent();
         return relativeAngle;
     }
     
