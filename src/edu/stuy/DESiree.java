@@ -100,6 +100,8 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         SmartDashboard.putNumber("Left encoder",drivetrain.getLeftEnc());
         SmartDashboard.putNumber("Right encoder",drivetrain.getRightEnc());
         SmartDashboard.putNumber("Acceleromter",tilter.getInstantAngle());
+        SmartDashboard.putNumber("Shooter angle avg'd",tilter.getAbsoluteAngle());
+        SmartDashboard.putNumber("Shooter angle via Math",tilter.getShooterAngle());
     }
 
     /**
