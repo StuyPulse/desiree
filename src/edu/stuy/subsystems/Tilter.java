@@ -63,7 +63,6 @@ public class Tilter {
         controller.setPercentTolerance(0.01);
         controller.disable();
         updatePID();
-        printAngle();
     }
     
     public static Tilter getInstance() {
@@ -252,6 +251,7 @@ public class Tilter {
             disableAngleControl();
             leadscrew.set(gamepad.getRightY());
         }
+        printAngle();
     }
     
     public void printAngle() {
