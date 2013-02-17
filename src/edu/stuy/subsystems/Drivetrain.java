@@ -104,7 +104,9 @@ public class Drivetrain {
     public boolean getPressure() {
         return compressor.getPressureSwitchValue();
     }
-
+    /* 
+     * Allows drivetrain to move forward by enabling the PID controllers.
+     */
     public void enableDriveStraight(boolean forward) {
         if (forward) {
             forwardController.setSetpoint(0);
@@ -114,7 +116,9 @@ public class Drivetrain {
             backwardController.enable();
         }
     }
-
+    /*
+     * Disables both of the PID controllers (forward and backward).
+     */
     public void disableDriveStraight() {
         forwardController.disable();
         backwardController.disable();
@@ -127,7 +131,9 @@ public class Drivetrain {
     public double getRightEnc() {
         return encoderRight.getDistance();
     }
-
+    /*
+     * Drives forward in inches for less than seven seconds. 
+     */
     public void driveStraightInches(double inches) {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
@@ -148,7 +154,9 @@ public class Drivetrain {
     public double getAvgDistance() {
         return (getLeftEnc() + getRightEnc()) / 2.0;
     }
-    
+    /*
+     * Turns around one hundred eighty degrees in half a second.
+     */
     public void spin180() {
         tankDrive(-1, 1);
         Timer.delay(Constants.SPIN_TIME);

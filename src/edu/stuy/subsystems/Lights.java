@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * run this in both tele and auton
- * flash when disc is picked up from ground or feeder
- * flash on color to signal human player for feed white discs as we approach
- * flash different color for colored discs
- * flash pickup frequency with shooting (please clarify)
+ * Runs this in both tele and auton.
+ * Flashes when disc is picked up from ground or feeder.
+ * Flashes on color to signal human player for feed white discs as we approach.
+ * Flashes different color for colored discs.
+ * Flashes pickup frequency with shooting.
  * @author R4D4
  */
 public class Lights {
@@ -196,10 +196,10 @@ public class Lights {
             setColoredSignalLight(false);
         }
         
-        // Turn on direction light only if shooter is running and tilter is not CV aiming
+        // Turns on direction light only if shooter is running and tilter is not CV aiming.
         setDirectionLight(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming());
         
-        // Turn on camera light only when CV aiming
+        // Turns on camera light only when CV aiming.
         setCameraLight(Tilter.getInstance().isCVAiming());
     }
 }
