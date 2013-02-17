@@ -9,9 +9,6 @@ package edu.stuy;
  * @author kevin
  */
 public class Constants {
-    /* DEBUG FLAG */
-    public static boolean DEBUG = true; //Set to false for production
-    
     /* USB PORTS */
     public static final int DRIVER_PAD_PORT = 1;
     public static final int OPERATOR_PAD_PORT = 2;
