@@ -33,11 +33,11 @@ public class Acquirer {
     }
 
     public void acquire() {
-        spin(1);
+        spin(-1);
     }
 
     public void acquireReverse() {
-        spin(-1);
+        spin(1);
     }
 
     public void stop() {
