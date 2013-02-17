@@ -187,7 +187,7 @@ public class Tilter {
                 return (sum - min - max) / (accelMeasurements.size() - 2); //Removes the max and min values to get rid of any weird fluctuations
             }
             else {
-                return sum;
+                return sum / accelMeasurements.size();
             }
         }
     }
