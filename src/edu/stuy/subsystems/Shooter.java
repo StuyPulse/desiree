@@ -23,17 +23,17 @@ public class Shooter {
     private DigitalInput hopperSensor;
     
     /**
-     * Extends the piston.
+     * Sets the piston to the "reset" state.
      */
-    private Solenoid pistonResetSolenoid;
+    private Solenoid hopperInSolenoid;
     
     /**
-     * Retracts the piston.
+     * Sets the piston to the "launched" state.
      */
-    private Solenoid pistonLaunchSolenoid;
+    private Solenoid hopperOutSolenoid;
     
-    private double lastExtendTime = 0.0;
-    private double lastRetractTime = 0.0;
+    private double lastOutTime = 0.0;
+    private double lastInTime = 0.0;
     private boolean firstShot;
     private boolean isShooting;
     private boolean lastSemiAutoShootButtonState;
@@ -41,15 +41,15 @@ public class Shooter {
     private boolean lastShooterToggleButtonState;
     private boolean isShooterForward;
     
-    // Time in seconds to allow piston to extend and retract before changing its state again
-    public static final double PISTON_EXTEND_TIME = .4;
-    public static final double PISTON_RETRACT_TIME = .1;
+    // Time in seconds to allow launcher to shoot and reset before changing its state again
+    public static final double HOPPER_OUT_TIME = .4;
+    public static final double HOPPER_IN_TIME = .1;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR_CHANNEL);
-        pistonResetSolenoid = new Solenoid(Constants.SHOOTER_PLUNGER_IN_CHANNEL);
-        pistonLaunchSolenoid = new Solenoid(Constants.SHOOTER_PLUNGER_OUT_CHANNEL);
+        hopperInSolenoid = new Solenoid(Constants.HOPPER_IN_CHANNEL);
+        hopperOutSolenoid = new Solenoid(Constants.HOPPER_OUT_CHANNEL);
         firstShot = true;
         isShooting = false;
         pistonExtended = false;
@@ -93,16 +93,16 @@ public class Shooter {
      * Retracts the piston to launch the disc.
      */
     private void pistonLaunch() {
-        pistonResetSolenoid.set(false);
-        pistonLaunchSolenoid.set(true);
+        hopperInSolenoid.set(false);
+        hopperOutSolenoid.set(true);
     }
     
     /**
      * Extends the piston to reset.
      */
     private void pistonReset() {
-        pistonLaunchSolenoid.set(false);
-        pistonResetSolenoid.set(true);
+        hopperOutSolenoid.set(false);
+        hopperInSolenoid.set(true);
     }
     
     /**
@@ -110,15 +110,15 @@ public class Shooter {
      */
     public void runPistonLogic() {
         double time = Timer.getFPGATimestamp();
-        if (!hasPistonFinishedRetracting()) { // Piston is still retracting; let it finish
+        if (!hasPistonFinishedResetting()) { // Piston is still retracting; let it finish
             pistonReset();
         }
-        else if (time - lastExtendTime < PISTON_EXTEND_TIME) { // Piston recently extended or is about to be extended; stay extended until PISTON_EXTEND_TIME has passed
+        else if (time - lastOutTime < HOPPER_OUT_TIME) { // Piston recently extended or is about to be extended; stay extended until PISTON_EXTEND_TIME has passed
             firstShot = false;
             pistonLaunch();
         }
         else if (pistonExtended) { // Has been extended for more than PISTON_EXTEND_TIME; start retracting
-            lastRetractTime = time;
+            lastInTime = time;
             pistonReset();
             pistonExtended = false;
         }
@@ -131,8 +131,8 @@ public class Shooter {
      * Returns whether the piston has had ample time to retract since the last shot.
      * @return Whether the piston is ready to fire
      */
-    private boolean hasPistonFinishedRetracting() {
-        return Timer.getFPGATimestamp() - lastRetractTime >= PISTON_RETRACT_TIME && (lastRetractTime > lastExtendTime || firstShot);
+    private boolean hasPistonFinishedResetting() {
+        return Timer.getFPGATimestamp() - lastInTime >= HOPPER_IN_TIME && (lastInTime > lastOutTime || firstShot);
     }
     
     /**
@@ -142,11 +142,11 @@ public class Shooter {
      */
     public void firePiston() {
         pistonExtended = true;
-        lastExtendTime = Timer.getFPGATimestamp();
+        lastOutTime = Timer.getFPGATimestamp();
     }
     
     public void fireAutoUntilEmpty() {
-        if (hasPistonFinishedRetracting() && isShooterForward) {
+        if (hasPistonFinishedResetting() && isShooterForward) {
             firePiston();
         }
     }
@@ -167,12 +167,12 @@ public class Shooter {
         }//
         
         /* Full auto shooting */
-        if (gamepad.getTopButton() && hasPistonFinishedRetracting() && isShooterForward) {
+        if (gamepad.getTopButton() && hasPistonFinishedResetting() && isShooterForward) {
             firePiston();
         }
         
         /* Semi-automatic shooting */
-        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedRetracting() && isShooterForward) { //semi-auto
+        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedResetting() && isShooterForward) { //semi-auto
             firePiston();
         }
         lastSemiAutoShootButtonState = gamepad.getRightBumper();

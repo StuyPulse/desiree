@@ -51,8 +51,8 @@ public class Constants {
     public static final int GYRO_CHANNEL = 1;
     
     /* SOLENOID */
-    public static final int SHOOTER_PLUNGER_OUT_CHANNEL = 1;
-    public static final int SHOOTER_PLUNGER_IN_CHANNEL = 2;
+    public static final int HOPPER_OUT_CHANNEL = 1;
+    public static final int HOPPER_IN_CHANNEL = 2;
     public static final int CLIMBER_DEPLOYER_CHANNEL = 3;
     public static final int CLIMBER_WITHDRAWER_CHANNEL = 4;
     
