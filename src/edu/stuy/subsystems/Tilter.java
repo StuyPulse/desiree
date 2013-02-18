@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.ADXL345_I2C;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 import java.util.Timer;
@@ -43,12 +44,13 @@ public class Tilter {
     
     private Vector accelMeasurements;
     private Timer updateMeasurements;
+    private Timer initialReadingTimer;
     private final int ACCEL_MEASUREMENT_SIZE = 10; //Number of measurements to average
     private final int ACCEL_UPDATE_PERIOD = 10; //Time between measurements. DO NOT USE ANY VALUE LESS THAN 10.
+    private final int INITIAL_ANGLE_MEASUREMENT_DELAY = 1000;
     
     private Tilter() {
         leadscrew = new BoundedTalon(Constants.TILTER_CHANNEL, Constants.TILTER_UPPER_LIMIT_SWITCH_CHANNEL, Constants.TILTER_LOWER_LIMIT_SWITCH_CHANNEL);
-        initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
         accelMeasurements = new Vector();
         updateAccel();
@@ -69,6 +71,13 @@ public class Tilter {
         controller.setPercentTolerance(0.01);
         controller.disable();
         updatePID();
+        initialReadingTimer = new Timer();
+        initialReadingTimer.schedule(new TimerTask() {
+
+            public void run() {
+                initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
+            }
+        }, INITIAL_ANGLE_MEASUREMENT_DELAY);
     }
     
     public static Tilter getInstance() {
@@ -268,6 +277,10 @@ public class Tilter {
         return initialLeadLength + enc.getDistance();
     }
     
+    public double getLeadscrewEncoderDistance() {
+        return enc.getDistance();
+    }
+    
     /**
      * Simple math method that squares a number.
      * @param x
@@ -334,6 +347,7 @@ public class Tilter {
         else {
             isCVAiming = false;
             disableAngleControl();
+            SmartDashboard.putNumber("Lead screw speed", gamepad.getRightY());
             leadscrew.set(gamepad.getRightY());
         }
         printAngle();
@@ -343,12 +357,12 @@ public class Tilter {
      * Prints angles to the SmartDashboard.
      */
     public void printAngle() {
-        if (getCVRelativeAngle() != 694) {
+//        if (getCVRelativeAngle() != 694) {
             SmartDashboard.putNumber("CV Angle", getCVRelativeAngle());   
-        }
-        else {
-            SmartDashboard.putString("CV Angle", "DRIPTO THE ANGLE'S SMOKING!");
-        }
+//        }
+//        else {
+//            SmartDashboard.putString("CV Angle", "DRIPTO THE ANGLE'S SMOKING!");
+//        }
         SmartDashboard.putNumber("Absolute Angle", getAbsoluteAngle());
         SmartDashboard.putNumber("LS-Based Angle", getShooterAngle());
         SmartDashboard.putNumber("Instant Angle", getInstantAngle());

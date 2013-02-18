@@ -16,6 +16,10 @@ public class Acquirer {
 
     private static Acquirer instance;
     private Victor acquirer;
+    
+    private static double FWD_VAL = -1;
+    private static double REV_VAL = 1;
+    private static double STOP_VAL = 0;
 
     private Acquirer() {
         acquirer = new Victor(Constants.ACQUIRER_CHANNEL);
@@ -35,15 +39,15 @@ public class Acquirer {
     }
 
     public void acquire() {
-        spin(-1);
+        spin(FWD_VAL);
     }
 
     public void acquireReverse() {
-        spin(1);
+        spin(REV_VAL);
     }
 
     public void stop() {
-        spin(0);
+        spin(STOP_VAL);
     }
     /*
      * Returns the speed of the acquirer.
@@ -53,7 +57,7 @@ public class Acquirer {
     }
 
     public boolean isAcquiring() {
-        return getRollerSpeed() > 0;
+        return getRollerSpeed() == FWD_VAL;
     }
 
     public void manualAcquirerControl(Gamepad gamepad) {

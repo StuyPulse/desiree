@@ -30,10 +30,11 @@ public class BoundedTalon extends Talon {
      */
     public void set(double value) {
         // ^ is exclusive or
-        if ((isFwdSwitchTriggered() && value < 0) ^ (isRevSwitchTriggered() && value > 0)) {
-            super.set(value);
-        } else {
+        if ((isFwdSwitchTriggered() && value < 0) || (isRevSwitchTriggered() && value > 0)) {
             super.set(0);
+        }
+        else {
+            super.set(value);
         }
     }
     
