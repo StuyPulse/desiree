@@ -23,11 +23,14 @@ public class BoundedTalon extends Talon {
     }
 
     /**
-     * Checks limit switches to allow for soft bounds for motion.
+     * Checks limit switches to allow for soft bounds for motion. If both
+     * switches appear to be actuated at the same time, assume that they're not
+     * installed and allow the motor to run normally.
      * @param value
      */
     public void set(double value) {
-        if ((isFwdSwitchTriggered() && value < 0) || (isRevSwitchTriggered() && value > 0)) {
+        // ^ is exclusive or
+        if ((isFwdSwitchTriggered() && value < 0) ^ (isRevSwitchTriggered() && value > 0)) {
             super.set(value);
         } else {
             super.set(0);
