@@ -18,8 +18,8 @@ public class BoundedTalon extends Talon {
     
     public BoundedTalon(int port, int fwdLimitSwitchChannel, int revLimitSwitchChannel) {
         super(port);
-        fwdSwitch = new DigitalInput(port, fwdLimitSwitchChannel);
-        revSwitch = new DigitalInput(port, revLimitSwitchChannel);
+        fwdSwitch = new DigitalInput(fwdLimitSwitchChannel);
+        revSwitch = new DigitalInput(revLimitSwitchChannel);
     }
 
     /**
