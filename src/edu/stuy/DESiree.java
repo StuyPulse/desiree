@@ -80,6 +80,11 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
     public void autonomousPeriodic() {
         shooter.runPistonLogic();
     }
+    
+    public void teleopInit() {
+        shooter.pistonReset();
+        climber.undeploy();
+    }
 
     /**
      * This function is called periodically during operator control
@@ -101,6 +106,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         SmartDashboard.putNumber("Gyro angle",drivetrain.getAngle());
         SmartDashboard.putNumber("Left encoder",drivetrain.getLeftEnc());
         SmartDashboard.putNumber("Right encoder",drivetrain.getRightEnc());
+        SmartDashboard.putNumber("Leadscrew encoder", tilter.getLeadscrewEncoderDistance());
     }
 
     /**

@@ -276,6 +276,10 @@ public class Tilter {
         return initialLeadLength + enc.getDistance();
     }
     
+    public double getLeadscrewEncoderDistance() {
+        return enc.getDistance();
+    }
+    
     /**
      * Simple math method that squares a number.
      * @param x

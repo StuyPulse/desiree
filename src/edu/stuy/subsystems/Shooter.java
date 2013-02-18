@@ -101,7 +101,7 @@ public class Shooter {
     /**
      * Extends the piston to reset.
      */
-    private void pistonReset() {
+    public void pistonReset() {
         hopperOutSolenoid.set(false);
         hopperInSolenoid.set(true);
     }
