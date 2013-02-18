@@ -22,6 +22,8 @@ public class Conveyor {
     private double lastTime = 0.;
     private boolean isConveying;
     
+    private static double CONVEY_AUTO_TIME = 2.5;
+    
     public static Conveyor getInstance() {
         if (instance == null) {
             instance = new Conveyor();
@@ -71,7 +73,7 @@ public class Conveyor {
         if (isConveying) {
             convey();        
         }
-        if (time - lastTime >= 1.0) {
+        if (time - lastTime >= CONVEY_AUTO_TIME) {
             stop();
         }       
     }
