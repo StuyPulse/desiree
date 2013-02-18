@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
  * This is the location of the autonomous routines.
  * We assume that we always begin touching the front edge of the pyramid.
  * This gives us two discs.
- * @author Eric
+ * @author Eric, R4D4
  */
 public class Autonomous {
     
@@ -156,6 +156,9 @@ public class Autonomous {
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
     }
     
+    /**
+     * Shoots until the hopper, containing the discs, is empty.
+     */
     public static void shootUntilEmpty() {
         Shooter.getInstance().runShooterOut();
         Timer.delay(0.5);

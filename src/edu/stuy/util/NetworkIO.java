@@ -16,14 +16,13 @@ public class NetworkIO {
     public NetworkIO() {
         mostRecentOut = Constants.CV_DEFAULT_VALUE; // return a huge value by default, the caller better know this
         try {
-            SocketConnection requestSocket = (SocketConnection) Connector.open("socket://" + Constants.CV_IP + ":" + Constants.CV_PORT);
+            SocketConnection requestSocket = (SocketConnection) Connector.open("socket://" + Constants.CV_IP + ":" + Constants.CV_SERVER_PORT);
             requestSocket.setSocketOption(SocketConnection.LINGER, 5);
             in = new DataInputStream(requestSocket.openInputStream());
             out = new DataOutputStream(requestSocket.openOutputStream());
             out.flush();
             lastTime = System.currentTimeMillis();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     
@@ -43,8 +42,6 @@ public class NetworkIO {
             message = "" + output;
             mostRecentOut = Double.parseDouble(message);
         } catch (Exception e) {
-            if (Constants.DEBUG)
-                e.printStackTrace();
         }
     }
     
@@ -53,8 +50,6 @@ public class NetworkIO {
             out.write(msg.getBytes());
             out.flush();
         } catch(IOException ioException) {
-            if (Constants.DEBUG)
-                ioException.printStackTrace();
         }
     }
     

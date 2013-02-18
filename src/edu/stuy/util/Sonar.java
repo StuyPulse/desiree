@@ -46,12 +46,18 @@ public class Sonar {
         }, 0, UPDATE_PERIOD_MS);
     }
 
+    /**
+     * Stops the update thread.
+     */
     public void stop() {
         if (updateMeasurements != null) {
             updateMeasurements.cancel();
         }
     }
 
+    /**
+     * Clear the update buffer.
+     */
     public void reset() {
         measurements.removeAllElements();
     }
@@ -74,7 +80,7 @@ public class Sonar {
     }
     
     /**
-     * Gets the distance measurement of the sonar in inches
+     * Gets the distance measurement of the sonar in inches.
      * @return Distance in inches
      */
     public double getInstantaneousDistance() {

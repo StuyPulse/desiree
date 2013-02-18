@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
- * @author Arfan
+ * @author Arfan, R4D4
  */
 public class Conveyor {
     
@@ -31,7 +31,7 @@ public class Conveyor {
     
     private Conveyor() {
         roller = new Victor(Constants.CONVEYOR_CHANNEL);
-        lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR);
+        lowerSensor = new DigitalInput(Constants.LOWER_CONVEYOR_SENSOR_CHANNEL);
         isConveying = false;
     }
     
@@ -58,6 +58,10 @@ public class Conveyor {
         return lowerSensor.get();
     }
     
+    /*
+     * If the acquirer is conveying and the bottom disc is detected, it starts conveying.
+     * It stops conveying after 1 second.
+     */
     public void conveyAutomatic() {
         double time = Timer.getFPGATimestamp();
         if (Acquirer.getInstance().isAcquiring() && isBottomDiscDetected()) {
@@ -69,13 +73,11 @@ public class Conveyor {
         }
         if (time - lastTime >= 1.0) {
             stop();
-            isConveying = false;
-        }
-            
+        }       
     }
     
     public void manualConveyorControl(Gamepad gamepad) {
-        if(Math.abs(gamepad.getLeftY()) > 0.05) {
+        if(Math.abs(gamepad.getLeftY()) > 0.1) {
             roll(gamepad.getLeftY());
         }
         else {

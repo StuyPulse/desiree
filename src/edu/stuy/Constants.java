@@ -9,9 +9,6 @@ package edu.stuy;
  * @author kevin
  */
 public class Constants {
-    /* DEBUG FLAG */
-    public static boolean DEBUG = true; //Set to false for production
-    
     /* USB PORTS */
     public static final int DRIVER_PAD_PORT = 1;
     public static final int OPERATOR_PAD_PORT = 2;
@@ -35,14 +32,16 @@ public class Constants {
     public static final int SIGNAL_LIGHT_RELAY_CHANNEL = 3;
     
     /* GPIO */
-    public static final int DRIVE_ENCODER_LEFT_A = 1;
-    public static final int DRIVE_ENCODER_LEFT_B = 2;
-    public static final int DRIVE_ENCODER_RIGHT_A = 3;
-    public static final int DRIVE_ENCODER_RIGHT_B = 4;
-    public static final int TILT_ENCODER_A = 5;
-    public static final int TILT_ENCODER_B = 6;
-    public static final int HOPPER_SENSOR = 9;
-    public static final int LOWER_CONVEYOR_SENSOR = 10;
+    public static final int DRIVE_ENCODER_LEFT_A_CHANNEL = 1;
+    public static final int DRIVE_ENCODER_LEFT_B_CHANNEL = 2;
+    public static final int DRIVE_ENCODER_RIGHT_A_CHANNEL = 3;
+    public static final int DRIVE_ENCODER_RIGHT_B_CHANNEL = 4;
+    public static final int LEADSCREW_ENCODER_A_CHANNEL = 5;
+    public static final int LEADSCREW_ENCODER_B_CHANNEL = 6;
+    public static final int TILTER_UPPER_LIMIT_SWITCH_CHANNEL = 7;
+    public static final int TILTER_LOWER_LIMIT_SWITCH_CHANNEL = 8;
+    public static final int HOPPER_SENSOR_CHANNEL = 9;
+    public static final int LOWER_CONVEYOR_SENSOR_CHANNEL = 10;
     public static final int PRESSURE_SWITCH_CHANNEL = 11;
     
     /* I2C */
@@ -52,13 +51,14 @@ public class Constants {
     public static final int GYRO_CHANNEL = 1;
     
     /* SOLENOID */
-    public static final int SHOOTER_PLUNGER_OUT_CHANNEL = 1;
-    public static final int SHOOTER_PLUNGER_IN_CHANNEL = 2;
+    public static final int HOPPER_OUT_CHANNEL = 1;
+    public static final int HOPPER_IN_CHANNEL = 2;
     public static final int CLIMBER_DEPLOYER_CHANNEL = 3;
     public static final int CLIMBER_WITHDRAWER_CHANNEL = 4;
     
     /* SHOOTING ANGLES */
     public static final int FEEDER_STATION_ANGLE = 69;
+    public static final int DEFAULT_SHOOTER_ANGLE = 60;
     
     /* GYRO DRIVE STRAIGHT PID VALUES */
     public static final double PVAL_D = .01;
@@ -95,7 +95,7 @@ public class Constants {
     public static final double FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID = PYRAMID_BASE_LENGTH / 2. + MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE;
     
     /* NETWORKING AND CV VALUES */
-    public static final int CV_PORT = 6940;
+    public static final int CV_SERVER_PORT = 6940;
     public static final String CV_IP = "10.6.94.14";
     public static final int CV_DEFAULT_VALUE = 694; 
     public static final long CV_TIMEOUT = 3000; //Timeout in ms

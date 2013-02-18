@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
- * @author 694
+ * @author R4D4
  */
 public class Acquirer {
 
@@ -27,7 +27,9 @@ public class Acquirer {
         }
         return instance;
     }
-
+    /*
+     * Sets the speed for the acquirer.
+     */
     private void spin(double speed) {
         acquirer.set(speed);
     }
@@ -43,7 +45,9 @@ public class Acquirer {
     public void stop() {
         spin(0);
     }
-
+    /*
+     * Returns the speed of the acquirer.
+     */
     public double getRollerSpeed() {
         return acquirer.get();
     }

@@ -67,6 +67,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         autonChooser.addObject("6 - Do nothing", Integer.valueOf(6));
         autonChooser.addObject("7 - Routine 4 without 180, drive to center of field", Integer.valueOf(7));
         autonChooser.addObject("8 - Routine 3 without 180, drive to center of field", Integer.valueOf(8));
+        SmartDashboard.putData("Autonomous routine", autonChooser);
     }
 
     public void autonomousInit() {

@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * The robot drivetrain.
  *
- * @author kevin, arfan
+ * @author kevin, R4D4
  */
 
 public class Drivetrain {
@@ -40,8 +40,8 @@ public class Drivetrain {
         gyro.setSensitivity(0.007);
         gyroReset();
 
-        encoderLeft = new Encoder(Constants.DRIVE_ENCODER_LEFT_A, Constants.DRIVE_ENCODER_LEFT_B);
-        encoderRight = new Encoder(Constants.DRIVE_ENCODER_RIGHT_A, Constants.DRIVE_ENCODER_RIGHT_B);
+        encoderLeft = new Encoder(Constants.DRIVE_ENCODER_LEFT_A_CHANNEL, Constants.DRIVE_ENCODER_LEFT_B_CHANNEL);
+        encoderRight = new Encoder(Constants.DRIVE_ENCODER_RIGHT_A_CHANNEL, Constants.DRIVE_ENCODER_RIGHT_B_CHANNEL);
         encoderLeft.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
         encoderRight.setDistancePerPulse(Constants.ENCODER_DISTANCE_PER_PULSE);
         encoderLeft.start();
@@ -104,7 +104,9 @@ public class Drivetrain {
     public boolean getPressure() {
         return compressor.getPressureSwitchValue();
     }
-
+    /* 
+     * Allows drivetrain to move forward by enabling the PID controllers.
+     */
     public void enableDriveStraight(boolean forward) {
         if (forward) {
             forwardController.setSetpoint(0);
@@ -114,7 +116,9 @@ public class Drivetrain {
             backwardController.enable();
         }
     }
-
+    /*
+     * Disables both of the PID controllers (forward and backward).
+     */
     public void disableDriveStraight() {
         forwardController.disable();
         backwardController.disable();
@@ -127,17 +131,18 @@ public class Drivetrain {
     public double getRightEnc() {
         return encoderRight.getDistance();
     }
-
+    /*
+     * Drives forward in inches for less than seven seconds. 
+     */
     public void driveStraightInches(double inches) {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
         enableDriveStraight(fwd);
+        // Do nothing because drive straight is enabled.
         while (((fwd && getAvgDistance() < inches)
                 || (!fwd && getAvgDistance() > inches))
-                && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {
-            //do nothing because driveStraight is enabled.
-        }
+                && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {}
         disableDriveStraight();
     }
 
@@ -149,7 +154,9 @@ public class Drivetrain {
     public double getAvgDistance() {
         return (getLeftEnc() + getRightEnc()) / 2.0;
     }
-    
+    /*
+     * Turns around one hundred eighty degrees in half a second.
+     */
     public void spin180() {
         tankDrive(-1, 1);
         Timer.delay(Constants.SPIN_TIME);
