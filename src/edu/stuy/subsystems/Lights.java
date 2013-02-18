@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
  * @author R4D4
  */
 public class Lights {
+    
     private static Lights instance;
     
     /**

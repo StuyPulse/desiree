@@ -57,6 +57,7 @@ public class Conveyor {
     public boolean isBottomDiscDetected() {
         return lowerSensor.get();
     }
+    
     /*
      * If the acquirer is conveying and the bottom disc is detected, it starts conveying.
      * It stops conveying after 1 second.

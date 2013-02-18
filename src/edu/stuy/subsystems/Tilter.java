@@ -25,6 +25,7 @@ import java.util.Vector;
  */
 
 public class Tilter {
+    
     private static Tilter instance;
     private BoundedTalon leadscrew;
     /**
@@ -47,11 +48,11 @@ public class Tilter {
     
     private Tilter() {
         leadscrew = new BoundedTalon(Constants.TILTER_CHANNEL, Constants.TILTER_UPPER_LIMIT_SWITCH_CHANNEL, Constants.TILTER_LOWER_LIMIT_SWITCH_CHANNEL);
+        initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
         accelMeasurements = new Vector();
         updateAccel();
-        enc = new Encoder(Constants.LEADSCREW_ENCODER_A_CHANNEL,Constants.LEADSCREW_ENCODER_B_CHANNEL);
-        initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
+        enc = new Encoder(Constants.LEADSCREW_ENCODER_A_CHANNEL, Constants.LEADSCREW_ENCODER_B_CHANNEL);
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
         Thread t = new Thread(new Runnable() {
@@ -194,9 +195,11 @@ public class Tilter {
     public double getCVRelativeAngle () {
         if (Tilter.net == null) {
             return Constants.CV_DEFAULT_VALUE;
+        } 
+        else {
+            double relativeAngle = Tilter.net.getCurrent();
+            return relativeAngle;
         }
-        double relativeAngle = Tilter.net.getCurrent();
-        return relativeAngle;
     }
     
     /**
@@ -341,16 +344,13 @@ public class Tilter {
      */
     public void printAngle() {
         if (getCVRelativeAngle() != 694) {
-            SmartDashboard.putNumber("CV Angle", getCVRelativeAngle());
-            SmartDashboard.putNumber("Absolute Angle", getAbsoluteAngle());
-            SmartDashboard.putNumber("LS-Based Angle", getShooterAngle());
-            SmartDashboard.putNumber("Instant Angle", getInstantAngle());
+            SmartDashboard.putNumber("CV Angle", getCVRelativeAngle());   
         }
         else {
             SmartDashboard.putString("CV Angle", "DRIPTO THE ANGLE'S SMOKING!");
-            SmartDashboard.putNumber("Absolute Angle", getAbsoluteAngle());
-            SmartDashboard.putNumber("LS-Based Angle", getShooterAngle());
-            SmartDashboard.putNumber("Instant Angle", getInstantAngle());
         }
+        SmartDashboard.putNumber("Absolute Angle", getAbsoluteAngle());
+        SmartDashboard.putNumber("LS-Based Angle", getShooterAngle());
+        SmartDashboard.putNumber("Instant Angle", getInstantAngle());
     }
 }
