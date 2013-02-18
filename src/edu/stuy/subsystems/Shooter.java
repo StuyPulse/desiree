@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -42,8 +43,8 @@ public class Shooter {
     private boolean isShooterForward;
     
     // Time in seconds to allow launcher to shoot and reset before changing its state again
-    public static final double HOPPER_OUT_TIME = .4;
-    public static final double HOPPER_IN_TIME = .1;
+    public static final double HOPPER_OUT_TIME = 1;
+    public static final double HOPPER_IN_TIME = 1;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
@@ -109,8 +110,12 @@ public class Shooter {
      * Runs continuously to update the state of the piston.
      */
     public void runPistonLogic() {
+        SmartDashboard.putBoolean("Has piston finished resetting", hasPistonFinishedResetting());
+        SmartDashboard.putBoolean("Piston extended", pistonExtended);
+        SmartDashboard.putNumber("lastOutTime", lastOutTime);
+        SmartDashboard.putNumber("lastInTime", lastInTime);
         double time = Timer.getFPGATimestamp();
-        if (!hasPistonFinishedResetting()) { // Piston is still retracting; let it finish
+        if (!hasPistonFinishedResetting() && !pistonExtended) { // Piston is still retracting; let it finish
             pistonReset();
         }
         else if (time - lastOutTime < HOPPER_OUT_TIME) { // Piston recently extended or is about to be extended; stay extended until PISTON_EXTEND_TIME has passed
