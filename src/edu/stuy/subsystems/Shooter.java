@@ -165,9 +165,15 @@ public class Shooter {
     }
     
     public void fireAutoUntilEmpty() {
-        if (hasPistonFinishedResetting() && isShooting) {
-            firePiston();
+        while (isHopperNotEmpty()) {
+            if (hasPistonFinishedResetting() && isShooting) {
+                firePiston();
+            }
         }
+    }
+    
+    public void autonShoot() {
+        isShooting = true;
     }
     
     public void manualShooterControl(Gamepad gamepad) {

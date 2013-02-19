@@ -72,6 +72,22 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
 
     public void autonomousInit() {
         resetAll();
+        Thread autonPistonLogicThread = new Thread(new Runnable() {
+
+            public void run() {
+                while (isAutonomous() && isEnabled()) {
+                    shooter.runPistonLogic();
+                    if (shooter.isShooterRunning()) {
+                        shooter.runShooterOut();
+                    }
+                    else {
+                        shooter.stop();
+                    }
+                }
+            }
+            
+        });
+        autonPistonLogicThread.start();
         Autonomous.run(((Integer)autonChooser.getSelected()).intValue());
     }
 
@@ -79,7 +95,6 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        shooter.runPistonLogic();
     }
     
     public void teleopInit() {

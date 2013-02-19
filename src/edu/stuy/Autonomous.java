@@ -64,6 +64,7 @@ public class Autonomous {
         while (!tilter.isAtLowerBound()) {
             tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
         }
+        tilter.stopLeadscrewMotor();
     }
     
     /**
@@ -78,9 +79,10 @@ public class Autonomous {
      * Start in front of back bar of pyramid. (Can be used in a variety of positions).
      */
     public static void auton2() {
+        Shooter.getInstance().autonShoot();
         runTilterToBottom();
-        autoAim(Constants.BACK_OF_PYRAMID_ANGLE);
-        shootUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().stop();
     } 
     
     /**
@@ -178,9 +180,5 @@ public class Autonomous {
      * Shoots until the hopper, containing the discs, is empty.
      */
     public static void shootUntilEmpty() {
-        Shooter.getInstance().runShooterOut();
-        Timer.delay(0.5);
-        Shooter.getInstance().fireAutoUntilEmpty();
-        Shooter.getInstance().stop();
     }
 }
