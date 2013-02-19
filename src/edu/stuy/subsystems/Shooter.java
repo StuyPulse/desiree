@@ -80,6 +80,10 @@ public class Shooter {
         shooter.set(0);
     }
     
+    public void autonStop() {
+        isShooting = false;
+    }
+    
     public void reset() {
         stop();
         isShooting = false;

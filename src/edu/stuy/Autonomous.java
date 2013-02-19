@@ -82,7 +82,7 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
         Shooter.getInstance().fireAutoUntilEmpty();
-        Shooter.getInstance().stop();
+        Shooter.getInstance().autonStop();
     } 
     
     /**
