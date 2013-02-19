@@ -59,6 +59,13 @@ public class Autonomous {
         Tilter.getInstance().disableAngleControl();
     }
     
+    public static void runTilterToBottom() {
+        Tilter tilter = Tilter.getInstance();
+        while (!tilter.isAtLowerBound()) {
+            tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
+        }
+    }
+    
     /**
      * Start in front of pyramid in any position. 
      */
@@ -71,6 +78,7 @@ public class Autonomous {
      * Start in front of back bar of pyramid. (Can be used in a variety of positions).
      */
     public static void auton2() {
+        runTilterToBottom();
         autoAim(Constants.BACK_OF_PYRAMID_ANGLE);
         shootUntilEmpty();
     } 

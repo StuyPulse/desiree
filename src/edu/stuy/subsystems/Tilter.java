@@ -49,6 +49,10 @@ public class Tilter {
     private final int ACCEL_UPDATE_PERIOD = 10; //Time between measurements. DO NOT USE ANY VALUE LESS THAN 10.
     private final int INITIAL_ANGLE_MEASUREMENT_DELAY = 1000;
     
+    public static double UP_VAL = -1;
+    public static double DOWN_VAL = 1;
+    public static double STOP_VAL = 0;
+    
     private Tilter() {
         leadscrew = new BoundedTalon(Constants.TILTER_CHANNEL, Constants.TILTER_UPPER_LIMIT_SWITCH_CHANNEL, Constants.TILTER_LOWER_LIMIT_SWITCH_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
@@ -109,6 +113,14 @@ public class Tilter {
         return isCVAiming;
     }
     
+    public boolean isAtUpperBound() {
+        return leadscrew.isFwdSwitchTriggered();
+    }
+    
+    public boolean isAtLowerBound() {
+        return leadscrew.isRevSwitchTriggered();
+    }
+    
     /**
      * Uses Smart Dashboard to update PID values.
      */
@@ -152,7 +164,7 @@ public class Tilter {
      * Set leadscrew motor speed.
      * @param speed 
      */
-    private void setLeadscrewMotor(double speed){
+    public void setLeadscrewMotor(double speed){
         leadscrew.set(speed);
     }
     

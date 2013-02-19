@@ -107,6 +107,8 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         SmartDashboard.putNumber("Left encoder",drivetrain.getLeftEnc());
         SmartDashboard.putNumber("Right encoder",drivetrain.getRightEnc());
         SmartDashboard.putNumber("Leadscrew encoder", tilter.getLeadscrewEncoderDistance());
+        SmartDashboard.putBoolean("Tilter at upper bound", tilter.isAtUpperBound());
+        SmartDashboard.putBoolean("Tilter at lower bound", tilter.isAtLowerBound());
     }
 
     /**
