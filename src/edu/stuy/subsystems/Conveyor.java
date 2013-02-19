@@ -63,7 +63,7 @@ public class Conveyor {
     }
     
     public boolean isBottomDiscDetected() {
-        return lowerSensor.get();
+        return !lowerSensor.get();
     }
     
     /*
