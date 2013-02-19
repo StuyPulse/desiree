@@ -81,12 +81,12 @@ public class Drivetrain {
     }
 
     /**
-     * Tank drive using a gamepad's left and right analog sticks. Square inputs.
+     * Tank drive using a gamepad's left and right analog sticks.
      *
      * @param gamepad Gamepad to tank drive with
      */
     public void tankDrive(Gamepad gamepad) {
-        drivetrain.tankDrive(gamepad.getLeftY(), gamepad.getRightY(), true);
+        tankDrive(gamepad.getLeftY(), gamepad.getRightY());
     }
     
     public void reset() {
