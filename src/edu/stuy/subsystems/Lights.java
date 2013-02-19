@@ -31,11 +31,11 @@ public class Lights {
     /**
      * Lights must be wired as follows:
      * M+: White signal light
-     * M-: Colored signal light
+     * M-: Red signal light
      */
     private Relay signalLightRelay;
     private int WHITE_FLASH_FREQUENCY = 7;
-    private int COLORED_FLASH_FREQUENCY = 7;
+    private int RED_FLASH_FREQUENCY = 7;
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
     private boolean isWhiteOn, isRedOn;
@@ -97,28 +97,28 @@ public class Lights {
     private void setWhiteSignalLight(boolean on) {
         Relay.Value currentVal = signalLightRelay.get();
         if (on) { // Turn white light on
-            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Colored light is off
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Red light is off
                 signalLightRelay.set(Relay.Value.kForward);
             }
-            else { // Colored light is on
+            else { // Red light is on
                 signalLightRelay.set(Relay.Value.kOn);
             }
             isWhiteOn = true;
         }
         else { // Turn white light off
-            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Colored light is off
+            if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kForward) { // Red light is off
                 signalLightRelay.set(Relay.Value.kOff);
             }
-            else { // Colored light is on
+            else { // Red light is on
                 signalLightRelay.set(Relay.Value.kReverse);
             }
             isWhiteOn = false;
         }
     }
     
-    private void setColoredSignalLight(boolean on) {
+    private void setRedSignalLight(boolean on) {
         Relay.Value currentVal = signalLightRelay.get();
-        if (on) { // Turn colored light on
+        if (on) { // Turn red light on
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // White light is off
                 signalLightRelay.set(Relay.Value.kReverse);
             }
@@ -127,7 +127,7 @@ public class Lights {
             }
             isRedOn = true;
         }
-        else { // Turn colored light off
+        else { // Turn red light off
             if (currentVal == Relay.Value.kOff || currentVal == Relay.Value.kReverse) { // White light is off
                 signalLightRelay.set(Relay.Value.kOff);
             }
@@ -146,10 +146,10 @@ public class Lights {
         }
     }
     
-    private void flashColoredSignalLight() {
+    private void flashRedSignalLight() {
         double time = Timer.getFPGATimestamp();
-        if (time - lastTimeRed > (1.0 / COLORED_FLASH_FREQUENCY)) { // Flashes (on and off) red light every 1/7 second 
-            setColoredSignalLight(!isRedOn);
+        if (time - lastTimeRed > (1.0 / RED_FLASH_FREQUENCY)) { // Flashes (on and off) red light every 1/7 second
+            setRedSignalLight(!isRedOn);
             lastTimeRed = time;
         }
     }
@@ -162,10 +162,10 @@ public class Lights {
             setWhiteSignalLight(false);
         }
         if (gamepad.getRightButton()) {
-            flashColoredSignalLight();
+            flashRedSignalLight();
         }
         else {
-            setColoredSignalLight(false);
+            setRedSignalLight(false);
         }
     }
     
@@ -183,11 +183,11 @@ public class Lights {
             flashWhiteSignalLight();
         }
         else if (Shooter.getInstance().isHopperNotEmpty()) {
-            flashColoredSignalLight();
+            flashRedSignalLight();
         }
         else {
             setWhiteSignalLight(false);
-            setColoredSignalLight(false);
+            setRedSignalLight(false);
         }
         
         // Turns on direction light only if shooter is running and tilter is not CV aiming.
