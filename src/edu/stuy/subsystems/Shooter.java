@@ -172,6 +172,7 @@ public class Shooter {
         while (isHopperNotEmpty()) {
             if (hasPistonFinishedResetting() && isShooting) {
                 firePiston();
+                Timer.delay(2.0);
             }
         }
     }
