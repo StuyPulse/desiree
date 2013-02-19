@@ -75,7 +75,7 @@ public class Tilter {
         initialReadingTimer.schedule(new TimerTask() {
 
             public void run() {
-                initialLeadLength = getLeadscrewLength(getAbsoluteAngle());
+                initialLeadLength = calcLeadscrewLength(getAveragedAccelBasedAngle());
             }
         }, INITIAL_ANGLE_MEASUREMENT_DELAY);
     }
@@ -133,7 +133,7 @@ public class Tilter {
      * @param deltaAngle relative angle in degrees
      */
     public void setRelativeAngle(double deltaAngle) {
-        double initialAngle = getShooterAngle();
+        double initialAngle = getLeadscrewBasedAngle();
         double absoluteAngle = deltaAngle + initialAngle;
         setAbsoluteAngle(absoluteAngle);
     }
@@ -143,7 +143,7 @@ public class Tilter {
      * @param angle angle in degrees
      */
     public void setAbsoluteAngle(double angle) {
-        double leadScrewLength = getLeadscrewLength(angle);
+        double leadScrewLength = calcLeadscrewLength(angle);
         double deltaLeadScrewLength = leadScrewLength - getLeadscrewLength();
         controller.setSetpoint(deltaLeadScrewLength + enc.getDistance());
     }
@@ -178,7 +178,7 @@ public class Tilter {
         updateMeasurements.schedule(new TimerTask() {
             public void run() {
                 synchronized (Tilter.this) {
-                    accelMeasurements.addElement(new Double(getInstantAngle()));
+                    accelMeasurements.addElement(new Double(getInstantaneousAccelBasedAngle()));
                     if (accelMeasurements.size() > ACCEL_MEASUREMENT_SIZE) {
                         accelMeasurements.removeElementAt(0);
                     }
@@ -244,7 +244,7 @@ public class Tilter {
     /**
      * Gets the angle from the measurements of the last 10 accelerations.
      */
-    public double getAbsoluteAngle() {
+    public double getAveragedAccelBasedAngle() {
         if (accelMeasurements.isEmpty()) {
             return 0;
         }
@@ -271,7 +271,7 @@ public class Tilter {
      * Gets instantaneous angle of hte tilter directly from the accelerometer measurements.
      * @return the instantaneous angle read from the accelerometer in degrees
      */
-    public double getInstantAngle() {
+    public double getInstantaneousAccelBasedAngle() {
         return MathUtils.atan(getYAcceleration() / -getZAcceleration()) * 180.0 / Math.PI;
     }
     
@@ -308,7 +308,7 @@ public class Tilter {
      * @param angle angle in degrees
      * @return the leadscrew length, from the base to the point of connection to the shooter
      */
-    public double getLeadscrewLength(double angle) {
+    public double calcLeadscrewLength(double angle) {
         angle *= Math.PI / 180;
         return Math.sqrt(square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.cos(angle) - Constants.DISTANCE_TO_LEADSCREW_BASE)
                 + square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sin(angle) - Constants.LEADSCREW_HEIGHT));
@@ -321,7 +321,7 @@ public class Tilter {
      * variables are defined above
      * @return shooter angle in degrees
      */
-    public double getShooterAngle() {
+    public double getLeadscrewBasedAngle() {
         double leadscrewLength = getLeadscrewLength();
         double heightSquared = square(Constants.LEADSCREW_HEIGHT);
         double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
@@ -371,8 +371,8 @@ public class Tilter {
 //        else {
 //            SmartDashboard.putString("CV Angle", "DRIPTO THE ANGLE'S SMOKING!");
 //        }
-        SmartDashboard.putNumber("Absolute Angle", getAbsoluteAngle());
-        SmartDashboard.putNumber("LS-Based Angle", getShooterAngle());
-        SmartDashboard.putNumber("Instant Angle", getInstantAngle());
+        SmartDashboard.putNumber("Absolute Angle", getAveragedAccelBasedAngle());
+        SmartDashboard.putNumber("LS-Based Angle", getLeadscrewBasedAngle());
+        SmartDashboard.putNumber("Instant Angle", getInstantaneousAccelBasedAngle());
     }
 }
