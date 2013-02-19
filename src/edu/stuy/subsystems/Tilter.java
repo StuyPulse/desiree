@@ -163,6 +163,12 @@ public class Tilter {
         leadscrew.set(0);
     }
     
+    public void reset() {
+        stopLeadscrewMotor();
+        isCVAiming = false;
+        resetAccelMeasurements();
+    }
+    
      /**
      * Starts the update thread for the accelerometer.
      */

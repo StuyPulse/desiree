@@ -49,6 +49,11 @@ public class Acquirer {
     public void stop() {
         spin(STOP_VAL);
     }
+    
+    public void reset() {
+        stop();
+    }
+    
     /*
      * Returns the speed of the acquirer.
      */

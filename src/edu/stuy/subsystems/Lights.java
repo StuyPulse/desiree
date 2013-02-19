@@ -169,6 +169,15 @@ public class Lights {
         }
     }
     
+    public void reset() {
+        setCameraLight(false);
+        setDirectionLight(false);
+        setWhiteSignalLight(false);
+        setRedSignalLight(false);
+        lastTimeWhite = 0.0;
+        lastTimeRed = 0.0;
+    }
+    
     /**
      * Go through all the logic for the lights.
      * @param gamepad Gamepad to do manual lights control with

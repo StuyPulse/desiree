@@ -80,6 +80,12 @@ public class Shooter {
         shooter.set(0);
     }
     
+    public void reset() {
+        stop();
+        isShooting = false;
+        resetPistonLogic();
+    }
+    
     public boolean isShooterRunning() {
         return isShooting;
     }
@@ -102,6 +108,16 @@ public class Shooter {
     public void pistonReset() {
         hopperOutSolenoid.set(false);
         hopperInSolenoid.set(true);
+    }
+    
+    public void resetPistonLogic() {
+        pistonReset();
+        lastOutTime = 0.0;
+        lastInTime = 0.0;
+        firstShot = true;
+        pistonExtended = false;
+        lastSemiAutoShootButtonState = false;
+        lastShooterToggleButtonState = false;
     }
     
     /**

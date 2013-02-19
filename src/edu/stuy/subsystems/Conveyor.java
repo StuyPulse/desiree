@@ -56,6 +56,12 @@ public class Conveyor {
         isConveying = false;
     }
     
+    public void reset() {
+        stop();
+        lastTime = 0.;
+        isConveying = false;
+    }
+    
     public boolean isBottomDiscDetected() {
         return lowerSensor.get();
     }

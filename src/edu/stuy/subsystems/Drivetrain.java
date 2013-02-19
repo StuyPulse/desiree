@@ -88,6 +88,12 @@ public class Drivetrain {
     public void tankDrive(Gamepad gamepad) {
         drivetrain.tankDrive(gamepad.getLeftY(), gamepad.getRightY(), true);
     }
+    
+    public void reset() {
+        tankDrive(0.0, 0.0);
+        gyroReset();
+        resetEncoders();
+    }
 
     public double getAngle() {
         return gyro.getAngle();

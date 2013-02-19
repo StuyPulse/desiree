@@ -71,6 +71,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
     }
 
     public void autonomousInit() {
+        resetAll();
         Autonomous.run(((Integer)autonChooser.getSelected()).intValue());
     }
 
@@ -82,8 +83,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
     }
     
     public void teleopInit() {
-        shooter.pistonReset();
-        climber.undeploy();
+        resetAll();
     }
 
     /**
@@ -113,6 +113,19 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    }
+    
+    /**
+     * Reset the states of all subsystems.
+     */
+    public void resetAll() {
+        drivetrain.reset();
+        acquirer.reset();
+        conveyor.reset();
+        lights.reset();
+        shooter.reset();
+        tilter.reset();
+        climber.reset();
     }
 
     public void doNoHarm() {

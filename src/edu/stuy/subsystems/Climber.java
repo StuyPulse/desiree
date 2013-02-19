@@ -68,6 +68,10 @@ public class Climber {
         deployOut.set(false);
     }
     
+    public void reset() {
+        undeploy();
+    }
+    
     public void manualClimberControl(Joystick stick) {
         if(stick.getRawButton(3)) {
             forwardWench();
