@@ -40,7 +40,6 @@ public class Shooter {
     private boolean lastSemiAutoShootButtonState;
     private boolean pistonExtended;
     private boolean lastShooterToggleButtonState;
-    private boolean isShooterForward;
     
     // Time in seconds to allow launcher to shoot and reset before changing its state again
     public static final double HOPPER_OUT_TIME = 1;
@@ -55,7 +54,6 @@ public class Shooter {
         isShooting = false;
         pistonExtended = false;
         lastSemiAutoShootButtonState = false;
-        isShooterForward = false;
     }
     
     public static Shooter getInstance() {
@@ -71,7 +69,6 @@ public class Shooter {
     
     public void runShooterOut() {
         shooter.set(1);
-        isShooterForward = true;
     }
     
     public void runShooterIn() {
@@ -151,7 +148,7 @@ public class Shooter {
     }
     
     public void fireAutoUntilEmpty() {
-        if (hasPistonFinishedResetting() && isShooterForward) {
+        if (hasPistonFinishedResetting() && isShooting) {
             firePiston();
         }
     }
@@ -172,12 +169,12 @@ public class Shooter {
         }//
         
         /* Full auto shooting */
-        if (gamepad.getTopButton() && hasPistonFinishedResetting() && isShooterForward) {
+        if (gamepad.getTopButton() && hasPistonFinishedResetting() && isShooting) {
             firePiston();
         }
         
         /* Semi-automatic shooting */
-        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedResetting() && isShooterForward) { //semi-auto
+        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedResetting() && isShooting) { //semi-auto
             firePiston();
         }
         lastSemiAutoShootButtonState = gamepad.getRightBumper();
