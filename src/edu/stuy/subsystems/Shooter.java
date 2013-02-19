@@ -54,6 +54,7 @@ public class Shooter {
         isShooting = false;
         pistonExtended = false;
         lastSemiAutoShootButtonState = false;
+        lastShooterToggleButtonState = false;
     }
     
     public static Shooter getInstance() {
