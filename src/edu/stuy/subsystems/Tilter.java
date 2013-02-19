@@ -342,9 +342,9 @@ public class Tilter {
             if (getCVRelativeAngle() != 694) {
                 setRelativeAngle(getCVRelativeAngle());
                 enableAngleControl();
-            } else {
-                setRelativeAngle(Constants.DEFAULT_SHOOTER_ANGLE);
-                enableAngleControl();
+            }
+            else {
+                disableAngleControl();
             }
         }
         else if (gamepad.getTopButton()) {

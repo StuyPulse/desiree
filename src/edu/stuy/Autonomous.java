@@ -8,6 +8,7 @@ import edu.stuy.subsystems.Acquirer;
 import edu.stuy.subsystems.Conveyor;
 import edu.stuy.subsystems.Drivetrain;
 import edu.stuy.subsystems.Shooter;
+import edu.stuy.subsystems.Tilter;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -48,20 +49,29 @@ public class Autonomous {
     }
     
     /**
+     * Aims for a specified period of time. This is a blocking method.
+     * @param angle in degirees
+     */
+    public static void autoAim(double angle) {
+        Tilter.getInstance().setAbsoluteAngle(angle);
+        Tilter.getInstance().enableAngleControl();
+        Timer.delay(Constants.AUTO_AIM_TIMEOUT);
+        Tilter.getInstance().disableAngleControl();
+    }
+    
+    /**
      * Start in front of pyramid in any position. 
-     * Use CV to shoot 2.
      */
     public static void auton1() {
-        // add CV
+        autoAim(Constants.FRONT_OF_PYRAMID_ANGLE);
         shootUntilEmpty();
     }
       
     /**
      * Start in front of back bar of pyramid. (Can be used in a variety of positions).
-     * Use CV to shoot 3.
      */
     public static void auton2() {
-        // add CV
+        autoAim(Constants.BACK_OF_PYRAMID_ANGLE);
         shootUntilEmpty();
     } 
     

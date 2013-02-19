@@ -58,7 +58,11 @@ public class Constants {
     
     /* SHOOTING ANGLES */
     public static final int FEEDER_STATION_ANGLE = 69;
-    public static final int DEFAULT_SHOOTER_ANGLE = 60;
+    public static final int FRONT_OF_PYRAMID_ANGLE = 60;
+    public static final int BACK_OF_PYRAMID_ANGLE = 50;
+    
+    /* AUTO AIM TIMEOUT */
+    public static final double AUTO_AIM_TIMEOUT = 3.;
     
     /* GYRO DRIVE STRAIGHT PID VALUES */
     public static final double PVAL_D = .01;
