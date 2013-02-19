@@ -75,7 +75,7 @@ public class Tilter {
         initialReadingTimer.schedule(new TimerTask() {
 
             public void run() {
-                initialLeadLength = getLeadscrewLength(getAbsoluteAngle() * Math.PI / 180);
+                initialLeadLength = getLeadscrewLength(getAbsoluteAngle());
             }
         }, INITIAL_ANGLE_MEASUREMENT_DELAY);
     }
@@ -130,7 +130,7 @@ public class Tilter {
     
     /**
      * Sets angle based on a difference in angle to move.
-     * @param deltaAngle 
+     * @param deltaAngle relative angle in degrees
      */
     public void setRelativeAngle(double deltaAngle) {
         double initialAngle = getShooterAngle();
@@ -140,7 +140,7 @@ public class Tilter {
     
     /**
      * Sets angle by using the maths and then sets that setpoint distance.
-     * @param angle 
+     * @param angle angle in degrees
      */
     public void setAbsoluteAngle(double angle) {
         double leadScrewLength = getLeadscrewLength(angle);
@@ -269,7 +269,7 @@ public class Tilter {
     
     /**
      * Gets instantaneous angle of hte tilter directly from the accelerometer measurements.
-     * @return the instant angle read from the accelerometer
+     * @return the instantaneous angle read from the accelerometer in degrees
      */
     public double getInstantAngle() {
         return MathUtils.atan(getYAcceleration() / -getZAcceleration()) * 180.0 / Math.PI;
@@ -305,10 +305,11 @@ public class Tilter {
      * z = distance from pivot to where leadscrew hits shooter
      * x = distance from pivot to base of base of leadscrew
      * y = height of the leadscrew
-     * @param angle
+     * @param angle angle in degrees
      * @return the leadscrew length, from the base to the point of connection to the shooter
      */
     public double getLeadscrewLength(double angle) {
+        angle *= Math.PI / 180;
         return Math.sqrt(square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.cos(angle) - Constants.DISTANCE_TO_LEADSCREW_BASE)
                 + square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sin(angle) - Constants.LEADSCREW_HEIGHT));
     }
@@ -318,16 +319,17 @@ public class Tilter {
      * ======== q(v) adds two angles ========
      * q(v) = atan(y/x) + acos( (v^2 + x^2 + y^2 - z^2) / (2vsqrt(x^2 + y^2)) )
      * variables are defined above
-     * @return shooter angle
+     * @return shooter angle in degrees
      */
     public double getShooterAngle() {
         double leadscrewLength = getLeadscrewLength();
         double heightSquared = square(Constants.LEADSCREW_HEIGHT);
         double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
         double hypSquared = square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW);
-        return MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE) + 
+        double angleRadians = MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE) + 
                MathUtils.acos((square(leadscrewLength) + baseSquared + heightSquared - hypSquared) / 
                (2 * leadscrewLength * Math.sqrt(baseSquared + heightSquared)));
+        return angleRadians * 180 / Math.PI; // Returns angle in degrees
     }
     
     /**
