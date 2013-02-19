@@ -5,9 +5,7 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Victor;
+import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -72,17 +70,11 @@ public class Climber {
         undeploy();
     }
     
-    public void manualClimberControl(Joystick stick) {
-        if(stick.getRawButton(3)) {
-            forwardWench();
-        }
-        if(stick.getTrigger()) {
+    public void manualClimberControl(Gamepad gamepad) {
+        if(gamepad.getLeftBumper() && gamepad.getRightBumper()) {
             deploy();
         }
-        if(stick.getRawButton(10)) {
-            reverseWench();
-        }
-        if(stick.getRawButton(11)) {
+        if(gamepad.getLeftTrigger() && gamepad.getRightTrigger()) {
             undeploy();
         }
     }

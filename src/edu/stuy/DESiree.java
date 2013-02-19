@@ -96,7 +96,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         conveyor.manualConveyorControl(operatorPad);
         shooter.manualShooterControl(operatorPad);
         tilter.manualTilterControl(operatorPad);
-        climber.manualClimberControl(climberStick);
+        climber.manualClimberControl(driverPad);
         
         shooter.runPistonLogic();
         lights.runLogic(operatorPad);
