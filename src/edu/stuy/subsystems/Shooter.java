@@ -42,8 +42,8 @@ public class Shooter {
     private boolean lastShooterToggleButtonState;
     
     // Time in seconds to allow launcher to shoot and reset before changing its state again
-    public static final double HOPPER_OUT_TIME = 1;
-    public static final double HOPPER_IN_TIME = 1;
+    public static final double HOPPER_OUT_TIME = 0.5;
+    public static final double HOPPER_IN_TIME = 0.5;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
