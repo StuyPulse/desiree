@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
@@ -32,6 +33,7 @@ public class Drivetrain {
     PIDController backwardController;
     private Encoder encoderRight;
     private Encoder encoderLeft;
+    private AnalogChannel pendulum;
 
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
@@ -39,6 +41,8 @@ public class Drivetrain {
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
         gyroReset();
+        
+        pendulum = new AnalogChannel(Constants.PENDULUM_CHANNEL);
 
         encoderLeft = new Encoder(Constants.DRIVE_ENCODER_LEFT_A_CHANNEL, Constants.DRIVE_ENCODER_LEFT_B_CHANNEL);
         encoderRight = new Encoder(Constants.DRIVE_ENCODER_RIGHT_A_CHANNEL, Constants.DRIVE_ENCODER_RIGHT_B_CHANNEL);
@@ -97,6 +101,9 @@ public class Drivetrain {
 
     public double getAngle() {
         return gyro.getAngle();
+    }
+    public double getPendulumOutput() {
+        return 30 + (pendulum.getVoltage() * 6);
     }
 
     public void gyroReset() {

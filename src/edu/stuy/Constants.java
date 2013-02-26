@@ -49,6 +49,7 @@ public class Constants {
      
     /* ANALOG INPUTS */
     public static final int GYRO_CHANNEL = 1;
+    public static final int PENDULUM_CHANNEL = 7;
     
     /* SOLENOID */
     public static final int HOPPER_IN_CHANNEL = 1;
