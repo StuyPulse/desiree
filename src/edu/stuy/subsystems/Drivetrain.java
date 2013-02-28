@@ -33,7 +33,7 @@ public class Drivetrain {
     PIDController backwardController;
     private Encoder encoderRight;
     private Encoder encoderLeft;
-    private AnalogChannel pendulum;
+    private AnalogChannel pendulum; // potentiometer (angle measuring device)
 
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
