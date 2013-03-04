@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -68,10 +69,18 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         autonChooser.addObject("7 - Routine 4 without 180, drive to center of field", Integer.valueOf(7));
         autonChooser.addObject("8 - Routine 3 without 180, drive to center of field", Integer.valueOf(8));
         SmartDashboard.putData("Autonomous routine", autonChooser);
+        SmartDashboard.putNumber("Autonomous Delay",0.0);
     }
 
     public void autonomousInit() {
         resetAll();
+        double autonDelay = 0.0;
+        try {
+            autonDelay = SmartDashboard.getNumber("Autonomous Delay");
+        }
+        catch (TableKeyNotDefinedException e) {
+            SmartDashboard.putNumber("Autonomous Delay",0.0);        
+        }
         Thread autonPistonLogicThread = new Thread(new Runnable() {
 
             public void run() {
@@ -88,7 +97,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
             
         });
         autonPistonLogicThread.start();
-        Autonomous.run(((Integer)autonChooser.getSelected()).intValue());
+        Autonomous.run(((Integer)autonChooser.getSelected()).intValue(),autonDelay);
     }
 
     /**

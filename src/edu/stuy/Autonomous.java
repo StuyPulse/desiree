@@ -19,7 +19,10 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Autonomous {
     
-    public static void run(int setting) {
+    static double autonDelay;
+    
+    public static void run(int setting, double delay) {
+        autonDelay = delay;
         switch (setting) {
             case 1: 
                 auton1();
@@ -72,6 +75,7 @@ public class Autonomous {
      */
     public static void auton1() {
         autoAim(Constants.FRONT_OF_PYRAMID_ANGLE);
+        Timer.delay(autonDelay);
         shootUntilEmpty();
     }
       
@@ -81,6 +85,7 @@ public class Autonomous {
     public static void auton2() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
+        Timer.delay(autonDelay);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
     } 
@@ -92,6 +97,7 @@ public class Autonomous {
      */
     public static void auton3() {
         // add CV
+        Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
         shootUntilEmpty();
         Acquirer.getInstance().acquire();
@@ -110,6 +116,7 @@ public class Autonomous {
      */ 
     public static void auton4() {
         // add CV
+        Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
         shootUntilEmpty();
         Acquirer.getInstance().acquire();
@@ -127,6 +134,7 @@ public class Autonomous {
      * You might have 4 depending on how many people have left there from other robots.
      */
     public static void auton5() {
+        Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
         shootUntilEmpty();
         Acquirer.getInstance().acquire();
@@ -151,6 +159,7 @@ public class Autonomous {
      */
     public static void auton7() {
         // add CV
+        Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
         shootUntilEmpty();
         Acquirer.getInstance().acquire();
@@ -166,6 +175,7 @@ public class Autonomous {
      */
     public static void auton8()  {
         // add CV
+        Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
         shootUntilEmpty();
         Acquirer.getInstance().acquire();
