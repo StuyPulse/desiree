@@ -67,11 +67,13 @@ public class Tilter {
             }
         });
         t.start();
+        /*
         controller = new PIDController(Constants.PVAL_T, Constants.IVAL_T, Constants.DVAL_T, enc, new PIDOutput() {
             public void pidWrite(double output) {
                 setLeadscrewMotor(output);
             }
         });
+        */
         controller.setPercentTolerance(0.01);
         controller.disable();
         updatePID();
