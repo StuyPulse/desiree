@@ -91,9 +91,15 @@ public class Tilter {
         return instance;
     }
     
-    public boolean isAtAngle(double angle) {
-        return getLeadscrewBasedAngle() == angle;
+    /**
+     * Returns if shooter is at a specified angle
+     * @param angle
+     * @return 0 if shooter is at angle, 1 if above, -1 if below
+     */
+    public int isAtAngle(double angle) {
+        return Math.abs(getLeadscrewBasedAngle() - angle) < 0.1 ? 0 : (getLeadscrewBasedAngle() - angle > 0 ? 1 : -1);
     }
+    
     /**
      * Enables tilter PID controller.
      */
@@ -300,6 +306,24 @@ public class Tilter {
     
     public double getLeadscrewEncoderDistance() {
         return enc.getDistance();
+    }
+    
+    /**
+     * Runs tilter until it is at angle
+     * @param angle 
+     */
+    public void runTilterToBottom(double angle) {
+        if(isAtAngle(angle) > 0) {
+            while (!isAtLowerBound() && isAtAngle(angle) != 0) {
+                setLeadscrewMotor(Tilter.DOWN_VAL);
+            }
+        }
+        else if(isAtAngle(angle) < 0) {
+            while (!isAtUpperBound() && isAtAngle(angle) != 0) {
+                setLeadscrewMotor(Tilter.UP_VAL);
+            }
+        }
+        stopLeadscrewMotor();
     }
     
     /**

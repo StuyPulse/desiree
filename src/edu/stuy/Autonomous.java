@@ -62,12 +62,9 @@ public class Autonomous {
         Tilter.getInstance().disableAngleControl();
     }
     
-    public static void runTilterToBottom(double angle) {
+    public static void runTilterToBottom() {
         Tilter tilter = Tilter.getInstance();
         while (!tilter.isAtLowerBound()) {
-            tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
-        }
-        while (!tilter.isAtAngle(angle)) {
             tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
         }
         tilter.stopLeadscrewMotor();
@@ -87,7 +84,7 @@ public class Autonomous {
      */
     public static void auton2() {
         Shooter.getInstance().autonShoot();
-        runTilterToBottom(Constants.TILTER_HIGHEST_ANGLE);
+        runTilterToBottom();
         Timer.delay(autonDelay);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
