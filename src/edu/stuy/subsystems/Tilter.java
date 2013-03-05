@@ -312,7 +312,7 @@ public class Tilter {
      * Runs tilter until it is at angle
      * @param angle 
      */
-    public void runTilterToBottom(double angle) {
+    public void runTilterToAngle(double angle) {
         if(isAtAngle(angle) > 0) {
             while (!isAtLowerBound() && isAtAngle(angle) != 0) {
                 setLeadscrewMotor(Tilter.DOWN_VAL);
