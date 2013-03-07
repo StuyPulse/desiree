@@ -81,9 +81,10 @@ public class Constants {
     public static final long SPIN_TIME = 500; //Time to spin 180 in milliseconds
     
     /* TILTER CONSTANTS */
-    public static final double DISTANCE_TO_LEADSCREW_BASE = 12.5;
+    public static final double DISTANCE_TO_LEADSCREW_BASE = 12.25;
     public static final double SHOOTER_DISTANCE_TO_LEADSCREW = 16.;
     public static final double LEADSCREW_HEIGHT = 5.5;
+    public static final double SHOOTER_TO_LEADSCREW = 2.25; // distance from point of attachment of leadscrew to conveyor to the screw itself
     public static final double TILTER_INCHES_PER_REV = 0.1;
     public static final double TILTER_DISTANCE_PER_PULSE = TILTER_INCHES_PER_REV / ENCODER_PULSE_PER_REV;
     

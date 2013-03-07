@@ -337,8 +337,9 @@ public class Tilter {
     
     /**
      * Gets the leadscrew length given a specified angle.
-     * ======== v(q) uses distance formula ========
-     * v(q) = sqrt((zcosq - x)^2 + (zcosq - y)^2)
+     * ======== v(q) finds length from angle, using backwards from length to angle ========
+     * v(q) = sqrt(x^2 + y^2 + z^2 - w^2 - 2sqrt(x^2 + y^2)zcost(q - arctan(y/x)) )
+     * w = distance from leadscrew attachment to shooter attachment
      * v = leadscrew length
      * q = angle of shooter
      * z = distance from pivot to where leadscrew hits shooter
@@ -348,15 +349,20 @@ public class Tilter {
      * @return the leadscrew length, from the base to the point of connection to the shooter
      */
     public double calcLeadscrewLength(double angle) {
+        double heightSquared = square(Constants.LEADSCREW_HEIGHT);
+        double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
+        double hypSquared = square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW);
+        double leadscrewWidthSquared = square(Constants.SHOOTER_TO_LEADSCREW);
         angle *= Math.PI / 180;
-        return Math.sqrt(square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.cos(angle) - Constants.DISTANCE_TO_LEADSCREW_BASE)
-                + square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sin(angle) - Constants.LEADSCREW_HEIGHT));
+        return Math.sqrt(baseSquared + heightSquared + hypSquared - leadscrewWidthSquared 
+                - 2 * Math.sqrt(baseSquared + heightSquared) * Constants.SHOOTER_DISTANCE_TO_LEADSCREW 
+                * Math.cos(angle - MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE)));
     }
     
     /**
      * Shooter angle as gotten from the leadscrew length.
      * ======== q(v) adds two angles ========
-     * q(v) = atan(y/x) + acos( (z^2 + x^2 + y^2 - v^2) / (2zsqrt(x^2 + y^2)) )
+     * q(v) = atan(y/x) + acos( (z^2 + x^2 + y^2 - v^2 - w^2) / (2zsqrt(x^2 + y^2)) )
      * variables are defined above
      * @return shooter angle in degrees
      */
@@ -365,8 +371,9 @@ public class Tilter {
         double heightSquared = square(Constants.LEADSCREW_HEIGHT);
         double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
         double hypSquared = square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW);
+        double leadscrewWidthSquared = square(Constants.SHOOTER_TO_LEADSCREW);
         double angleRadians = MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE) + 
-               MathUtils.acos((hypSquared + baseSquared + heightSquared - square(leadscrewLength)) / 
+               MathUtils.acos((hypSquared + baseSquared + heightSquared - square(leadscrewLength) - leadscrewWidthSquared) / 
                (2 * Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sqrt(baseSquared + heightSquared)));
         return angleRadians * 180 / Math.PI; // Returns angle in degrees
     }
