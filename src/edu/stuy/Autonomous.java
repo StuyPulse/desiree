@@ -205,4 +205,16 @@ public class Autonomous {
         Shooter.getInstance().autonStop();    
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
     }
+    
+    /**
+     * Same as auton 2, only with a backup in the end.
+     */
+    public static void auton9() {
+        Shooter.getInstance().autonShoot();
+        runTilterToBottom();
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();
+        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
+    }
 }

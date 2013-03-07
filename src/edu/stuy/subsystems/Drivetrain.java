@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The robot drivetrain.
@@ -167,12 +168,30 @@ public class Drivetrain {
     public double getAvgDistance() {
         return (getLeftEnc() + getRightEnc()) / 2.0;
     }
-    /*
+    
+    /**
      * Turns around one hundred eighty degrees in half a second.
      */
     public void spin180() {
         tankDrive(-1, 1);
         Timer.delay(Constants.SPIN_TIME);
         tankDrive(0, 0);
+    }
+    
+    /**
+     * Meant only to be called once, for when the robot is enabled.
+     */
+    public void dashboardPIDUpdate() {
+        SmartDashboard.putNumber("Drivetrain P", Constants.PVAL_D);
+        SmartDashboard.putNumber("Drivetrain I", Constants.IVAL_D);
+        SmartDashboard.putNumber("Drivetrain D", Constants.DVAL_D);
+        
+        double tp,ti,td;
+        tp = SmartDashboard.getNumber("Drivetrain P");
+        ti = SmartDashboard.getNumber("Drivetrain I");
+        td = SmartDashboard.getNumber("Drivetrain D");
+        
+        forwardController.setPID(tp, ti, td);
+        backwardController.setPID(tp, ti, td);
     }
 }
