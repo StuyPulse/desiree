@@ -67,8 +67,8 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         
         /* AUTON SENDABLECHOOSER */
         autonChooser = new SendableChooser();
-        autonChooser.addDefault("1 - Shoot 2 from front of pyramid", Integer.valueOf(1));
-        autonChooser.addObject("2 - Shoot 3 from back of pyramid, spin 180", Integer.valueOf(2));
+        autonChooser.addObject("1 - Shoot 2 from front of pyramid", Integer.valueOf(1));
+        autonChooser.addDefault("2 - Shoot 3 from back of pyramid", Integer.valueOf(2));
         autonChooser.addObject("3 - Shoot 2 from front of pyramid, acquire 2, shoot 2, spin 180", Integer.valueOf(3));
         autonChooser.addObject("4 - Shoot 2 from front of pyramid, acquire 4, shoot 4, spin 180", Integer.valueOf(4));
         autonChooser.addObject("5 - Shoot 3 from back of pyramid, acquire 4, shoot 4", Integer.valueOf(5));

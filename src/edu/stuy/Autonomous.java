@@ -143,10 +143,10 @@ public class Autonomous {
      */
     public static void auton5() {
         Shooter.getInstance().autonShoot();
+        runTilterToBottom();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
         Shooter.getInstance().fireAutoUntilEmpty();
-        Shooter.getInstance().autonStop();        
+        Shooter.getInstance().autonStop();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
         Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_BACK_OF_PYRAMID);
