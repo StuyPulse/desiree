@@ -51,17 +51,6 @@ public class Autonomous {
         }
     }
     
-    /**
-     * Aims for a specified period of time. This is a blocking method.
-     * @param angle in degirees
-     */
-    public static void autoAim(double angle) {
-        Tilter.getInstance().setAbsoluteAngle(angle);
-        Tilter.getInstance().enableAngleControl();
-        Timer.delay(Constants.AUTO_AIM_TIMEOUT);
-        Tilter.getInstance().disableAngleControl();
-    }
-    
     public static void runTilterToBottom() {
         Tilter tilter = Tilter.getInstance();
         while (!tilter.isAtLowerBound()) {
@@ -70,13 +59,24 @@ public class Autonomous {
         tilter.stopLeadscrewMotor();
     }
     
+    public static void CVAim() {
+        Tilter tilter = Tilter.getInstance();
+        while(Tilter.getInstance().getCVRelativeAngle() == 694) {
+            tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
+        }
+        tilter.stopLeadscrewMotor();
+        tilter.runTilterToAngle(tilter.getLeadscrewBasedAngle() + tilter.getCVRelativeAngle());
+    }
+    
     /**
      * Start in front of pyramid in any position. 
      */
     public static void auton1() {
-        autoAim(Constants.FRONT_OF_PYRAMID_ANGLE);
+        Shooter.getInstance().autonShoot();
+        Tilter.getInstance().runTilterToAngle(Constants.FRONT_OF_PYRAMID_ANGLE);
         Timer.delay(autonDelay);
-        shootUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();
     }
       
     /**
@@ -96,15 +96,19 @@ public class Autonomous {
      * Drive backwards. Use CV to fire those two. 180 degree spin at end. 
      */
     public static void auton3() {
-        // add CV
+        Shooter.getInstance().autonShoot();
+        CVAim();
         Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
-        shootUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
-        shootUntilEmpty();
+        Shooter.getInstance().autonShoot();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();        
         Drivetrain.getInstance().spin180();
     }
     
@@ -115,15 +119,19 @@ public class Autonomous {
      * Stop running acquirer on the way back. Use CV to shoot the 4 acquired disks. Spin 180 at end.
      */ 
     public static void auton4() {
-        // add CV
+        Shooter.getInstance().autonShoot();
+        CVAim();
         Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
-        shootUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();        
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_FRONT_OF_PYRAMID);
-        shootUntilEmpty();
+        Shooter.getInstance().autonShoot();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();        
         Drivetrain.getInstance().spin180();
     }
     
@@ -134,14 +142,18 @@ public class Autonomous {
      * You might have 4 depending on how many people have left there from other robots.
      */
     public static void auton5() {
+        Shooter.getInstance().autonShoot();
         Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
-        shootUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();        
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
         Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_BACK_OF_PYRAMID);
         Acquirer.getInstance().stop();
-        shootUntilEmpty();
+        Shooter.getInstance().autonShoot();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();     
     } 
    
     /*
@@ -158,15 +170,19 @@ public class Autonomous {
      * Same as 4 but NO 180 SPIN, move forward to center at end of auton.
      */
     public static void auton7() {
-        // add CV
+        Shooter.getInstance().autonShoot();
+        CVAim();
         Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
-        shootUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();     
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_FRONT_OF_PYRAMID);
-        shootUntilEmpty();
+        Shooter.getInstance().autonShoot();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();     
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
     }
     
@@ -174,21 +190,19 @@ public class Autonomous {
      * Same as 3 but NO 180 SPIN, move forward to center of field. 
      */
     public static void auton8()  {
-        // add CV
+        Shooter.getInstance().autonShoot();
+        CVAim();
         Timer.delay(autonDelay);
         Conveyor.getInstance().conveyAutomatic();
-        shootUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();    
         Acquirer.getInstance().acquire();
         Drivetrain.getInstance().driveStraightInches(Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
         Acquirer.getInstance().stop();
         Drivetrain.getInstance().driveStraightInches(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
-        shootUntilEmpty();
+        Shooter.getInstance().autonShoot();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();    
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
-    }
-    
-    /**
-     * Shoots until the hopper, containing the discs, is empty.
-     */
-    public static void shootUntilEmpty() {
     }
 }
