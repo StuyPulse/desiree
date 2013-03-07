@@ -379,22 +379,18 @@ public class Tilter {
         if (gamepad.getBottomButton()) {
             isCVAiming = true;
             if (getCVRelativeAngle() != 694) {
-                setRelativeAngle(getCVRelativeAngle());
-                enableAngleControl();
+                runTilterToAngle(getCVRelativeAngle() + getLeadscrewBasedAngle());
             }
             else {
-                disableAngleControl();
+                stopLeadscrewMotor();
             }
         }
         else if (gamepad.getTopButton()) {
             isCVAiming = false;
-            setAbsoluteAngle(Constants.FEEDER_STATION_ANGLE);
-            enableAngleControl();
+            runTilterToAngle(Constants.FEEDER_STATION_ANGLE);
         }
         else {
             isCVAiming = false;
-            disableAngleControl();
-            SmartDashboard.putNumber("Lead screw speed", gamepad.getRightY());
             leadscrew.set(gamepad.getRightY());
         }
         printAngle();
