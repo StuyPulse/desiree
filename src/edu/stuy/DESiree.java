@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
  * directory.
  */
 public class DESiree extends IterativeRobot implements ThreeLaws {
+    public static DESiree instance;
+    
     /* SUBSYSTEMS */
     Drivetrain drivetrain;
     Acquirer acquirer;
@@ -39,11 +41,16 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
     
     SendableChooser autonChooser;
 
+    public static DESiree getInstance() {
+        return instance;
+    }
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+        instance = this;
         /* SUBSYSTEMS */
         drivetrain = Drivetrain.getInstance();
         acquirer = Acquirer.getInstance();

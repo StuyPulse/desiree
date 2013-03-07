@@ -53,7 +53,7 @@ public class Autonomous {
     
     public static void runTilterToBottom() {
         Tilter tilter = Tilter.getInstance();
-        while (!tilter.isAtLowerBound()) {
+        while (DESiree.getInstance().isAutonomous() && !tilter.isAtLowerBound()) {
             tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
         }
         tilter.stopLeadscrewMotor();
@@ -61,7 +61,7 @@ public class Autonomous {
     
     public static void CVAim() {
         Tilter tilter = Tilter.getInstance();
-        while(Tilter.getInstance().getCVRelativeAngle() == 694) {
+        while(DESiree.getInstance().isAutonomous() && Tilter.getInstance().getCVRelativeAngle() == 694) {
             tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
         }
         tilter.stopLeadscrewMotor();

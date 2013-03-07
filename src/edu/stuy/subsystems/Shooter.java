@@ -5,6 +5,7 @@
 package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
+import edu.stuy.DESiree;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -169,7 +170,7 @@ public class Shooter {
     }
     
     public void fireAutoUntilEmpty() {
-        while (isHopperNotEmpty()) {
+        while (DESiree.getInstance().isAutonomous() && isHopperNotEmpty()) {
             if (hasPistonFinishedResetting() && isShooting) {
                 firePiston();
                 Timer.delay(2.0);
