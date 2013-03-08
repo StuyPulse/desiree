@@ -50,7 +50,7 @@ public class Shooter {
     public static final double HOPPER_IN_TIME = 0.5;
     public static final double PISTON_AUTON_DELAY_TIME = 1.0;
     
-    public static final int AUTON_FIRING_AMOUNT = 5;
+    public static final int AUTON_FIRING_AMOUNT = 3;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
