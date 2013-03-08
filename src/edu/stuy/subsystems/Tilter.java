@@ -359,7 +359,7 @@ public class Tilter {
         double heightSquared = square(Constants.LEADSCREW_HEIGHT);
         double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
         double hypSquared = square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW);
-        double leadscrewWidthSquared = square(Constants.SHOOTER_TO_LEADSCREW);
+        double leadscrewWidthSquared = square(Constants.LEADSCREW_ASSEMBLY_WIDTH);
         angle *= Math.PI / 180;
         return Math.sqrt(baseSquared + heightSquared + hypSquared - leadscrewWidthSquared 
                 - 2 * Math.sqrt(baseSquared + heightSquared) * Constants.SHOOTER_DISTANCE_TO_LEADSCREW 
@@ -378,7 +378,7 @@ public class Tilter {
         double heightSquared = square(Constants.LEADSCREW_HEIGHT);
         double baseSquared = square(Constants.DISTANCE_TO_LEADSCREW_BASE);
         double hypSquared = square(Constants.SHOOTER_DISTANCE_TO_LEADSCREW);
-        double leadscrewWidthSquared = square(Constants.SHOOTER_TO_LEADSCREW);
+        double leadscrewWidthSquared = square(Constants.LEADSCREW_ASSEMBLY_WIDTH);
         double angleRadians = MathUtils.atan(Constants.LEADSCREW_HEIGHT / Constants.DISTANCE_TO_LEADSCREW_BASE) + 
                MathUtils.acos((hypSquared + baseSquared + heightSquared - square(leadscrewLength) - leadscrewWidthSquared) / 
                (2 * Constants.SHOOTER_DISTANCE_TO_LEADSCREW * Math.sqrt(baseSquared + heightSquared)));
