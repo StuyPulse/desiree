@@ -188,6 +188,7 @@ public class Tilter {
         stopLeadscrewMotor();
         isCVAiming = false;
         resetAccelMeasurements();
+        setInitialLeadscrewLength();
     }
     
      /**
@@ -306,6 +307,13 @@ public class Tilter {
     
     public double getLeadscrewEncoderDistance() {
         return enc.getDistance();
+    }
+    
+    /**
+     * Sets the initial leadscrew length for when the shooter is all of the way up.
+     */
+    public void setInitialLeadscrewLength() {
+        initialLeadLength = calcLeadscrewLength(Constants.TILTER_HIGHEST_ANGLE);
     }
     
     /**
