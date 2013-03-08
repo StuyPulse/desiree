@@ -56,6 +56,8 @@ public class Constants {
     public static final int HOPPER_OUT_CHANNEL = 2;
     public static final int CLIMBER_DEPLOYER_CHANNEL = 3;
     public static final int CLIMBER_WITHDRAWER_CHANNEL = 4;
+    public static final int PNEUMATIC_PARTITION_CHANNEL = 5;
+    public static final int PNEUMATIC_OPEN_CHANNEL = 6;
     
     /* SHOOTING ANGLES */
     public static final int FEEDER_STATION_ANGLE = 69;

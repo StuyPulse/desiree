@@ -34,6 +34,9 @@ public class Shooter {
      */
     private Solenoid hopperOutSolenoid;
     
+    private Solenoid pneumaticPartition;
+    private Solenoid pneumaticOpen;
+    
     private double lastOutTime = 0.0;
     private double lastInTime = 0.0;
     private boolean firstShot;
@@ -52,6 +55,8 @@ public class Shooter {
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR_CHANNEL);
         hopperInSolenoid = new Solenoid(Constants.HOPPER_IN_CHANNEL);
         hopperOutSolenoid = new Solenoid(Constants.HOPPER_OUT_CHANNEL);
+        pneumaticPartition = new Solenoid(Constants.PNEUMATIC_PARTITION_CHANNEL);
+        pneumaticOpen = new Solenoid(Constants.PNEUMATIC_OPEN_CHANNEL);
         firstShot = true;
         isShooting = false;
         pistonExtended = false;
@@ -90,6 +95,7 @@ public class Shooter {
         stop();
         isShooting = false;
         resetPistonLogic();
+        partitionPneumaticCircuit();
     }
     
     public boolean isShooterRunning() {
@@ -114,6 +120,22 @@ public class Shooter {
     public void pistonReset() {
         hopperOutSolenoid.set(false);
         hopperInSolenoid.set(true);
+    }
+    
+    /**
+     * Closes off pneumatic circuit, separating climber from shooter.
+     */
+    public void partitionPneumaticCircuit() {
+        pneumaticPartition.set(true);
+        pneumaticOpen.set(false);
+    }
+    
+    /**
+     * Opens pneumatic circuit, allowing air flow between climber and shooter.
+     */
+    public void openPneumaticCircuit() {
+        pneumaticPartition.set(false);
+        pneumaticOpen.set(true);
     }
     
     public void resetPistonLogic() {
