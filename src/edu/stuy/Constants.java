@@ -88,7 +88,8 @@ public class Constants {
     public static final double TILTER_INCHES_PER_REV = 0.1;
     public static final double TILTER_DISTANCE_PER_PULSE = TILTER_INCHES_PER_REV / ENCODER_PULSE_PER_REV;
     
-    public static final double TILTER_HIGHEST_ANGLE = 80; //This value should be the initial angle, as we start as high as possible.
+    public static final double TILTER_HIGHEST_ANGLE = 74.5; //This value should be the initial angle, as we start as high as possible.
+    public static final double TILTER_LOWEST_ANGLE = 28.0;
     
     /* TILTER ANGLE CONTROL PID VALUES */
     public static final double PVAL_T = 0.0;
