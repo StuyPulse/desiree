@@ -48,7 +48,9 @@ public class Shooter {
     // Time in seconds to allow launcher to shoot and reset before changing its state again
     public static final double HOPPER_OUT_TIME = 0.5;
     public static final double HOPPER_IN_TIME = 0.5;
-    public static final double PISTON_AUTON_DELAY_TIME = 1.3;
+    public static final double PISTON_AUTON_DELAY_TIME = 1.0;
+    
+    public static final int AUTON_FIRING_AMOUNT = 5;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
@@ -193,11 +195,9 @@ public class Shooter {
     }
     
     public void fireAutoUntilEmpty() {
-        while (DESiree.getInstance().isAutonomous() && isHopperNotEmpty()) {
-            if (hasPistonFinishedResetting() && isShooting) {
-                firePiston();
-                Timer.delay(PISTON_AUTON_DELAY_TIME);
-            }
+        for(int i = 0; i < AUTON_FIRING_AMOUNT; i++) {
+            firePiston();
+            Timer.delay(PISTON_AUTON_DELAY_TIME);
         }
     }
     
