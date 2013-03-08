@@ -45,7 +45,7 @@ public class Shooter {
     // Time in seconds to allow launcher to shoot and reset before changing its state again
     public static final double HOPPER_OUT_TIME = 0.5;
     public static final double HOPPER_IN_TIME = 0.5;
-    public static final double PISTON_AUTON_DELAY_TIME = 1.0;
+    public static final double PISTON_AUTON_DELAY_TIME = 1.3;
     
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);

@@ -392,10 +392,12 @@ public class Tilter {
                 stopLeadscrewMotor();
             }
         }
+        /*
         else if (gamepad.getTopButton()) {
             isCVAiming = false;
             runTilterToAngle(Constants.FEEDER_STATION_ANGLE);
         }
+        * */
         else {
             isCVAiming = false;
             leadscrew.set(gamepad.getRightY());
