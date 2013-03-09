@@ -188,7 +188,6 @@ public class Tilter {
         stopLeadscrewMotor();
         isCVAiming = false;
         resetAccelMeasurements();
-        setInitialLeadscrewLength();
     }
     
      /**
