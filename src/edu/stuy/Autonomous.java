@@ -48,6 +48,9 @@ public class Autonomous {
             case 8:
                 auton8();
                 break;
+            case 9:
+                auton9();
+                break;
         }
     }
     
