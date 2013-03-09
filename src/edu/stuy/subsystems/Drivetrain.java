@@ -57,7 +57,7 @@ public class Drivetrain {
 
         forwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-                drivetrain.arcadeDrive(driveStraightSpeed, output);
+                drivetrain.arcadeDrive(-driveStraightSpeed, output);
             }
         }, 0.005);
         forwardController.setInputRange(-360.0, 360.0);
@@ -66,7 +66,7 @@ public class Drivetrain {
 
         backwardController = new PIDController(Constants.PVAL_D, Constants.IVAL_D, Constants.DVAL_D, gyro, new PIDOutput() {
             public void pidWrite(double output) {
-                drivetrain.arcadeDrive(-driveStraightSpeed, output);
+                drivetrain.arcadeDrive(driveStraightSpeed, output);
             }
         }, 0.005);
         backwardController.setInputRange(-360.0, 360.0);
