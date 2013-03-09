@@ -43,9 +43,9 @@ public class Shooter {
     private boolean lastShooterToggleButtonState;
     
     // Time in seconds to allow launcher to shoot and reset before changing its state again
-    public static final double HOPPER_OUT_TIME = 0.5;
-    public static final double HOPPER_IN_TIME = 0.5;
-    public static final double PISTON_AUTON_DELAY_TIME = 1.0;
+    public static final double HOPPER_OUT_TIME = 0.85;
+    public static final double HOPPER_IN_TIME = 0.85;
+    public static final double PISTON_AUTON_DELAY_TIME = 1.7;
     
     public static final int AUTON_FIRING_AMOUNT = 3;
     
