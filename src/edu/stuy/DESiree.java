@@ -82,7 +82,6 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
 
     public void autonomousInit() {
         resetAll();
-        Tilter.getInstance().setInitialLeadscrewLength();
         double autonDelay = 0.0;
         try {
             autonDelay = SmartDashboard.getNumber("Autonomous Delay");

@@ -188,6 +188,7 @@ public class Tilter {
         stopLeadscrewMotor();
         isCVAiming = false;
         resetAccelMeasurements();
+        setInitialLeadscrewLength();
     }
     
      /**
@@ -345,7 +346,7 @@ public class Tilter {
     /**
      * Gets the leadscrew length given a specified angle.
      * ======== v(q) finds length from angle, using backwards from length to angle ========
-     * v(q) = sqrt(x^2 + y^2 + z^2 - w^2 - 2sqrt(x^2 + y^2)zcos(q - arctan(y/x)) )
+     * v(q) = sqrt(x^2 + y^2 + z^2 - w^2 - 2sqrt(x^2 + y^2)zcost(q - arctan(y/x)) )
      * w = distance from leadscrew attachment to shooter attachment
      * v = leadscrew length
      * q = angle of shooter
