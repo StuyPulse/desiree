@@ -152,12 +152,14 @@ public class Drivetrain {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
-        enableDriveStraight(fwd);
+        //enableDriveStraight(fwd);
+        tankDrive(-0.5, -0.5);
         // Do nothing because drive straight is enabled.
         while (((fwd && getAvgDistance() < inches)
-                || (!fwd && getAvgDistance() > inches))
+                || (!fwd && getAvgDistance() < inches))
                 && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {}
-        disableDriveStraight();
+        //disableDriveStraight();
+        tankDrive(0, 0);
     }
 
     public void resetEncoders() {
