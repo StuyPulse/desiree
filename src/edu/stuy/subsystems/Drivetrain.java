@@ -159,7 +159,7 @@ public class Drivetrain {
         // Do nothing because drive straight is enabled.
         while (((fwd && getAvgDistance() < inches)
                 || (!fwd && getAvgDistance() > inches))
-                && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {}
+                && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT);
         disableDriveStraight();
     }
 
