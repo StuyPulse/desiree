@@ -123,19 +123,22 @@ public class Drivetrain {
      */
     public void enableDriveStraight(boolean forward) {
         if (forward) {
-            forwardController.setSetpoint(0);
-            forwardController.enable();
+            tankDrive(-driveStraightSpeed, -driveStraightSpeed);
+            //forwardController.setSetpoint(0);
+            //forwardController.enable();
         } else {
-            backwardController.setSetpoint(0);
-            backwardController.enable();
+            tankDrive(driveStraightSpeed, driveStraightSpeed);
+            //backwardController.setSetpoint(0);
+            //backwardController.enable();
         }
     }
     /*
      * Disables both of the PID controllers (forward and backward).
      */
     public void disableDriveStraight() {
-        forwardController.disable();
-        backwardController.disable();
+        tankDrive(0, 0);
+        //forwardController.disable();
+        //backwardController.disable();
     }
 
     public double getLeftEnc() {
@@ -152,14 +155,12 @@ public class Drivetrain {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
-        //enableDriveStraight(fwd);
-        tankDrive(-0.5, -0.5);
+        enableDriveStraight(fwd);
         // Do nothing because drive straight is enabled.
         while (((fwd && getAvgDistance() < inches)
-                || (!fwd && getAvgDistance() < inches))
+                || (!fwd && getAvgDistance() > inches))
                 && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {}
-        //disableDriveStraight();
-        tankDrive(0, 0);
+        disableDriveStraight();
     }
 
     public void resetEncoders() {
