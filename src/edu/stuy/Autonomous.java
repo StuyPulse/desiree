@@ -71,7 +71,7 @@ public class Autonomous {
             tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
         }
         tilter.stopLeadscrewMotor();
-        tilter.runTilterToAngle(tilter.getLeadscrewBasedAngle() + tilter.getCVRelativeAngle());
+        tilter.runTilterToAngle(tilter.getAngle() + tilter.getCVRelativeAngle());
     }
     
     /**

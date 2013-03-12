@@ -101,7 +101,7 @@ public class Tilter {
      * @return 0 if shooter is at angle, 1 if above, -1 if below
      */
     public int isAtAngle(double angle) {
-        return Math.abs(getLeadscrewBasedAngle() - angle) < 0.1 ? 0 : (getLeadscrewBasedAngle() - angle > 0 ? 1 : -1);
+        return Math.abs(getAngle() - angle) < 0.1 ? 0 : (getAngle() - angle > 0 ? 1 : -1);
     }
     
     /**
@@ -405,7 +405,7 @@ public class Tilter {
         if (gamepad.getBottomButton()) {
             isCVAiming = true;
             if (getCVRelativeAngle() != 694) {
-                runTilterToAngle(getCVRelativeAngle() + getLeadscrewBasedAngle());
+                runTilterToAngle(getCVRelativeAngle() + getAngle());
             }
             else {
                 stopLeadscrewMotor();
@@ -425,6 +425,14 @@ public class Tilter {
     }
     
     /**
+     * Generic getAngle function to return the angle by the preferred method.
+     * @return current shooter angle
+     */
+    public double getAngle() {
+        return getPendulumOutput();
+    }
+    
+    /**
      * Prints angles to the SmartDashboard.
      */
     public void printAngle() {
@@ -437,5 +445,6 @@ public class Tilter {
         SmartDashboard.putNumber("Absolute Angle", getAveragedAccelBasedAngle());
         SmartDashboard.putNumber("LS-Based Angle", getLeadscrewBasedAngle());
         SmartDashboard.putNumber("Instant Angle", getInstantaneousAccelBasedAngle());
+        SmartDashboard.putNumber("Pendulum Pot Angle", getPendulumOutput());
     }
 }
