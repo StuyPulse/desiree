@@ -188,12 +188,12 @@ public class Lights {
             manualLightsControl(gamepad);
         }
         // Various cases for lights logic that are not manual control
-        else if (Conveyor.getInstance().isBottomDiscDetected()) {
-            flashWhiteSignalLight();
-        }
-        else if (Shooter.getInstance().isHopperNotEmpty()) {
-            flashRedSignalLight();
-        }
+//        else if (Conveyor.getInstance().isBottomDiscDetected()) {
+//            flashWhiteSignalLight();
+//        }
+//        else if (Shooter.getInstance().isHopperNotEmpty()) {
+//            flashRedSignalLight();
+//        }
         else {
             setWhiteSignalLight(false);
             setRedSignalLight(false);
