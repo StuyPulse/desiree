@@ -10,6 +10,7 @@ import edu.stuy.util.BoundedTalon;
 import edu.stuy.util.Gamepad;
 import edu.stuy.util.NetworkIO;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -29,6 +30,8 @@ public class Tilter {
     
     private static Tilter instance;
     private BoundedTalon leadscrew;
+    
+    private AnalogChannel pendulum; // potentiometer (angle measuring device)
     /**
      * Mount upside down, with the y-axis positive arrow pointed towards the
      * mouth of the shooter.
@@ -57,7 +60,8 @@ public class Tilter {
         leadscrew = new BoundedTalon(Constants.TILTER_CHANNEL, Constants.TILTER_UPPER_LIMIT_SWITCH_CHANNEL, Constants.TILTER_LOWER_LIMIT_SWITCH_CHANNEL);
         accel = new ADXL345_I2C(Constants.ACCELEROMETER_CHANNEL, ADXL345_I2C.DataFormat_Range.k2G);
         accelMeasurements = new Vector();
-        updateAccel();
+        updateAccel();        
+        pendulum = new AnalogChannel(Constants.PENDULUM_CHANNEL);
         enc = new Encoder(Constants.LEADSCREW_ENCODER_A_CHANNEL, Constants.LEADSCREW_ENCODER_B_CHANNEL);
         enc.setDistancePerPulse(Constants.TILTER_DISTANCE_PER_PULSE);
         enc.start();
@@ -294,6 +298,14 @@ public class Tilter {
      */
     public double getInstantaneousAccelBasedAngle() {
         return MathUtils.atan(getYAcceleration() / -getZAcceleration()) * 180.0 / Math.PI;
+    }
+    
+    /**
+     * Uses pendulum potentiometer to find angle.
+     * @return angle of the shooter
+     */
+    public double getPendulumOutput() {
+        return 30 + (pendulum.getVoltage() * 6);
     }
     
     /**
