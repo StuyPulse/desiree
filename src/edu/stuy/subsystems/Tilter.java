@@ -293,7 +293,7 @@ public class Tilter {
     }
     
     /**
-     * Gets instantaneous angle of hte tilter directly from the accelerometer measurements.
+     * Gets instantaneous angle of the tilter directly from the accelerometer measurements.
      * @return the instantaneous angle read from the accelerometer in degrees
      */
     public double getInstantaneousAccelBasedAngle() {
