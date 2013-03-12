@@ -112,6 +112,7 @@ public class Drivetrain {
     public boolean getPressure() {
         return compressor.getPressureSwitchValue();
     }
+    
     /* 
      * Allows drivetrain to move forward by enabling the PID controllers.
      */
@@ -126,6 +127,7 @@ public class Drivetrain {
             //backwardController.enable();
         }
     }
+    
     /*
      * Disables both of the PID controllers (forward and backward).
      */
@@ -142,6 +144,7 @@ public class Drivetrain {
     public double getRightEnc() {
         return encoderRight.getDistance();
     }
+    
     /*
      * Drives forward in inches for less than seven seconds. 
      */
