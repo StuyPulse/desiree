@@ -130,7 +130,7 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
         Acquirer.getInstance().acquire();
@@ -153,7 +153,7 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();        
         Acquirer.getInstance().acquire();
@@ -197,7 +197,7 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();     
         Acquirer.getInstance().acquire();
@@ -217,7 +217,7 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();    
         Acquirer.getInstance().acquire();
