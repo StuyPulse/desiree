@@ -51,6 +51,9 @@ public class Autonomous {
             case 9:
                 auton9();
                 break;
+            case 10:
+                auton10();
+                break;
         }
     }
     
@@ -138,13 +141,28 @@ public class Autonomous {
         Drivetrain.getInstance().spin180();
     }
     
+    public static void auton5() {
+        Shooter.getInstance().autonShoot();
+        runTilterToBottom();
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();
+        Acquirer.getInstance().acquire();
+        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
+        Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_BACK_OF_PYRAMID);
+        Acquirer.getInstance().stop();
+        Shooter.getInstance().autonShoot();
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop(); 
+    }
+    
     /**
      * Start at the back of the pyramid.
      * Shoot 3. Move forward and acquire disks at center of field. 
      * Return and shoot 4.
      * You might have 4 depending on how many people have left there from other robots.
      */
-    public static void auton5() {
+    public static void auton6() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
         Timer.delay(autonDelay);
@@ -162,7 +180,7 @@ public class Autonomous {
     /*
      * Do nothing.
      */
-    public static void auton6() {
+    public static void auton7() {
         
     }   
     
@@ -172,7 +190,7 @@ public class Autonomous {
     /**
      * Same as 4 but NO 180 SPIN, move forward to center at end of auton.
      */
-    public static void auton7() {
+    public static void auton8() {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
@@ -192,7 +210,7 @@ public class Autonomous {
     /**
      * Same as 3 but NO 180 SPIN, move forward to center of field. 
      */
-    public static void auton8()  {
+    public static void auton9()  {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
@@ -212,7 +230,7 @@ public class Autonomous {
     /**
      * Same as auton 2, only with a backup in the end.
      */
-    public static void auton9() {
+    public static void auton10() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
         Timer.delay(autonDelay);
