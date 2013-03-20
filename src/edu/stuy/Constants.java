@@ -79,6 +79,7 @@ public class Constants {
     /* AUTON DRIVE TIMEOUTS */
     public static final double DRIVE_STRAIGHT_TIMEOUT = 7.0;
     public static final long SPIN_TIME = 500; //Time to spin 180 in milliseconds
+    public static final long TURN_TIME = 84; // Time needed to spin thirty degrees. 
     
     /* TILTER CONSTANTS */
     public static final double DISTANCE_TO_LEADSCREW_BASE = 12.25;
@@ -100,6 +101,7 @@ public class Constants {
     public static final double CENTER_TO_BACK_OF_PYRAMID = 108.;
     public static final double PYRAMID_BASE_LENGTH = 94.;
     public static final double CENTER_TO_FRONT_OF_PYRAMID = PYRAMID_BASE_LENGTH + CENTER_TO_BACK_OF_PYRAMID;
+    public static final double CENTER_TO_FEEDER_STATION = 100.; // Abitrary distance
     public static final double MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE = 5;
     public static final double FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID = PYRAMID_BASE_LENGTH / 2. + MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE;
     

@@ -180,6 +180,12 @@ public class Drivetrain {
         tankDrive(0, 0);
     }
     
+    public void turnToFeeder() {
+        tankDrive(-1, 1);
+        Timer.delay(Constants.TURN_TIME);
+        tankDrive(0, 0);
+    }
+    
     /**
      * Meant only to be called once, for when the robot is enabled.
      */

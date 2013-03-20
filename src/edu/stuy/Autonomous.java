@@ -141,6 +141,13 @@ public class Autonomous {
         Drivetrain.getInstance().spin180();
     }
     
+    /**
+     * Start at the back of the pyramid.
+     * Shoot 3. Move forward and acquire/convey disks at the center line. 
+     * Drive back to starting position and shoot all disks acquired. 
+     * Drive forward, curving toward the feeder station.
+     */
+    
     public static void auton5() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
@@ -154,6 +161,9 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop(); 
+        Drivetrain.getInstance().turnToFeeder();
+        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FEEDER_STATION);
+        
     }
     
     /**
