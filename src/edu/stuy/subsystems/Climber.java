@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -20,6 +21,8 @@ public class Climber {
     //private Servo deployer2;
     private Solenoid deployOut;
     private Solenoid deployIn;
+    private DigitalInput forward;
+    private DigitalInput reverse;
     
     public static Climber getInstance() {
         if (instance == null) {
@@ -34,6 +37,8 @@ public class Climber {
         //deployer2 = new Servo(Constants.CLIMBER_SERVO_2_CHANNEL);
         deployOut = new Solenoid(Constants.CLIMBER_DEPLOYER_CHANNEL);
         deployIn = new Solenoid(Constants.CLIMBER_WITHDRAWER_CHANNEL);
+        forward = new DigitalInput(Constants.CLIMBER_IN_CONTACT_CHANNEL);
+        reverse = new DigitalInput(Constants.ClIMBER_NOT_IN_CONTACT_CHANNEL);
     }
     
     public void forwardWench() {
@@ -68,6 +73,20 @@ public class Climber {
     
     public void reset() {
         undeploy();
+    }
+    
+    public boolean isFWDTriggered() {
+        return !forward.get();
+    }
+    
+    public boolean isRevTriggered() {
+        return !reverse.get();
+    }
+    
+    public void limitSwitchLight() {
+        if (isFWDTriggered() || isRevTriggered()) {
+            Lights.getInstance().flashRedSignalLight();
+        }
     }
     
     public void manualClimberControl(Gamepad gamepad) {

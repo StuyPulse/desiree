@@ -43,6 +43,8 @@ public class Constants {
     public static final int HOPPER_SENSOR_CHANNEL = 9;
     public static final int LOWER_CONVEYOR_SENSOR_CHANNEL = 10;
     public static final int PRESSURE_SWITCH_CHANNEL = 11;
+    public static final int CLIMBER_IN_CONTACT_CHANNEL = 12;
+    public static final int ClIMBER_NOT_IN_CONTACT_CHANNEL = 13;
     
     /* I2C */
     public static final int ACCELEROMETER_CHANNEL = 1;
@@ -111,4 +113,5 @@ public class Constants {
 
     /* The DESarray */
     public static final char DES[] = {'i', 'r', 'e', 'e'};
+   
 }
