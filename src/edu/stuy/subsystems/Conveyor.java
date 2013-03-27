@@ -89,7 +89,7 @@ public class Conveyor {
             roll(-gamepad.getLeftY());
         }
         else {
-            conveyAutomatic();
+            roll(0);
         }
     }
 }
