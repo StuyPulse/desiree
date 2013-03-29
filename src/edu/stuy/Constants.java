@@ -100,7 +100,7 @@ public class Constants {
     public static final double DVAL_T = 0.0;
     
     /* AUTONOMOUS DISTANCES */
-    public static final double CENTER_TO_BACK_OF_PYRAMID = 105.;
+    public static final double CENTER_TO_BACK_OF_PYRAMID = 100.;
     public static final double PYRAMID_BASE_LENGTH = 94.;
     public static final double CENTER_TO_FRONT_OF_PYRAMID = PYRAMID_BASE_LENGTH + CENTER_TO_BACK_OF_PYRAMID;
     public static final double CENTER_TO_FEEDER_STATION = 100.; // Abitrary distance
