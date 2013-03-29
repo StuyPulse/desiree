@@ -8,6 +8,7 @@ import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  * Runs this in both tele and auton.
@@ -27,6 +28,7 @@ public class Lights {
      * M-: Direction light
      */
     private Relay cameraAndDirectionLightRelay;
+    private Victor directionLight;
     
     /**
      * Lights must be wired as follows:
@@ -36,6 +38,9 @@ public class Lights {
     private Relay signalLightRelay;
     private int WHITE_FLASH_FREQUENCY = 7;
     private int RED_FLASH_FREQUENCY = 7;
+    
+    public final static double DIRECTION_LIGHT_INTENSITY = 0.8;
+    
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
     private boolean isWhiteOn, isRedOn;
@@ -43,6 +48,7 @@ public class Lights {
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
         signalLightRelay = new Relay(Constants.SIGNAL_LIGHT_RELAY_CHANNEL);
+        directionLight = new Victor(Constants.WENCH_CHANNEL);
         isWhiteOn = false;
         isRedOn = false;
     }
@@ -71,6 +77,15 @@ public class Lights {
             else { // Direction light is on
                 cameraAndDirectionLightRelay.set(Relay.Value.kReverse);
             }
+        }
+    }
+    
+    private void setDirectionLight(double intensity) {
+        if(intensity > 0.4) {
+            directionLight.set(intensity);
+        }
+        else {
+            directionLight.set(0);
         }
     }
     
@@ -172,6 +187,7 @@ public class Lights {
     public void reset() {
         setCameraLight(false);
         setDirectionLight(false);
+        setDirectionLight(0);
         setWhiteSignalLight(false);
         setRedSignalLight(false);
         lastTimeWhite = 0.0;
@@ -201,6 +217,12 @@ public class Lights {
         
         // Turns on direction light only if shooter is running and tilter is not CV aiming.
         setDirectionLight(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming());
+        if(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming()) {
+            setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
+        }
+        else {
+            setDirectionLight(0);
+        }
         
         // Turns on camera light only when CV aiming.
         setCameraLight(Tilter.getInstance().isCVAiming());
