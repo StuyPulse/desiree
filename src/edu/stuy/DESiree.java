@@ -67,15 +67,16 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         
         /* AUTON SENDABLECHOOSER */
         autonChooser = new SendableChooser();
-        autonChooser.addObject("1 - Shoot 2 from front of pyramid", Integer.valueOf(1));
-        autonChooser.addDefault("2 - Shoot 3 from back of pyramid", Integer.valueOf(2));
-        autonChooser.addObject("3 - Shoot 2 from front of pyramid, acquire 2, shoot 2, spin 180", Integer.valueOf(3));
-        autonChooser.addObject("4 - Shoot 2 from front of pyramid, acquire 4, shoot 4, spin 180", Integer.valueOf(4));
-        autonChooser.addObject("5 - Shoot 3 from back of pyramid, acquire 4, shoot 4", Integer.valueOf(5));
-        autonChooser.addObject("6 - Do nothing", Integer.valueOf(6));
-        autonChooser.addObject("7 - Routine 4 without 180, drive to center of field", Integer.valueOf(7));
-        autonChooser.addObject("8 - Routine 3 without 180, drive to center of field", Integer.valueOf(8));
-        autonChooser.addObject("9 - Routine 2, then drive to center of field", Integer.valueOf(9));
+        autonChooser.addDefault("1 - Shoot 3 from back of pyramid", Integer.valueOf(1));
+        autonChooser.addObject("2 - Shoot 3 from back of pyramid, drive to center of field", Integer.valueOf(2));
+        autonChooser.addObject("3 - Lower conveyor", Integer.valueOf(3));
+        autonChooser.addObject("4 - Do nothing", Integer.valueOf(4));
+        autonChooser.addObject("5 - Shoot 2 from the front", Integer.valueOf(5));
+        autonChooser.addObject("6 - CV shoot 2, pickup two disks, back up, fire, spin 180", Integer.valueOf(6));
+        autonChooser.addObject("7 - CV shoot 2, pickup four disks, back up, fire 4, spin 180", Integer.valueOf(7));
+        autonChooser.addObject("8 - Shoot 3, acquire disks at center, back up, shoot.", Integer.valueOf(8));
+        autonChooser.addObject("9 - Same as 7, no spin, move to center.", Integer.valueOf(9));
+        autonChooser.addObject("10 - Same as 6, no spin, move to center.", Integer.valueOf(10));
         SmartDashboard.putData("Autonomous routine", autonChooser);
         SmartDashboard.putNumber("Autonomous Delay",0.0);
     }

@@ -146,7 +146,7 @@ public class Lights {
         }
     }
     
-    private void flashRedSignalLight() {
+    public void flashRedSignalLight() {
         double time = Timer.getFPGATimestamp();
         if (time - lastTimeRed > (1.0 / RED_FLASH_FREQUENCY)) { // Flashes (on and off) red light every 1/7 second
             setRedSignalLight(!isRedOn);
@@ -188,12 +188,12 @@ public class Lights {
             manualLightsControl(gamepad);
         }
         // Various cases for lights logic that are not manual control
-        else if (Conveyor.getInstance().isBottomDiscDetected()) {
-            flashWhiteSignalLight();
-        }
-        else if (Shooter.getInstance().isHopperNotEmpty()) {
-            flashRedSignalLight();
-        }
+//        else if (Conveyor.getInstance().isBottomDiscDetected()) {
+//            flashWhiteSignalLight();
+//        }
+//        else if (Shooter.getInstance().isHopperNotEmpty()) {
+//            flashRedSignalLight();
+//        }
         else {
             setWhiteSignalLight(false);
             setRedSignalLight(false);

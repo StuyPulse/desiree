@@ -71,22 +71,22 @@ public class Autonomous {
             tilter.setLeadscrewMotor(Tilter.DOWN_VAL);
         }
         tilter.stopLeadscrewMotor();
-        tilter.runTilterToAngle(tilter.getLeadscrewBasedAngle() + tilter.getCVRelativeAngle());
+        tilter.runTilterToAngle(tilter.getAngle() + tilter.getCVRelativeAngle());
     }
     
     /**
-     * Start in front of pyramid in any position. 
+     * Start in front of back bar of pyramid. (Can be used in a variety of positions).
      */
     public static void auton1() {
         Shooter.getInstance().autonShoot();
-        Tilter.getInstance().runTilterToAngle(Constants.FRONT_OF_PYRAMID_ANGLE);
+        runTilterToBottom();
         Timer.delay(autonDelay);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
     }
-      
+    
     /**
-     * Start in front of back bar of pyramid. (Can be used in a variety of positions).
+     * Same as auton 1, only with a backup in the end.
      */
     public static void auton2() {
         Shooter.getInstance().autonShoot();
@@ -94,18 +94,43 @@ public class Autonomous {
         Timer.delay(autonDelay);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
-    } 
+        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
+    }
+    
+    /**
+     * Lower conveyor.
+     */
+    public static void auton3() {
+        runTilterToBottom();
+    }
+    
+    /**
+     * Do nothing.
+     */
+    public static void auton4() {
+    }
+    
+    /**
+     * Start in front of pyramid in any position. 
+     */
+    public static void auton5() {
+        Shooter.getInstance().autonShoot();
+        Tilter.getInstance().runTilterToAngle(Constants.FRONT_OF_PYRAMID_ANGLE);
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();
+    }
     
     /**
      * Start in front of the middle of the pyramid.
      * Use CV to shoot 2. Go forward under pyramid and pick up 2. 
      * Drive backwards. Use CV to fire those two. 180 degree spin at end. 
      */
-    public static void auton3() {
+    public static void auton6() {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
         Acquirer.getInstance().acquire();
@@ -124,11 +149,11 @@ public class Autonomous {
      * Don't stop for pickup. After acquired, drive backwards to the front of pyramid. 
      * Stop running acquirer on the way back. Use CV to shoot the 4 acquired disks. Spin 180 at end.
      */ 
-    public static void auton4() {
+    public static void auton7() {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();        
         Acquirer.getInstance().acquire();
@@ -143,36 +168,11 @@ public class Autonomous {
     
     /**
      * Start at the back of the pyramid.
-     * Shoot 3. Move forward and acquire/convey disks at the center line. 
-     * Drive back to starting position and shoot all disks acquired. 
-     * Drive forward, curving toward the feeder station.
-     */
-    
-    public static void auton5() {
-        Shooter.getInstance().autonShoot();
-        runTilterToBottom();
-        Timer.delay(autonDelay);
-        Shooter.getInstance().fireAutoUntilEmpty();
-        Shooter.getInstance().autonStop();
-        Acquirer.getInstance().acquire();
-        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
-        Drivetrain.getInstance().driveStraightInches(-Constants.CENTER_TO_BACK_OF_PYRAMID);
-        Acquirer.getInstance().stop();
-        Shooter.getInstance().autonShoot();
-        Shooter.getInstance().fireAutoUntilEmpty();
-        Shooter.getInstance().autonStop(); 
-        Drivetrain.getInstance().turnToFeeder();
-        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FEEDER_STATION);
-        
-    }
-    
-    /**
-     * Start at the back of the pyramid.
      * Shoot 3. Move forward and acquire disks at center of field. 
      * Return and shoot 4.
      * You might have 4 depending on how many people have left there from other robots.
      */
-    public static void auton6() {
+    public static void auton8() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
         Timer.delay(autonDelay);
@@ -185,26 +185,19 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();     
-    } 
+    }
    
-    /*
-     * Do nothing.
-     */
-    public static void auton7() {
-        
-    }   
-    
     // DO NOT TEST THESE UNTIL COMPETITION. DRIVER PRACTICE FIRST!
     // DO NOT CROSS COMPLETELY INTO THE OTHER SIDE OF THE FIELD!
     // -------------------------------------------------------------------------
     /**
-     * Same as 4 but NO 180 SPIN, move forward to center at end of auton.
+     * Same as 7 but NO 180 SPIN, move forward to center at end of auton.
      */
-    public static void auton8() {
+    public static void auton9() {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();     
         Acquirer.getInstance().acquire();
@@ -218,13 +211,13 @@ public class Autonomous {
     }
     
     /**
-     * Same as 3 but NO 180 SPIN, move forward to center of field. 
+     * Same as 6 but NO 180 SPIN, move forward to center of field. 
      */
-    public static void auton9()  {
+    public static void auton10()  {
         Shooter.getInstance().autonShoot();
         CVAim();
         Timer.delay(autonDelay);
-        Conveyor.getInstance().conveyAutomatic();
+        Conveyor.getInstance().convey();
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();    
         Acquirer.getInstance().acquire();
@@ -235,17 +228,5 @@ public class Autonomous {
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();    
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
-    }
-    
-    /**
-     * Same as auton 2, only with a backup in the end.
-     */
-    public static void auton10() {
-        Shooter.getInstance().autonShoot();
-        runTilterToBottom();
-        Timer.delay(autonDelay);
-        Shooter.getInstance().fireAutoUntilEmpty();
-        Shooter.getInstance().autonStop();
-        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
     }
 }

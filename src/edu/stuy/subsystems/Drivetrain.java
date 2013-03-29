@@ -34,7 +34,6 @@ public class Drivetrain {
     PIDController backwardController;
     private Encoder encoderRight;
     private Encoder encoderLeft;
-    private AnalogChannel pendulum; // potentiometer (angle measuring device)
 
     private Drivetrain() {
         drivetrain = new RobotDrive(Constants.DRIVETRAIN_LEFT_CHANNEL, Constants.DRIVETRAIN_RIGHT_CHANNEL);
@@ -42,8 +41,6 @@ public class Drivetrain {
         gyro = new Gyro(Constants.GYRO_CHANNEL);
         gyro.setSensitivity(0.007);
         gyroReset();
-        
-        pendulum = new AnalogChannel(Constants.PENDULUM_CHANNEL);
 
         encoderLeft = new Encoder(Constants.DRIVE_ENCODER_LEFT_A_CHANNEL, Constants.DRIVE_ENCODER_LEFT_B_CHANNEL);
         encoderRight = new Encoder(Constants.DRIVE_ENCODER_RIGHT_A_CHANNEL, Constants.DRIVE_ENCODER_RIGHT_B_CHANNEL);
@@ -103,9 +100,6 @@ public class Drivetrain {
     public double getAngle() {
         return gyro.getAngle();
     }
-    public double getPendulumOutput() {
-        return 30 + (pendulum.getVoltage() * 6);
-    }
 
     public void gyroReset() {
         gyro.reset();
@@ -118,24 +112,29 @@ public class Drivetrain {
     public boolean getPressure() {
         return compressor.getPressureSwitchValue();
     }
+    
     /* 
      * Allows drivetrain to move forward by enabling the PID controllers.
      */
     public void enableDriveStraight(boolean forward) {
         if (forward) {
-            forwardController.setSetpoint(0);
-            forwardController.enable();
+            tankDrive(-driveStraightSpeed, -driveStraightSpeed);
+            //forwardController.setSetpoint(0);
+            //forwardController.enable();
         } else {
-            backwardController.setSetpoint(0);
-            backwardController.enable();
+            tankDrive(driveStraightSpeed, driveStraightSpeed);
+            //backwardController.setSetpoint(0);
+            //backwardController.enable();
         }
     }
+    
     /*
      * Disables both of the PID controllers (forward and backward).
      */
     public void disableDriveStraight() {
-        forwardController.disable();
-        backwardController.disable();
+        tankDrive(0, 0);
+        //forwardController.disable();
+        //backwardController.disable();
     }
 
     public double getLeftEnc() {
@@ -145,6 +144,7 @@ public class Drivetrain {
     public double getRightEnc() {
         return encoderRight.getDistance();
     }
+    
     /*
      * Drives forward in inches for less than seven seconds. 
      */
@@ -152,14 +152,12 @@ public class Drivetrain {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         boolean fwd = inches >= 0;
-        //enableDriveStraight(fwd);
-        tankDrive(-0.5, -0.5);
+        enableDriveStraight(fwd);
         // Do nothing because drive straight is enabled.
         while (((fwd && getAvgDistance() < inches)
-                || (!fwd && getAvgDistance() < inches))
-                && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {}
-        //disableDriveStraight();
-        tankDrive(0, 0);
+                || (!fwd && getAvgDistance() > inches))
+                && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT);
+        disableDriveStraight();
     }
 
     public void resetEncoders() {
