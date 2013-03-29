@@ -39,11 +39,11 @@ public class Lights {
     private int WHITE_FLASH_FREQUENCY = 7;
     private int RED_FLASH_FREQUENCY = 7;
     
-    public final static double DIRECTION_LIGHT_INTENSITY = 0.8;
+    public final static double DIRECTION_LIGHT_INTENSITY = 0.7;
     
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
-    private boolean isWhiteOn, isRedOn;
+    private boolean isWhiteOn, isRedOn, directionLightOn, lastLightToggleButtonState;
     
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
@@ -51,6 +51,8 @@ public class Lights {
         directionLight = new Victor(Constants.WENCH_CHANNEL);
         isWhiteOn = false;
         isRedOn = false;
+        directionLightOn = false;
+        lastLightToggleButtonState = false;
     }
     
     public static Lights getInstance() {
@@ -182,6 +184,10 @@ public class Lights {
         else {
             setRedSignalLight(false);
         }
+        if (gamepad.getLeftBumper() && !lastLightToggleButtonState) {
+            directionLightOn = !directionLightOn;
+        }
+        lastLightToggleButtonState = gamepad.getLeftBumper();
     }
     
     public void reset() {
@@ -192,6 +198,8 @@ public class Lights {
         setRedSignalLight(false);
         lastTimeWhite = 0.0;
         lastTimeRed = 0.0;
+        directionLightOn = false;
+        lastLightToggleButtonState = false;
     }
     
     /**
@@ -200,9 +208,10 @@ public class Lights {
      */
     public void runLogic(Gamepad gamepad) {
         // Manual control takes precedence over all other logic
-        if (gamepad.getLeftButton() || gamepad.getRightButton()) {
+        manualLightsControl(gamepad);
+        /*if (gamepad.getLeftBumper() || gamepad.getLeftButton() || gamepad.getRightButton()) {
             manualLightsControl(gamepad);
-        }
+        }*/
         // Various cases for lights logic that are not manual control
 //        else if (Conveyor.getInstance().isBottomDiscDetected()) {
 //            flashWhiteSignalLight();
@@ -210,18 +219,19 @@ public class Lights {
 //        else if (Shooter.getInstance().isHopperNotEmpty()) {
 //            flashRedSignalLight();
 //        }
-        else {
+        /*else {
             setWhiteSignalLight(false);
             setRedSignalLight(false);
-        }
+        }*/
         
         // Turns on direction light only if shooter is running and tilter is not CV aiming.
         setDirectionLight(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming());
-        if(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming()) {
-            setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
+        if(directionLightOn && Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming()) {
+            setDirectionLight(DIRECTION_LIGHT_INTENSITY);
         }
         else {
             setDirectionLight(0);
+            directionLightOn = false;
         }
         
         // Turns on camera light only when CV aiming.
