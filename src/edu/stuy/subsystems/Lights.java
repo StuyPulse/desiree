@@ -39,7 +39,7 @@ public class Lights {
     private int WHITE_FLASH_FREQUENCY = 7;
     private int RED_FLASH_FREQUENCY = 7;
     
-    public final static double DIRECTION_LIGHT_INTENSITY = 0.7;
+    public final static double DIRECTION_LIGHT_INTENSITY = 0.8;
     
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
