@@ -118,11 +118,11 @@ public class Drivetrain {
      */
     public void enableDriveStraight(boolean forward) {
         if (forward) {
-            tankDrive(-driveStraightSpeed, -driveStraightSpeed);
+            tankDrive(-driveStraightSpeed, -driveStraightSpeed * 1.05);
             //forwardController.setSetpoint(0);
             //forwardController.enable();
         } else {
-            tankDrive(driveStraightSpeed, driveStraightSpeed);
+            tankDrive(driveStraightSpeed, 1.05 * driveStraightSpeed);
             //backwardController.setSetpoint(0);
             //backwardController.enable();
         }
@@ -166,7 +166,7 @@ public class Drivetrain {
     }
 
     public double getAvgDistance() {
-        return (getLeftEnc() + getRightEnc()) / 2.0;
+        return getRightEnc();
     }
     
     /**

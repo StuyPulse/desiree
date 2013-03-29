@@ -54,6 +54,9 @@ public class Autonomous {
             case 10:
                 auton10();
                 break;
+            case 11:
+                auton11();
+                break;
         }
     }
     
@@ -228,5 +231,9 @@ public class Autonomous {
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();    
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_FRONT_OF_PYRAMID);
+    }
+    
+    public static void auton11() {
+        Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
     }
 }

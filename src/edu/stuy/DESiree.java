@@ -77,6 +77,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         autonChooser.addObject("8 - Shoot 3, acquire disks at center, back up, shoot.", Integer.valueOf(8));
         autonChooser.addObject("9 - Same as 7, no spin, move to center.", Integer.valueOf(9));
         autonChooser.addObject("10 - Same as 6, no spin, move to center.", Integer.valueOf(10));
+        autonChooser.addObject("11 - Drivestraight to center.", Integer.valueOf(11));
         SmartDashboard.putData("Autonomous routine", autonChooser);
         SmartDashboard.putNumber("Autonomous Delay",0.0);
     }
