@@ -43,7 +43,7 @@ public class Lights {
     
     private double lastTimeWhite = 0;
     private double lastTimeRed = 0;
-    private boolean isWhiteOn, isRedOn, directionLightOn, lastLightToggleButtonState;
+    private boolean isWhiteOn, isRedOn;
     
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
@@ -51,8 +51,6 @@ public class Lights {
         directionLight = new Victor(Constants.WENCH_CHANNEL);
         isWhiteOn = false;
         isRedOn = false;
-        directionLightOn = false;
-        lastLightToggleButtonState = false;
     }
     
     public static Lights getInstance() {
@@ -184,10 +182,6 @@ public class Lights {
         else {
             setRedSignalLight(false);
         }
-        if (gamepad.getLeftBumper() && !lastLightToggleButtonState) {
-            directionLightOn = !directionLightOn;
-        }
-        lastLightToggleButtonState = gamepad.getLeftBumper();
     }
     
     public void reset() {
@@ -198,8 +192,6 @@ public class Lights {
         setRedSignalLight(false);
         lastTimeWhite = 0.0;
         lastTimeRed = 0.0;
-        directionLightOn = false;
-        lastLightToggleButtonState = false;
     }
     
     /**
@@ -226,12 +218,11 @@ public class Lights {
         
         // Turns on direction light only if shooter is running and tilter is not CV aiming.
         setDirectionLight(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming());
-        if(directionLightOn && Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming()) {
+        if(gamepad.getLeftBumper() && Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming()) {
             setDirectionLight(DIRECTION_LIGHT_INTENSITY);
         }
         else {
             setDirectionLight(0);
-            directionLightOn = false;
         }
         
         // Turns on camera light only when CV aiming.
