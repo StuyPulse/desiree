@@ -57,6 +57,9 @@ public class Autonomous {
             case 11:
                 auton11();
                 break;
+            case 12:
+                auton12();
+                break;
         }
     }
     
@@ -235,5 +238,17 @@ public class Autonomous {
     
     public static void auton11() {
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
+    }
+    
+    /**
+     * Auton 2 with partial drive back.
+     */
+    public static void auton12() {
+        Shooter.getInstance().autonShoot();
+        runTilterToBottom();
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().autonStop();
+        Drivetrain.getInstance().driveStraightInches(Constants.PARTIAL_DRIVE_TO_CENTER_DISTANCE);
     }
 }
