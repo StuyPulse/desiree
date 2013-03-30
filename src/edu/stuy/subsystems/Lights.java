@@ -80,12 +80,14 @@ public class Lights {
         }
     }
     
-    private void setDirectionLight(double intensity) {
+    public void setDirectionLight(double intensity) {
         if(intensity > 0.4) {
             directionLight.set(intensity);
+            setDirectionLight(true);
         }
         else {
             directionLight.set(0);
+            setDirectionLight(false);
         }
     }
     

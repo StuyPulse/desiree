@@ -7,6 +7,7 @@ package edu.stuy;
 import edu.stuy.subsystems.Acquirer;
 import edu.stuy.subsystems.Conveyor;
 import edu.stuy.subsystems.Drivetrain;
+import edu.stuy.subsystems.Lights;
 import edu.stuy.subsystems.Shooter;
 import edu.stuy.subsystems.Tilter;
 import edu.wpi.first.wpilibj.Timer;
@@ -86,9 +87,11 @@ public class Autonomous {
     public static void auton1() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         Timer.delay(autonDelay);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
+        Lights.getInstance().setDirectionLight(0);
     }
     
     /**
@@ -97,9 +100,11 @@ public class Autonomous {
     public static void auton2() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         Timer.delay(autonDelay);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
+        Lights.getInstance().setDirectionLight(0);
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
     }
     
@@ -107,7 +112,9 @@ public class Autonomous {
      * Lower conveyor.
      */
     public static void auton3() {
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         runTilterToBottom();
+        Lights.getInstance().setDirectionLight(0);
     }
     
     /**
@@ -246,9 +253,11 @@ public class Autonomous {
     public static void auton12() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         Timer.delay(autonDelay);
         Shooter.getInstance().fireAutoUntilEmpty();
         Shooter.getInstance().autonStop();
+        Lights.getInstance().setDirectionLight(0);
         Drivetrain.getInstance().driveStraightInches(Constants.PARTIAL_DRIVE_TO_CENTER_DISTANCE);
     }
 }
