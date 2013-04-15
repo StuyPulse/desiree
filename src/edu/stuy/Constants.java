@@ -21,7 +21,7 @@ public class Constants {
     public static final int CLIMBER_SERVO_2_CHANNEL = 4;
     public static final int ACQUIRER_CHANNEL = 5;
     public static final int SHOOTER_CHANNEL = 6;
-    public static final int SHOOTER_SERVO_CHANNEL = 7;
+    public static final int WALL_WENCH_CHANNEL = 7;
     public static final int TILTER_CHANNEL = 8;
     public static final int CONVEYOR_CHANNEL = 9;
     public static final int DIRECTION_LIGHT_CHANNEL = 10;

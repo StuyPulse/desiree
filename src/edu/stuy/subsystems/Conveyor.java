@@ -85,12 +85,12 @@ public class Conveyor {
     }
     
     public void manualConveyorControl(Gamepad gamepad) {
-        if(Math.abs(gamepad.getLeftY()) > 0.1) {
-            roll(-gamepad.getLeftY());
-        }
-        else {
-            roll(0);
-        }
+//        if(Math.abs(gamepad.getLeftY()) > 0.1) {
+//            roll(-gamepad.getLeftY());
+//        }
+//        else {
+//            roll(0);
+//        }
     }
 }
 
