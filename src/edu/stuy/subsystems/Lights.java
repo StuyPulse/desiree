@@ -48,7 +48,7 @@ public class Lights {
     private Lights() {
         cameraAndDirectionLightRelay = new Relay(Constants.CAMERA_AND_DIRECTION_RELAY_CHANNEL);
         signalLightRelay = new Relay(Constants.SIGNAL_LIGHT_RELAY_CHANNEL);
-        directionLight = new Victor(Constants.WENCH_CHANNEL);
+        directionLight = new Victor(Constants.DIRECTION_LIGHT_CHANNEL);
         isWhiteOn = false;
         isRedOn = false;
     }
