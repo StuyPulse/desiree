@@ -21,12 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DESiree extends IterativeRobot {
     Drivetrain drivetrain;
-    Acquirer acquirer;
-    Conveyor conveyor;
-    Lights lights;
-    Shooter shooter;
-    Tilter tilter;
-    Climber climber;
     
     Gamepad driverPad;
     Gamepad operatorPad;
@@ -37,21 +31,14 @@ public class DESiree extends IterativeRobot {
      */
     public void robotInit() {
         drivetrain = Drivetrain.getInstance();
-        acquirer = Acquirer.getInstance();
-        conveyor = Conveyor.getInstance();
-        lights = Lights.getInstance();
-        shooter = Shooter.getInstance();
-        tilter = Tilter.getInstance();
-        climber = Climber.getInstance();
 
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
-        drivetrain.disableDriveStraight();
 
     }
     
     public void autonomousInit() {
-        Autonomous.run();
+        
     }
 
     /**
@@ -66,18 +53,6 @@ public class DESiree extends IterativeRobot {
      */
     public void teleopPeriodic() {
         drivetrain.tankDrive(driverPad);
-        drivetrain.putAngle();
-        //SmartDashboard.putNumber("Accel angle:", tilter.getAbsoluteAngle());
-        
-        if(driverPad.getRawButton(4)){
-            drivetrain.enableDriveStraight();
-        }
-        if(driverPad.getRawButton(3)){
-            drivetrain.disableDriveStraight();
-            drivetrain.tankDrive(driverPad);
-
-        }
-        
     }
     
     /**
