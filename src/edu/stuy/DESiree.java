@@ -32,6 +32,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
     Lights lights;
     Shooter shooter;
     Tilter tilter;
+    Wall wall;
     Climber climber;
     
     /* CONTROLLERS */
@@ -59,7 +60,8 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         shooter = Shooter.getInstance();
         tilter = Tilter.getInstance();
         climber = Climber.getInstance();
-
+        wall = Wall.getInstance();
+        
         /* CONTROLLERS */
         driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
         operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
@@ -133,6 +135,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         shooter.manualShooterControl(operatorPad);
         tilter.manualTilterControl(operatorPad);
         climber.manualClimberControl(driverPad);
+        wall.manualWallControl(operatorPad);
         
         shooter.runPistonLogic();
         lights.runLogic(operatorPad);
