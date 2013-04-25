@@ -80,7 +80,8 @@ public class Constants {
     
     /* AUTON DRIVE TIMEOUTS */
     public static final double DRIVE_STRAIGHT_TIMEOUT = 7.0;
-    public static final long SPIN_TIME = 500; //Time to spin 180 in milliseconds
+    public static final long SPIN_TIME_90 = 300;
+    public static final long SPIN_TIME_180 = 500; //Time to spin 180 in milliseconds
     public static final long TURN_TIME = 84; // Time needed to spin thirty degrees. 
     
     /* TILTER CONSTANTS */

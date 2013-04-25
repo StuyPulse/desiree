@@ -49,6 +49,15 @@ public class Autonomous {
             case 7:
                 auton7();
                 break;
+            case 8:
+                auton8();
+                break;
+            case 9:
+                auton9();
+                break;
+            case 10:
+                auton10();
+                break;
         }
     }
     
@@ -141,7 +150,7 @@ public class Autonomous {
     }
     
     /**
-     * Lower leadscrew, fire three, drive to center full.
+     * Lower leadscrew, fire three, drive to center fast.
      */
     public static void auton8() {
         Shooter.getInstance().autonShoot();
@@ -151,6 +160,36 @@ public class Autonomous {
         Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_SHORT);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
+        Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID);
+    }
+    
+    /**
+     * Auton 1 from the side, turning and driving fast to center. Dead reckons with time.
+     */
+    public static void auton9() {
+        Shooter.getInstance().autonShoot();
+        runTilterToBottom();
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
+        Shooter.getInstance().autonStop();
+        Lights.getInstance().setDirectionLight(0);
+        Drivetrain.getInstance().spin90T();
+        Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID);
+    }
+    
+    /**
+     * Auton 9, but with dead reckoning based on distance.
+     */
+    public static void auton10() {
+        Shooter.getInstance().autonShoot();
+        runTilterToBottom();
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
+        Shooter.getInstance().autonStop();
+        Lights.getInstance().setDirectionLight(0);
+        Drivetrain.getInstance().spin90D();
         Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID);
     }
 }
