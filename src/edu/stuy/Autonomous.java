@@ -58,6 +58,9 @@ public class Autonomous {
             case 10:
                 auton10();
                 break;
+            case 11:
+                auton11();
+                break;
         }
     }
     
@@ -191,5 +194,19 @@ public class Autonomous {
         Lights.getInstance().setDirectionLight(0);
         Drivetrain.getInstance().spin90D();
         Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID);
+    }
+    
+    /**
+     * Auton 8, but doesn't reach centre.
+     */
+    public static void auton11() {
+        Shooter.getInstance().autonShoot();
+        runTilterToBottom();
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_SHORT);
+        Shooter.getInstance().autonStop();
+        Lights.getInstance().setDirectionLight(0);
+        Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID * (2/3));
     }
 }
