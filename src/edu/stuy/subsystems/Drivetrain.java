@@ -169,10 +169,20 @@ public class Drivetrain {
         boolean fwd = inches >= 0;
         // Note that a rightward tendency is assumed. 0.95 = 20/21 = 1 / 1.05
         while(fwd && getAvgDistance() < inches && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {
-            tankDrive(-0.95,-1);
+            if(Math.abs(getAvgDistance() / inches) < 0.2 || Math.abs(getAvgDistance() / inches) > 0.8) {
+                tankDrive(-0.7,-0.7);
+            }
+            else {
+                tankDrive(-0.95,-1);
+            }
         }
         while(!fwd && getAvgDistance() > inches && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {
-            tankDrive(0.95,1);
+            if(Math.abs(getAvgDistance() / inches) < 0.2 || Math.abs(getAvgDistance() / inches) > 0.8) {
+                tankDrive(0.7,0.7);
+            }
+            else {
+                tankDrive(0.95,1);
+            }
         }
         tankDrive(0,0);
     }
