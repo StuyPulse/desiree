@@ -47,8 +47,6 @@ public class Shooter {
     public static final double HOPPER_IN_TIME = 0.5;
     public static final double PISTON_AUTON_DELAY_TIME = HOPPER_OUT_TIME + HOPPER_IN_TIME;
     
-    public static final int AUTON_FIRING_AMOUNT = 5;
-    
     private Shooter() {
         shooter = new Victor(Constants.SHOOTER_CHANNEL);
         hopperSensor = new DigitalInput(Constants.HOPPER_SENSOR_CHANNEL);
@@ -172,8 +170,8 @@ public class Shooter {
         lastOutTime = Timer.getFPGATimestamp();
     }
     
-    public void fireAutoUntilEmpty() {
-        for(int i = 0; i < AUTON_FIRING_AMOUNT; i++) {
+    public void fireAutoUntilEmpty(int shots) {
+        for(int i = 0; i < shots; i++) {
             firePiston();
             Timer.delay(PISTON_AUTON_DELAY_TIME);
         }

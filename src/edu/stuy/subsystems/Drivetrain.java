@@ -145,7 +145,7 @@ public class Drivetrain {
         return encoderRight.getDistance();
     }
     
-    /*
+    /**
      * Drives forward in inches for less than seven seconds. 
      */
     public void driveStraightInches(double inches) {
@@ -158,6 +158,23 @@ public class Drivetrain {
                 || (!fwd && getAvgDistance() > inches))
                 && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT);
         disableDriveStraight();
+    }
+    
+    /**
+     * Like driveStraightInches, but faster.
+     */
+    public void driveFast(double inches) {
+        resetEncoders();
+        double startTime = Timer.getFPGATimestamp();
+        boolean fwd = inches >= 0;
+        // Note that a rightward tendency is assumed. 0.95 = 20/21 = 1 / 1.05
+        while(fwd && getAvgDistance() < inches && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {
+            tankDrive(-0.95,-1);
+        }
+        while(!fwd && getAvgDistance() > inches && (Timer.getFPGATimestamp() - startTime) < Constants.DRIVE_STRAIGHT_TIMEOUT) {
+            tankDrive(0.95,1);
+        }
+        tankDrive(0,0);
     }
 
     public void resetEncoders() {

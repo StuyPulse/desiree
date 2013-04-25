@@ -22,6 +22,9 @@ public class Autonomous {
     
     static double autonDelay;
     
+    public static final int AUTON_FIRING_AMOUNT_LONG = 5;
+    public static final int AUTON_FIRING_AMOUNT_SHORT = 3;
+    
     public static void run(int setting, double delay) {
         autonDelay = delay;
         switch (setting) {
@@ -74,7 +77,7 @@ public class Autonomous {
         runTilterToBottom();
         Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         Timer.delay(autonDelay);
-        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
     }
@@ -87,7 +90,7 @@ public class Autonomous {
         runTilterToBottom();
         Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         Timer.delay(autonDelay);
-        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
         Drivetrain.getInstance().driveStraightInches(Constants.CENTER_TO_BACK_OF_PYRAMID);
@@ -115,7 +118,7 @@ public class Autonomous {
         Shooter.getInstance().autonShoot();
         Tilter.getInstance().runTilterToAngle(Constants.FRONT_OF_PYRAMID_ANGLE);
         Timer.delay(autonDelay);
-        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
         Shooter.getInstance().autonStop();
     }
     
@@ -131,9 +134,23 @@ public class Autonomous {
         runTilterToBottom();
         Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         Timer.delay(autonDelay);
-        Shooter.getInstance().fireAutoUntilEmpty();
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
         Drivetrain.getInstance().driveStraightInches(Constants.PARTIAL_DRIVE_TO_CENTER_DISTANCE);
+    }
+    
+    /**
+     * Lower leadscrew, fire three, drive to center full.
+     */
+    public static void auton8() {
+        Shooter.getInstance().autonShoot();
+        runTilterToBottom();
+        Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
+        Timer.delay(autonDelay);
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_SHORT);
+        Shooter.getInstance().autonStop();
+        Lights.getInstance().setDirectionLight(0);
+        Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID);
     }
 }
