@@ -167,7 +167,7 @@ public class Autonomous {
     }
     
     /**
-     * Auton 1 from the side, turning and driving fast to center. Dead reckons with time.
+     * Shoots 5, drives back, spins 90.
      */
     public static void auton9() {
         Shooter.getInstance().autonShoot();
@@ -177,23 +177,22 @@ public class Autonomous {
         Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
-        Drivetrain.getInstance().spin90T();
-        Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID);
+        Drivetrain.getInstance().driveFast(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
+        Drivetrain.getInstance().spin90();
     }
     
     /**
-     * Auton 9, but with dead reckoning based on distance.
+     * Auton 9, 3 shots.
      */
     public static void auton10() {
         Shooter.getInstance().autonShoot();
         runTilterToBottom();
         Lights.getInstance().setDirectionLight(Lights.DIRECTION_LIGHT_INTENSITY);
         Timer.delay(autonDelay);
-        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
+        Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_SHORT);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
-        Drivetrain.getInstance().spin90D();
-        Drivetrain.getInstance().driveFast(Constants.CENTER_TO_BACK_OF_PYRAMID);
+        Drivetrain.getInstance().driveFast(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
     }
     
     /**

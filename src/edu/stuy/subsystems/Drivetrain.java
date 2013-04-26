@@ -197,9 +197,9 @@ public class Drivetrain {
     }
     
     /**
-     * Dead reckons a 90-degree spin counterclockwise, using encoders.
+     * Dead reckons a 90-degree counterclockwise arc, using encoders.
      */
-    public void spin90D() {
+    public void arc90D() {
         resetEncoders();
         double startTime = Timer.getFPGATimestamp();
         double arcDistance = 44.0; // inches - arc, assuming radius is 28 inches
@@ -209,12 +209,21 @@ public class Drivetrain {
     }
     
     /**
-     * Dead reckons a 90-degree spin counterclockwise, using time.
+     * Dead reckons a 90-degree counterclockwise arc, using time.
      */
-    public void spin90T() {
+    public void arc90T() {
         tankDrive(1, 0);
-        Timer.delay(Constants.SPIN_TIME_90);
+        Timer.delay(Constants.ARC_TIME_90);
         tankDrive(0, 0);
+    }
+    
+    /**
+     * Spins 90 in place, clockwise.
+     */
+    public void spin90() {
+        tankDrive(-1,1);
+        Timer.delay(Constants.SPIN_TIME_90);
+        tankDrive(0,0);
     }
     
     /**

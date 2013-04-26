@@ -77,8 +77,9 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         autonChooser.addObject("6 - Drivestraight to center", Integer.valueOf(6));
         autonChooser.addObject("7 - Shoot 3 from back of pyramid, drive partially to center of field", Integer.valueOf(7));
         autonChooser.addObject("8 - Shoot 3 from back, drive forward fast.", Integer.valueOf(8));
-        autonChooser.addObject("9 - Shoot 3 from side, turns (based on time), and drives to center.", Integer.valueOf(9));
-        autonChooser.addObject("10 - Shoot 3 from side, turns (based on distance), drives to center.", Integer.valueOf(10));
+        autonChooser.addObject("9 - Shoot 5 from side, back to pyramid center, spin.", Integer.valueOf(9));
+        autonChooser.addObject("10 - Shoot 3 from side, back to pyramid center, spin.", Integer.valueOf(10));
+        autonChooser.addObject("11 - Shoot 3 from back, drives to center 2/3.", Integer.valueOf(11));
         SmartDashboard.putData("Autonomous routine", autonChooser);
         SmartDashboard.putNumber("Autonomous Delay",0.0);
     }
