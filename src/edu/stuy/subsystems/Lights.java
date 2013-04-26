@@ -220,7 +220,7 @@ public class Lights {
         
         // Turns on direction light only if shooter is running and tilter is not CV aiming.
         setDirectionLight(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming());
-        if(Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming()) {
+        if(!gamepad.getLeftBumper() && Shooter.getInstance().isShooterRunning() && !Tilter.getInstance().isCVAiming()) {
             setDirectionLight(DIRECTION_LIGHT_INTENSITY);
         }
         else {
