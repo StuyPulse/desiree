@@ -41,6 +41,7 @@ public class Shooter {
     private boolean lastSemiAutoShootButtonState;
     private boolean pistonExtended;
     private boolean lastShooterToggleButtonState;
+    private boolean isManual;
     
     // Time in seconds to allow launcher to shoot and reset before changing its state again
     public static final double HOPPER_OUT_TIME = 0.5;
@@ -57,6 +58,7 @@ public class Shooter {
         pistonExtended = false;
         lastSemiAutoShootButtonState = false;
         lastShooterToggleButtonState = false;
+        isManual = false;
     }
     
     public static Shooter getInstance() {
@@ -135,7 +137,10 @@ public class Shooter {
         SmartDashboard.putNumber("lastOutTime", lastOutTime);
         SmartDashboard.putNumber("lastInTime", lastInTime);
         double time = Timer.getFPGATimestamp();
-        if (!hasPistonFinishedResetting() && !pistonExtended) { // Piston is still retracting; let it finish
+        if (isManual) { // Manual piston override
+            pistonLaunch();
+        }
+        else if (!hasPistonFinishedResetting() && !pistonExtended) { // Piston is still retracting; let it finish
             pistonReset();
         }
         else if (time - lastOutTime < HOPPER_OUT_TIME) { // Piston recently extended or is about to be extended; stay extended until PISTON_EXTEND_TIME has passed
@@ -168,6 +173,14 @@ public class Shooter {
     public void firePiston() {
         pistonExtended = true;
         lastOutTime = Timer.getFPGATimestamp();
+    }
+    
+    public void manualPistonLaunch() {
+        isManual = true;
+    }
+    
+    public void manualPistonReset() {
+        isManual = false;
     }
     
     public void fireAutoUntilEmpty(int shots) {
@@ -206,5 +219,13 @@ public class Shooter {
             firePiston();
         }
         lastSemiAutoShootButtonState = gamepad.getRightBumper();
+        
+        /* Manually retract piston for unjamming */
+        if (gamepad.getLeftTrigger()) {
+            manualPistonLaunch();
+        }
+        else {
+            manualPistonReset();
+        }
     }
 }
