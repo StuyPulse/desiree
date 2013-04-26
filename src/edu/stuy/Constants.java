@@ -107,7 +107,7 @@ public class Constants {
     public static final double CENTER_TO_FRONT_OF_PYRAMID = PYRAMID_BASE_LENGTH + CENTER_TO_BACK_OF_PYRAMID;
     public static final double CENTER_TO_FEEDER_STATION = 100.; // Abitrary distance
     public static final double MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE = 5;
-    public static final double FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID = PYRAMID_BASE_LENGTH / 2. + MIDDLE_OF_PYRAMID_OVERSHOOT_DISTANCE;
+    public static final double FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID = 20.;
     public static final double PARTIAL_DRIVE_TO_CENTER_DISTANCE = 60.;
     
     /* NETWORKING AND CV VALUES */

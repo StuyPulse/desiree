@@ -177,7 +177,7 @@ public class Autonomous {
         Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_LONG);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
-        Drivetrain.getInstance().driveFast(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
+        Drivetrain.getInstance().driveStraightInches(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
         Drivetrain.getInstance().spin90();
     }
     
@@ -192,7 +192,8 @@ public class Autonomous {
         Shooter.getInstance().fireAutoUntilEmpty(AUTON_FIRING_AMOUNT_SHORT);
         Shooter.getInstance().autonStop();
         Lights.getInstance().setDirectionLight(0);
-        Drivetrain.getInstance().driveFast(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
+        Drivetrain.getInstance().driveStraightInches(-Constants.FRONT_OF_PYRAMID_TO_MIDDLE_OF_PYRAMID);
+        Drivetrain.getInstance().spin90();
     }
     
     /**
