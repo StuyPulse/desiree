@@ -38,9 +38,7 @@ public class Shooter {
     private double lastInTime = 0.0;
     private boolean firstShot;
     private boolean isShooting;
-    private boolean lastSemiAutoShootButtonState;
     private boolean pistonExtended;
-    private boolean lastShooterToggleButtonState;
     private boolean isManual;
     
     // Time in seconds to allow launcher to shoot and reset before changing its state again
@@ -56,8 +54,6 @@ public class Shooter {
         firstShot = true;
         isShooting = false;
         pistonExtended = false;
-        lastSemiAutoShootButtonState = false;
-        lastShooterToggleButtonState = false;
         isManual = false;
     }
     
@@ -124,8 +120,6 @@ public class Shooter {
         lastInTime = 0.0;
         firstShot = true;
         pistonExtended = false;
-        lastSemiAutoShootButtonState = false;
-        lastShooterToggleButtonState = false;
     }
     
     /**
@@ -196,29 +190,25 @@ public class Shooter {
     
     public void manualShooterControl(Gamepad gamepad) {
         /* Toggle shooter on/off */
-        if (gamepad.getDPadRight() && !lastShooterToggleButtonState) {
-            isShooting = !isShooting;
+        if (gamepad.getDPadRight() || gamepad.getDPadLeft() || gamepad.getDPadUp() || gamepad.getDPadDown()) {
+            isShooting = false;
         }
-        lastShooterToggleButtonState = gamepad.getDPadRight();
+        if (gamepad.getTopButton() || gamepad.getBottomButton() || gamepad.getLeftButton() || gamepad.getRightButton()) {
+            isShooting = true;
+        }
         
-        if (gamepad.getDPadDown()) { // Reverse only when button is held
+        if (gamepad.getLeftBumper() || gamepad.getRightBumper()) { // Reverse only when button is held
             runShooterIn();
         } else if (isShooting) {
             runShooterOut();
         } else {
             stop();
-        }//
+        }
         
         /* Full auto shooting */
-        if (gamepad.getTopButton() && hasPistonFinishedResetting() && isShooting) {
+        if (gamepad.getRightTrigger() && hasPistonFinishedResetting() && isShooting) {
             firePiston();
         }
-        
-        /* Semi-automatic shooting */
-        if (gamepad.getRightBumper() && !lastSemiAutoShootButtonState && hasPistonFinishedResetting() && isShooting) { //semi-auto
-            firePiston();
-        }
-        lastSemiAutoShootButtonState = gamepad.getRightBumper();
         
         /* Manually retract piston for unjamming */
         if (gamepad.getLeftTrigger()) {
