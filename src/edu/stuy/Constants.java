@@ -10,9 +10,8 @@ package edu.stuy;
  */
 public class Constants {
     /* USB PORTS */
-    public static final int DRIVER_PAD_PORT = 1;
-    public static final int OPERATOR_PAD_PORT = 2;
-    public static final int CLIMBER_STICK_PORT = 3;
+    public static final int GAMEPAD_PORT = 1;
+    public static final int CLIMBER_STICK_PORT = 2;
     
     /* PWM OUTPUTS */
     public static final int DRIVETRAIN_LEFT_CHANNEL = 1;

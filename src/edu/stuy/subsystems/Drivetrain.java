@@ -6,6 +6,7 @@ package edu.stuy.subsystems;
 
 import edu.stuy.Constants;
 import edu.stuy.util.Gamepad;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
@@ -89,6 +90,10 @@ public class Drivetrain {
      */
     public void tankDrive(Gamepad gamepad) {
         tankDrive(gamepad.getLeftY(), gamepad.getRightY());
+    }
+    
+    public void tankDrive(Joystick leftJoystick, Joystick rightJoystick) {
+        tankDrive(leftJoystick.getY(), rightJoystick.getY());
     }
     
     public void reset() {

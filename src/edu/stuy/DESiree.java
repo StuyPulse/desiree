@@ -26,6 +26,7 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
     public static DESiree instance;
     
     /* SUBSYSTEMS */
+    Gamepad gamepad;
     Drivetrain drivetrain;
     Acquirer acquirer;
     Conveyor conveyor;
@@ -36,9 +37,8 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
     Climber climber;
     
     /* CONTROLLERS */
-    Gamepad driverPad;
-    Gamepad operatorPad;
-    Joystick climberStick;
+    Joystick leftStick;
+    Joystick rightStick;
     
     SendableChooser autonChooser;
 
@@ -62,10 +62,8 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
         climber = Climber.getInstance();
         wall = Wall.getInstance();
         
-        /* CONTROLLERS */
-        driverPad = new Gamepad(Constants.DRIVER_PAD_PORT);
-        operatorPad = new Gamepad(Constants.OPERATOR_PAD_PORT);
-        climberStick = new Joystick(Constants.CLIMBER_STICK_PORT);
+        /* CONTROLLER */
+        gamepad = new Gamepad(Constants.GAMEPAD_PORT);
         
         /* AUTON SENDABLECHOOSER */
         autonChooser = new SendableChooser();
@@ -127,17 +125,17 @@ public class DESiree extends IterativeRobot implements ThreeLaws {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        drivetrain.tankDrive(driverPad);
+        drivetrain.tankDrive(gamepad);
         
-        acquirer.manualAcquirerControl(operatorPad);
-        conveyor.manualConveyorControl(operatorPad);
-        shooter.manualShooterControl(operatorPad);
-        tilter.manualTilterControl(operatorPad);
-        climber.manualClimberControl(driverPad);
-        wall.manualWallControl(operatorPad);
+        acquirer.manualAcquirerControl(gamepad);
+        conveyor.manualConveyorControl(gamepad);
+        shooter.manualShooterControl(gamepad);
+        tilter.manualTilterControl(gamepad);
+        climber.manualClimberControl(gamepad);
+        wall.manualWallControl(gamepad);
         
         shooter.runPistonLogic();
-        lights.runLogic(operatorPad);
+        lights.runLogic(gamepad);
         
         SmartDashboard.putBoolean("Acquirer sensor",conveyor.isBottomDiscDetected());
         SmartDashboard.putBoolean("Hopper empty",shooter.isHopperNotEmpty());
